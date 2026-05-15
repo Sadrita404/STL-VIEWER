@@ -536,7 +536,14 @@ src="https://cdn.jsdelivr.net/gh/mrdoob/three.js@r128/examples/js/controls/Orbit
 
         .cam-btn {
             padding: 8px 4px;
-
+            font-size: 9.28px;
+            border: 2px solid var(--border-color);
+            background: var(--bg-card);
+            color: var(--text-main);
+            cursor: pointer;
+            font-weight: bold;
+            text-transform: uppercase;
+            text-align: center;
         }
 
         .cam-btn:hover {
@@ -547,14 +554,30 @@ src="https://cdn.jsdelivr.net/gh/mrdoob/three.js@r128/examples/js/controls/Orbit
 
         .measure-output {
             font-size: 11.2px;
+            padding: 8px;
+            border: 2px dashed var(--border-color);
+            background: var(--bg-app);
+            mini-height: 40px;
+            word-break: break-all;
         }
 
         .history-list {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            max-height: 150px;
             overflow-y: auto;
         }
 
         .history-item {
             display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 5px 8px;
+            border: 1-x solid var(--border-color);
+            font-size: 9.92px;
+            background: var(--bg-app);
+            cursor: pointer;
         }
 
         
@@ -637,7 +660,53 @@ src="https://cdn.jsdelivr.net/gh/mrdoob/three.js@r128/examples/js/controls/Orbit
                     <span id="dim-x">0.0</span>
                 </div>
 
+                <div class="start-row-mini">
+                    <span>Y</span>
+                    <span id="dim-y">0.0 MM</span>
+                </div>
+
+                <div class="start-row-mini">
+                    <span>Diangonal</span>
+                    <span id="dim-diag">0.0 MM</span>
+                </div>
+            </div>
+
+            <div
+               id="info-name"
+               style="
+                    font-size: 0.75rem;
+                    font-weight: bold;
+                    word-break: break-all;
+                    ">
+                    IDLE_WAITING...
+                </div>
                 
+                <div
+                id="info-type"
+                style="
+                    font-size: 0.7rem;
+                    color: var(--accent-primary);
+                    margin-top: 5px;
+                    ">
+                    FILE_TYPE: UNKNOWN
+                </div>
+
+                <div
+                id="info-timestamp"
+                style="font-size: 0.7rem; margin-top: 3px">
+                LOADED: N/A 
+                </div>
+            </div>
+        </div>
+
+        <div class="tab-content" id="tab-controls">
+            <div class="card">
+                <button class="btn btn-small" id="btn-home" style="width: 100%">
+                    RESET CAMERA
+                </button>
+
+
+                </span>
             </div>
         </div>
         </div>
