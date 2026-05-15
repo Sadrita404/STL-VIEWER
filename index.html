@@ -539,7 +539,45 @@ src="https://cdn.jsdelivr.net/gh/mrdoob/three.js@r128/examples/js/controls/Orbit
 
         }
 
+        .cam-btn:hover {
+            background: var(--accent-primary);
+            color: white;
+            transform: translate(-1px, -1px);
+        }
+
+        .measure-output {
+            font-size: 11.2px;
+        }
+
+        .history-list {
+            overflow-y: auto;
+        }
+
+        .history-item {
+            display: flex;
+        }
+
         
     </style>
     </head>
 </html>
+
+<body data-theme="light">
+    <div class="app-shell">
+        <aside class="sidebar">
+            <div
+              style="
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+              ">
+              <div class="brand-title">PRECISION 3D</div>
+
+              <label class="theme-toggle-container">
+                <input type="checkbox" id="theme-toggle" />
+                <span>DARK</span>
+              </label>
+            </div>
+        </aside>
+    </div>
+</body>
