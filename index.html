@@ -114,7 +114,90 @@ src="https://cdn.jsdelivr.net/gh/mrdoob/three.js@r128/examples/js/controls/Orbit
             box-shadow: 5px 5px 0px var(--border-color);
         }
 
+        .btn:active {
+            transform: translate(2px, 2px);
+            box-shadow: 0px 0px 0px var(--border-color);
+        }
+
+        .btn-selected {
+            background: var(--anccent-primary) !important;
+            color:#ffffff !important;
+            border-color: var(--border-color);
+        }
+
+        .btn-primary {
+            background: var(--accent-primary);
+            color:#ffffff;
+        }
+
+        .btn-small {
+            padding: 8px;
+            font-size: 10.4px;
+        }
         
+        .card {
+            border: var(--border-width) solid var(--border-color);
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            background: var(--bg-card);
+        }
+
+        .card-compact {
+            border: var(--border-width) solid var(--border-color);
+            padding: 12px;
+            background: var(--bg-card);
+        }
+
+        .section-label {
+            font-size: 0.75rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            background: var(--bg-sidebar);
+            color: var(--bg-sidebar);
+            padding: 3px 8px;
+            align-self: flex-start;
+            margin-bottom: 5px;
+            letter-spacing: 1px;
+        }
+
+        .start-row {
+            display: flex;
+            justify-content: space-between;
+            border-bottom: 1px dashed var(--border-color);
+            padding: 6px 0;
+            color: var(--text-main);
+            font-size: 12.8px;
+        }
+
+        .start-row-mini {
+            display: flex;
+            justify-content: space-between;
+            padding: 3px 0;
+            font-size: 12px;
+            border-bottom: 1px dotted var(--border-color);
+        }
+
+        input[type="range"] {
+            appearance: none;
+            width: 100%;
+            height: 10px;
+            background: var(--bg-app);
+            border: 2px solid var(--border-color);
+        }
+
+        input[type="range"]::-webkit-slider-thumb {
+            appearance: none;
+            width: 18px;
+            height: 24px;
+            background: var(--accent-primary);
+            border: 2px solid var(--border-color);
+            cursor:pointer;
+        }
+
+        
+
     </style>
     </head>
 </html>
