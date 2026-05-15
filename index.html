@@ -120,7 +120,7 @@ src="https://cdn.jsdelivr.net/gh/mrdoob/three.js@r128/examples/js/controls/Orbit
         }
 
         .btn-selected {
-            background: var(--anccent-primary) !important;
+            background: var(--accent-primary) !important;
             color:#ffffff !important;
             border-color: var(--border-color);
         }
@@ -196,7 +196,95 @@ src="https://cdn.jsdelivr.net/gh/mrdoob/three.js@r128/examples/js/controls/Orbit
             cursor:pointer;
         }
 
+        .viewport-wrapper {
+            background: var(--bg-viweport);
+            border: var(--border-width) solid var(--border-color);
+            box-shadow: var(--hard-shadow);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .theme-toggle-container {
+            font-size: 11.2px;
+            font-weight: 900;
+            border: 2px solid var(--bg-card);
+            padding: 4px 8px;
+            background: var(--bg-card);
+            color: var(--text-main);
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .tabs-container {
+            display: flex;
+            gap: 5px;
+            border-bottom: 2px solid var(--border-color);
+            margin-bottom: 10px;
+            overflow-x: auto;
+        }
+
+        .tab-button {
+            padding: 8px 12px;
+            font-size: 9.6px;
+            font-weight: 900;
+            border: none;
+            background: transparent;
+            color: var(--text-main);
+            cursor: pointer;
+            text-transform: uppercase;
+            white-space: nowrap;
+            border-bottom: 3px solid transparent;
+            margin-bottom: -2px;
+        }
+
+        .tab-button.active {
+            border-bottom-color: var(--accent-primary);
+            color: var(--accent-primary);
+        }
+
+        .tab-content {
+            display: none;
+            max-height: 400px;
+            overflow-y: auto;
+        }
         
+        .tab-content.active {
+            display: block;
+        }
+
+        .present-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 5px;
+        }
+
+        .present-btn {
+            padding: 8px;
+            font-size: 9.6px;
+            border: 2px solid var(--border-color);
+            background: var(--bg-card);
+            color: var(--text-main);
+            cursor: pointer;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        .present-btn:hover {
+            background: var(--accent-primary);
+            color: white;
+            transform: translate(-1px, -1px);
+        }
+
+        .status-indicator {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #10b981;
+            margin-right: 5px
+        }
+
 
     </style>
     </head>
