@@ -578,6 +578,69 @@ src="https://cdn.jsdelivr.net/gh/mrdoob/three.js@r128/examples/js/controls/Orbit
                 <span>DARK</span>
               </label>
             </div>
+
+            <div
+            class="btn btn-primary"
+            id="drop-zone"
+            style="height: 80px; flex-direction: column; gap: 10px">
+            <div style="font-size: 0.9rem">LOAD STL FILE</div>
+            <div style="font-size: 0.65rem">DRAG & DROP HERE</div>
+            <input type="file" id="file-input" accept=".stl" />
+        </div>
+
+        <div class="tabs-container">
+            <button class="tab-button active" data-tab="analysis">
+                ANALYSIS
+            </button>
+            <button class="tab-button" data-tab="controls">CONTROLS</button>
+            <button class="tab-button" data-tab="render">RENDER</button>
+            <button class="tab-button" data-tab="tools">TOOLS</button>
+            <button class="tab-button" data-tab="camera">CAMERA</button>
+            <button class="tab-button" data-tab="advanced">ADVANCED</button>
+        </div>
+
+        <div class="tab-content active" id="tab-analysis">
+            <div class="card">
+                <span class="section-lable">MODEL STATS</span>
+
+                <div class="start-row">
+                    <span>WEIGHT</span>
+                    <span id="val-weight">0.00G</span>
+                </div>
+
+                <div class="start-row">
+                    <span>VOLUME</span>
+                    <span id="val-vol">0CM³</span>
+                </div>
+
+                <div class="start-row">
+                    <span>SURFACE AREA</span>
+                    <span id="val-area">0CM²</span>
+                </div>
+
+                <div class="start-row">
+                    <span>TRIANGLES</span>
+                    <span id="val-tris">0</span>
+                </div>
+
+                <div class="start-row">
+                    <span>PRINT TIME</span>
+                    <span id="val-time">0H 0M</span>
+                </div>
+            </div>
+
+            <div class="card">
+                <span class="section-label">DIMENSIONS</span>
+
+                <div class="start-row-mini">
+                    <span>X</span>
+                    <span id="dim-x">0.0</span>
+                </div>
+
+                
+            </div>
+        </div>
+        </div>
         </aside>
     </div>
 </body>
