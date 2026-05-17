@@ -1114,8 +1114,48 @@
             </div>    
         </div>
         
-        
-                </span>
+        <div class="card">
+            <span class="section-label">FILE HISTORY</span>
+            <div class="history-list" id="file-history-list">
+                <div style="font-size:0.65rem; opacity:0.6; padding:6px;">NO FILES LOADED YET</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <span class="section-label">EXPORT REPORT</span>
+            <button class="action-btn" id="btn-export-report" style="width:100%;">DOWNLOAD REPORT TXT</button>
+            <button class="action-btn" id="btn-open-stats-modal" style="width:100%; margin-top: 5px;">FULL STATA MODAL</button>
+        </div>
+    </div>         
+</aside>
+
+<main class="viewport-wrapper" id="viewport">
+    <div class-="loading-overlay" id="loading-overlay">
+        <div class="spinner"></div>
+        <div class="loading-text" id="loading-text">
+            LOADING MODEL....
+        </div>
+    </div>
+
+    <div class="screenshot-flash" id="screenshot-flash"></div>
+
+    <div class="toast-container" id="toast-cotainer"></div>
+
+    <div class="viewport-hud" id="viewport-hud">
+        <div class="hud-item">FPS: <span id="hud-fps">60</span></div>
+        <div class="hud-item">
+            TRIANGLES: <span id="hud-tris">0</span>
+        </div>
+        <div class="hud-item">
+            CAMERA: <span id="hud-camera">0,0,0</span>
+        </div>
+        <div class="hud-item">MODE: <span id="hud-mode">NORMAL</span></div>
+        <div class="hud-item">SPIN: <span id="hud-spin">OFF</span></div>
+    </div>
+</main>
+</div>
+
+
             </div>
         </div>
 
