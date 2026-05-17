@@ -1,1032 +1,1123 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title> Precision 3D | Model Analyzer - STL Viewer</title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Precision3D | Advanced 3D Model Analyzer - STL Viewer</title>
 
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-        <script
-src="https://cdn.jsdelivr.net/gh/mrdoob/three.js@r128/examples/js/loaders/STLLoader.js">
-</script>   
-    <script
-src="https://cdn.jsdelivr.net/gh/mrdoob/three.js@r128/examples/js/controls/OrbitControls.js">
-</script>         
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/mrdoob/three.js@r128/examples/js/loaders/STLLoader.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/mrdoob/three.js@r128/examples/js/controls/OrbitControls.js"></script>
 
     <style>
-        :root {
-          --bg-app: #e0e7ff;
-          --bg-sidebar: #ffffff;
-          --bg-viewport: #f8fafc;
-          --bg-card: #1a1c2c;
-          --text-main: #8b5cf6;
-          --accent-primary: #1a1c2c; 
-          --border-width: 3px;
-          --hard-shadow: 6px 6px 0px #1a1c2c;
-          --hard-shadow: 3px 3px 0px #1a1c2c;
-
-        }
-        [data-theme="dark"] {
-            --bg-app: #0f111a;
-            --bg-sidebar: #1a1c2c;
-            --bg-viewport: #000000;
-            --bg-card: #24283b;
-            --text-main: #ffffff;
-            --accent-primary: #a78bfa; 
-            --border-color: #ffffff;
-            --border-width: 6px 6px 0px #4f6e54;
-            --hard-shadow-small: 3px 3px 0px #4f46e5;
-            
-        }
-        * {
-            box-sizing: border-box;
-            transition: transform 0.1s, background-color 0.3s, color 0.3s,
-                border-color 0.3s;
-        }
-        body,
-        html {
-            margin: 0;
-            padding: 0;
-            width: 100%;
-            height: 100%;
-            font-family: "Courier New", Courier , monospace;
-            background-color: var(--bg-app);
-            color: var(--text-main);
-            overflow: hidden;
-        }
-        .app-shell{
-            display: grid;
-            grid-template-columns: 420px 1fr;
-            height: 100vh;
-            padding: 20px;
-            gap: 2opx;
-        }
-        .sidebar {
-            background: var(--bg-sidebar);
-            border: var(--border-width) solid var(--border-color);
-            display: flex;
-            flex-direction: column;
-            padding: 20px;
-            overflow-y: auto;
-            gap: 15px;
-            box-shadow: var(--hard-shadow);
-            position: relative;
-        }
-
-        .sidebar::after {
-            content: "By Sadrita Neogi";
-            position: absolute;
-            bottom: 8px;
-            left: 12px;
-            font-size: 0.55rem;
-            font-weight: bold;
-            opacity: 0.7;
-        }
-
-        .brand-title {
-            font-weight: 900;
-            font-size: 24px;
-            text-transform: uppercase;
-            border-bottom: var(--border-width) solid var(--border-color);
-            padding-bottom: 10px;
-            letter-spacing: 2px;
-            color: var(--text-main);
-        }
-        
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            padding: 12px;
-            border: var(--border-width) solid var(--border-color);
-            background: var(--bg-sidebar);
-            color: var(--text-main);
-            font-weight: 900;
-            text-transform: uppercase;
-            cursor: pointer;
-            box-shadow: var(--hard-shadow-small);
-            position: relative;
-            font-size: 0.8rem;
-        }
-
-        .btn:hover {
-            transform: translate(-2px, -2px);
-            box-shadow: 5px 5px 0px var(--border-color);
-        }
-
-        .btn:active {
-            transform: translate(2px, 2px);
-            box-shadow: 0px 0px 0px var(--border-color);
-        }
-
-        .btn-selected {
-            background: var(--accent-primary) !important;
-            color:#ffffff !important;
-            border-color: var(--border-color);
-        }
-
-        .btn-primary {
-            background: var(--accent-primary);
-            color:#ffffff;
-        }
-
-        .btn-small {
-            padding: 8px;
-            font-size: 10.4px;
-        }
-        
-        .card {
-            border: var(--border-width) solid var(--border-color);
-            padding: 15px;
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-            background: var(--bg-card);
-        }
-
-        .card-compact {
-            border: var(--border-width) solid var(--border-color);
-            padding: 12px;
-            background: var(--bg-card);
-        }
-
-        .section-label {
-            font-size: 0.75rem;
-            font-weight: 900;
-            text-transform: uppercase;
-            background: var(--bg-sidebar);
-            color: var(--bg-sidebar);
-            padding: 3px 8px;
-            align-self: flex-start;
-            margin-bottom: 5px;
-            letter-spacing: 1px;
-        }
-
-        .start-row {
-            display: flex;
-            justify-content: space-between;
-            border-bottom: 1px dashed var(--border-color);
-            padding: 6px 0;
-            color: var(--text-main);
-            font-size: 12.8px;
-        }
-
-        .start-row-mini {
-            display: flex;
-            justify-content: space-between;
-            padding: 3px 0;
-            font-size: 12px;
-            border-bottom: 1px dotted var(--border-color);
-        }
-
-        input[type="range"] {
-            appearance: none;
-            width: 100%;
-            height: 10px;
-            background: var(--bg-app);
-            border: 2px solid var(--border-color);
-        }
-
-        input[type="range"]::-webkit-slider-thumb {
-            appearance: none;
-            width: 18px;
-            height: 24px;
-            background: var(--accent-primary);
-            border: 2px solid var(--border-color);
-            cursor:pointer;
-        }
-
-        .viewport-wrapper {
-            background: var(--bg-viweport);
-            border: var(--border-width) solid var(--border-color);
-            box-shadow: var(--hard-shadow);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .theme-toggle-container {
-            font-size: 11.2px;
-            font-weight: 900;
-            border: 2px solid var(--bg-card);
-            padding: 4px 8px;
-            background: var(--bg-card);
-            color: var(--text-main);
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
-
-        .tabs-container {
-            display: flex;
-            gap: 5px;
-            border-bottom: 2px solid var(--border-color);
-            margin-bottom: 10px;
-            overflow-x: auto;
-        }
-
-        .tab-button {
-            padding: 8px 12px;
-            font-size: 9.6px;
-            font-weight: 900;
-            border: none;
-            background: transparent;
-            color: var(--text-main);
-            cursor: pointer;
-            text-transform: uppercase;
-            white-space: nowrap;
-            border-bottom: 3px solid transparent;
-            margin-bottom: -2px;
-        }
-
-        .tab-button.active {
-            border-bottom-color: var(--accent-primary);
-            color: var(--accent-primary);
-        }
-
-        .tab-content {
-            display: none;
-            max-height: 400px;
-            overflow-y: auto;
-        }
-        
-        .tab-content.active {
-            display: block;
-        }
-
-        .present-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 5px;
-        }
-
-        .present-btn {
-            padding: 8px;
-            font-size: 9.6px;
-            border: 2px solid var(--border-color);
-            background: var(--bg-card);
-            color: var(--text-main);
-            cursor: pointer;
-            font-weight: bold;
-            text-transform: uppercase;
-        }
-
-        .present-btn:hover {
-            background: var(--accent-primary);
-            color: white;
-            transform: translate(-1px, -1px);
-        }
-
-        .status-indicator {
-            display: inline-block;
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-            background: #10b981;
-            margin-right: 5px
-        }
-
-        .status-indicator.loading {
-            background: #f59e0b;
-            animation: pulse 1s infinite;
-        }
-
-        .status-indicator.error {
-            background: #ef4444;
-        }
-
-        @keyframes pulse {
-            0%,
-            100% {
-                opacity: 1;
-            }
-            50% {
-                opacity: 0.5;
-            }
-        }
-
-        .loading-overlay {
-            position: absolute;
-            inset: 0;
-            background: rgba(0, 0, 0, 0.7);
-            display: none;
-            align-items: center;
-            justify-content: center;
-            z-index: 1000;
-            flex-direction: column;
-        }
-
-        .loading-overlay.show {
-            display: flex;
-        }
-
-        .loading-text {
-            color: White;
-            font-weight: bold;
-            font-size: 19.2px;
-            text-transform: uppercase;
-            margin-top: 15px;
-        }
-
-        .spinner {
-            border: 4px solid rgba(255, 255, 255, 0.3);
-            border-top: 4px solid white;
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            animation: spin 1s linear infinite;
-        }
-
-        @keyframes spin {
-            0% {
-                transform: rotate(0deg);
-            }
-            100% {
-                transform: rotate(360deg);
-            }
-        }
-
-        input[type="file"] {
-            display: none;
-        }
-
-        .viewport-hud {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background: rgba(0, 0, 0, 0.7);
-            color: white;
-            padding: 10px;
-            font-size: 11.2px;
-            font-family: monospace;
-            border: 1px solid var(--accent-primary);
-            max-width: 200px;
-            display: none;
-        }
-
-        .viewport-hud.show {
-            display: block;
-        }
-
-        .hud-item {
-            padding: 3px 0;
-            border-bottom: 1px dashed var(--accent-primary);
-        }
-
-        .keyboard-shortcuts {
-            font-size: 10.4px;
-            line-height: 1.6;
-        }
-
-        .shortcut-item {
-            display: flex;
-            justify-content: space-between;
-            padding: 3px 0;
-            border-bottom:1px dotted var(--border-color);
-        }
-
-        .key-badge {
-            background: var(--accent-primary);
-            color: white;
-            padding: 2px 6px;
-            font-weight: bold;
-            border-radius: 3px;
-            font-size: 9.6px;
-        }
-
-        .action-btn {
-            padding: 10px;
-            font-size: 10.4px;
-            font-weight: 900;
-            border: var(--border-width) solid var(--border-color);
-            background: var(--bg-card);
-            color: var(--text-main);
-            cursor: pointer;
-            text-transform: uppercase;     
-        }
-
-        .action-btn:hover {
-            transform: translate(-1px, -0.0625rem);
-            box-shadow: 3px 3px opx var(--border-color);
-        }
-        
-        .screenshot-flash {
-            position: absolute;
-            inset: 0;
-            background: white;
-            opacity: 0;
-            pointer-events: none;
-            z-index: 999;
-            transition: opacity 0.05s ease-in;
-        }
-
-        .screenshot-flash.active {
-            opacity: 1;
-            transition: opacity .05s ease-in;
-        }
-
-        .tost-conrainer {
-            position: absolute;
-            bottom: 20px;
-            left:50%;
-            transform: translateX(-50%);
-            z-index: 2000;
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-            align-items: center;
-            pointer-events: none;
-        }
-
-        .tost {
-            background: var(--accent-primary);
-            color: white;
-            padding: 10px 20px;
-            font-size: 12px;
-            font-weight: 900;
-            text-transform: uppercase;
-            border: 2px solid white;
-            letter-spacing: 1px;
-            opacity: 0;
-            transform: translateY(20px);
-            transition: all 0.3s ease;
-            pointer-events: none;
-        }
-
-        .tost.show {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .rotation-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            gap: 5px;
-        }
-
-        .rotation-btn {
-            padding: 8px 4px;
-            font-size: 9.28px;
-            border: 2px solid var(--border-color);
-            background: var(--bg-card);
-            color: var(--text-main);
-            cursor: pointer;
-            font-weight: bold;
-            text-transform: uppercase;
-            text-align: center;
-        }
-
-        .rotation-btn:hover {
-            background: var(--accent-primary);
-            color: white;
-            transform: translate(-1px, -1px);
-        }
-
-        .slide-row {
-            display: flex;
-            flex-direction: column;
-            gap: 4px;
-        }
-
-        .slide-lable-row {
-            display: flex;
-            justify-content: space-between;
-            font-size: 10.4px;
-            font-weight: bold;
-        }
-
-        .explode-slider-wrap {
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
-        }
-        
-        .annotion-list {
-            display: flex;
-            flex-direction: column;
-            gap: 4px;
-            max-height: 120px;
-            overflow-y: auto;
-        }
-
-        .annotation-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 4px 6px;
-            border: 1px solid var(--border-color);
-            font-size: 9.92px;
-            background: var(--bg-app);
-        }
-
-        .annotation-item button {
-            background: #ef4444;
-            color: white;
-            border: none;
-            padding: 2px 6px;
-            cursor: pointer;
-            font-size: 9.6px;
-            font-weight: bold;
-        }
-
-        .camera-preset-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            gap: 5px;
-        }
-
-        .cam-btn {
-            padding: 8px 4px;
-            font-size: 9.28px;
-            border: 2px solid var(--border-color);
-            background: var(--bg-card);
-            color: var(--text-main);
-            cursor: pointer;
-            font-weight: bold;
-            text-transform: uppercase;
-            text-align: center;
-        }
-
-        .cam-btn:hover {
-            background: var(--accent-primary);
-            color: white;
-            transform: translate(-1px, -1px);
-        }
-
-        .measure-output {
-            font-size: 11.2px;
-            padding: 8px;
-            border: 2px dashed var(--border-color);
-            background: var(--bg-app);
-            min-height: 40px;
-            word-break: break-all;
-        }
-
-        .history-list {
-            display: flex;
-            flex-direction: column;
-            gap: 4px;
-            max-height: 150px;
-            overflow-y: auto;
-        }
-
-        .history-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 5px 8px;
-            border: 1-x solid var(--border-color);
-            font-size: 9.92px;
-            background: var(--bg-app);
-            cursor: pointer;
-        }
-
-        .history-item:hover {
-            background: var(--accent-primary);
-            color: white;
-        }
-
-        .cross-section-controls {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
-
-        .axis-selector {
-            display: flex;
-            gap: 5px;
-        }
-
-        .axis-btn {
-            flex: 1;
-            padding: 6px;
-            font-size: 9.92px;
-            border: 2px solid var(--border-color);
-            background: var(--bg-color);
-            color: var(--text-main);
-            cursor: pointer;
-            font-weight: bold;
-            text-transform: uppercase;
-            text-align: center;
-        }
-
-        .axis-btn.active {
-            background: var(--accent-primary);
-            color: white;
-        }
-
-        .axis-btn:hover {
-            background: var(--accent-primary);
-            color: white;
-        }
-
-        .modal-overlay {
-            position : fixed;
-            inset: 0;
-            background: rgba(0, 0, 0, 0.8);
-            z-index: 5000;
-            display: none;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .modal-overlay.show {
-            display: flex;
-        }
-
-        .modal-box {
-            background: var(--bg-sidebar);
-            border: var(--border-width) solid var(--border-color);
-            padding: 30px;
-            max-width: 480px;
-            width: 90%;
-            box-shadow: var(--hard-shadow);
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
-
-        .modal-title {
-            font-size: 16px;
-            font-weight: 900;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            border-bottom: 2px solid var(--border-color);
-            padding-bottom: 10px;
-        }
-
-        .modal-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 12px;
-            border-bottom: 1px dashed var(--border-color);
-            padding: 6px 0;
-        }
-
-        .modal-close-btn {
-            padding: 10px 20px;
-            font-size: 12px;
-            font-weight: 900;
-            border: var(--border-width) solid var(--border-color);
-            background: var(--accent-primary);
-            color: white;
-            cursor: pointer;
-            text-transform: uppercase;
-            align-self: flex-end;
-            box-shadow: var(--hard-shadow-small);
-        }
-
-        .modal-close-btn:hover {
-            transform: translate(-2px, 2px);
-            box-shadow: 5px 5px 0px var(--border-color);
-        }
-
-        .progress-bar-wrap {
-            height: 8px;
-            border: 2px solid var(--border-color);
-            background: var(--bg-app);
-            overflow: hidden;
-        }
-
-        .progress-bar-fill {
-            height: 100%;
-            background: var(--accent-primary);
-            transition: width 0.3s ease;
-        }
-
-        .screenshot-panel {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
-
-        .screenshot-size-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 5px;
-        }
-
-        .size-btn {
-            padding: 8px;
-            font-size: 9.6px;
-            border: 2px solid var(--border-color);
-            background: var(--bg-card);
-            color: var(--text-main);
-            cursor: pointer;
-            font-weight: bold;
-            text-transform: uppercase;
-            text-align: center;
-        }
-
-        .size-btn.selected {
-            background: var(--aaent-primary);
-            color: white;
-        }
-
-        .size-btn:hover {
-            background: var(--accent-primary);
-            color:white;
-        }      
+      :root {
+        --bg-app: #e0e7ff;
+        --bg-sidebar: #ffffff;
+        --bg-viewport: #ffffff;
+        --bg-card: #f8fafc;
+        --text-main: #1a1c2c;
+        --accent-primary: #8b5cf6;
+        --border-color: #1a1c2c;
+        --border-width: 3px;
+        --hard-shadow: 6px 6px 0px #1a1c2c;
+        --hard-shadow-small: 3px 3px 0px #1a1c2c;
+      }
+
+      [data-theme="dark"] {
+        --bg-app: #0f111a;
+        --bg-sidebar: #1a1c2c;
+        --bg-viewport: #000000;
+        --bg-card: #24283b;
+        --text-main: #ffffff;
+        --accent-primary: #a78bfa;
+        --border-color: #ffffff;
+        --hard-shadow: 6px 6px 0px #4f46e5;
+        --hard-shadow-small: 3px 3px 0px #4f46e5;
+      }
+
+      * {
+        box-sizing: border-box;
+        transition: transform 0.1s, background-color 0.3s, color 0.3s,
+          border-color 0.3s;
+      }
+
+      body,
+      html {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        height: 100%;
+        font-family: "Courier New", Courier, monospace;
+        background-color: var(--bg-app);
+        color: var(--text-main);
+        overflow: hidden;
+      }
+
+      .app-shell {
+        display: grid;
+        grid-template-columns: 420px 1fr;
+        height: 100vh;
+        padding: 20px;
+        gap: 20px;
+      }
+
+      .sidebar {
+        background: var(--bg-sidebar);
+        border: var(--border-width) solid var(--border-color);
+        display: flex;
+        flex-direction: column;
+        padding: 20px;
+        overflow-y: auto;
+        gap: 15px;
+        box-shadow: var(--hard-shadow);
+        position: relative;
+      }
+
+      .sidebar::after {
+        content: "By Sadrita Neogi";
+        position: absolute;
+        bottom: 8px;
+        left: 12px;
+        font-size: 0.55rem;
+        font-weight: bold;
+        opacity: 0.7;
+      }
+
+      .brand-title {
+        font-weight: 900;
+        font-size: 1.5rem;
+        text-transform: uppercase;
+        border-bottom: var(--border-width) solid var(--border-color);
+        padding-bottom: 10px;
+        letter-spacing: 2px;
+        color: var(--text-main);
+      }
+
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 12px;
+        border: var(--border-width) solid var(--border-color);
+        background: var(--bg-sidebar);
+        color: var(--text-main);
+        font-weight: 900;
+        text-transform: uppercase;
+        cursor: pointer;
+        box-shadow: var(--hard-shadow-small);
+        position: relative;
+        font-size: 0.8rem;
+      }
+
+      .btn:hover {
+        transform: translate(-2px, -2px);
+        box-shadow: 5px 5px 0px var(--border-color);
+      }
+
+      .btn:active {
+        transform: translate(2px, 2px);
+        box-shadow: 0px 0px 0px var(--border-color);
+      }
+
+      .btn-selected {
+        background: var(--accent-primary) !important;
+        color: #ffffff !important;
+        border-color: var(--border-color);
+      }
+
+      .btn-primary {
+        background: var(--accent-primary);
+        color: #ffffff;
+      }
+
+      .btn-small {
+        padding: 8px;
+        font-size: 0.65rem;
+      }
+
+      .card {
+        border: var(--border-width) solid var(--border-color);
+        padding: 15px;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        background: var(--bg-card);
+      }
+
+      .card-compact {
+        border: var(--border-width) solid var(--border-color);
+        padding: 12px;
+        background: var(--bg-card);
+      }
+
+      .section-label {
+        font-size: 0.75rem;
+        font-weight: 900;
+        text-transform: uppercase;
+        background: var(--border-color);
+        color: var(--bg-sidebar);
+        padding: 3px 8px;
+        align-self: flex-start;
+        margin-bottom: 5px;
+        letter-spacing: 1px;
+      }
+
+      .stat-row {
+        display: flex;
+        justify-content: space-between;
+        border-bottom: 1px dashed var(--border-color);
+        padding: 6px 0;
+        color: var(--text-main);
+        font-size: 0.8rem;
+      }
+
+      .stat-row-mini {
+        display: flex;
+        justify-content: space-between;
+        padding: 3px 0;
+        font-size: 0.7rem;
+        border-bottom: 1px dotted var(--border-color);
+      }
+
+      input[type="range"] {
+        appearance: none;
+        width: 100%;
+        height: 10px;
+        background: var(--bg-app);
+        border: 2px solid var(--border-color);
+      }
+
+      input[type="range"]::-webkit-slider-thumb {
+        appearance: none;
+        width: 18px;
+        height: 24px;
+        background: var(--accent-primary);
+        border: 2px solid var(--border-color);
+        cursor: pointer;
+      }
+
+      .viewport-wrapper {
+        background: var(--bg-viewport);
+        border: var(--border-width) solid var(--border-color);
+        box-shadow: var(--hard-shadow);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .theme-toggle-container {
+        font-size: 0.7rem;
+        font-weight: 900;
+        border: 2px solid var(--border-color);
+        padding: 4px 8px;
+        background: var(--bg-card);
+        color: var(--text-main);
+        display: flex;
+        align-items: center;
+        gap: 5px;
+      }
+
+      .tabs-container {
+        display: flex;
+        gap: 5px;
+        border-bottom: 2px solid var(--border-color);
+        margin-bottom: 10px;
+        overflow-x: auto;
+      }
+
+      .tab-button {
+        padding: 8px 12px;
+        font-size: 0.6rem;
+        font-weight: 900;
+        border: none;
+        background: transparent;
+        color: var(--text-main);
+        cursor: pointer;
+        text-transform: uppercase;
+        white-space: nowrap;
+        border-bottom: 3px solid transparent;
+        margin-bottom: -2px;
+      }
+
+      .tab-button.active {
+        border-bottom-color: var(--accent-primary);
+        color: var(--accent-primary);
+      }
+
+      .tab-content {
+        display: none;
+        max-height: 400px;
+        overflow-y: auto;
+      }
+
+      .tab-content.active {
+        display: block;
+      }
+
+      .preset-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 5px;
+      }
+
+      .preset-btn {
+        padding: 8px;
+        font-size: 0.6rem;
+        border: 2px solid var(--border-color);
+        background: var(--bg-card);
+        color: var(--text-main);
+        cursor: pointer;
+        font-weight: bold;
+        text-transform: uppercase;
+      }
+
+      .preset-btn:hover {
+        background: var(--accent-primary);
+        color: white;
+        transform: translate(-1px, -1px);
+      }
+
+      .status-indicator {
+        display: inline-block;
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: #10b981;
+        margin-right: 5px;
+      }
+
+      .status-indicator.loading {
+        background: #f59e0b;
+        animation: pulse 1s infinite;
+      }
+
+      .status-indicator.error {
+        background: #ef4444;
+      }
+
+      @keyframes pulse {
+        0%,
+        100% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0.5;
+        }
+      }
+
+      .loading-overlay {
+        position: absolute;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.7);
+        display: none;
+        align-items: center;
+        justify-content: center;
+        z-index: 1000;
+        flex-direction: column;
+      }
+
+      .loading-overlay.show {
+        display: flex;
+      }
+
+      .loading-text {
+        color: white;
+        font-weight: bold;
+        font-size: 1.2rem;
+        text-transform: uppercase;
+        margin-top: 15px;
+      }
+
+      .spinner {
+        border: 4px solid rgba(255, 255, 255, 0.3);
+        border-top: 4px solid white;
+        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+        animation: spin 1s linear infinite;
+      }
+
+      @keyframes spin {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+
+      input[type="file"] {
+        display: none;
+      }
+
+      .viewport-hud {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background: rgba(0, 0, 0, 0.7);
+        color: white;
+        padding: 10px;
+        font-size: 0.7rem;
+        font-family: monospace;
+        border: 1px solid var(--accent-primary);
+        max-width: 200px;
+        display: none;
+      }
+
+      .viewport-hud.show {
+        display: block;
+      }
+
+      .hud-item {
+        padding: 3px 0;
+        border-bottom: 1px dashed var(--accent-primary);
+      }
+
+      .keyboard-shortcuts {
+        font-size: 0.65rem;
+        line-height: 1.6;
+      }
+
+      .shortcut-item {
+        display: flex;
+        justify-content: space-between;
+        padding: 3px 0;
+        border-bottom: 1px dotted var(--border-color);
+      }
+
+      .key-badge {
+        background: var(--accent-primary);
+        color: white;
+        padding: 2px 6px;
+        font-weight: bold;
+        border-radius: 3px;
+        font-size: 0.6rem;
+      }
+
+      .action-btn {
+        padding: 10px;
+        font-size: 0.65rem;
+        font-weight: 900;
+        border: var(--border-width) solid var(--border-color);
+        background: var(--bg-card);
+        color: var(--text-main);
+        cursor: pointer;
+        text-transform: uppercase;
+      }
+
+      .action-btn:hover {
+        transform: translate(-1px, -1px);
+        box-shadow: 3px 3px 0px var(--border-color);
+      }
+
+      .screenshot-flash {
+        position: absolute;
+        inset: 0;
+        background: white;
+        opacity: 0;
+        pointer-events: none;
+        z-index: 999;
+        transition: opacity 0.05s ease-in;
+      }
+
+      .screenshot-flash.active {
+        opacity: 1;
+        transition: opacity 0.05s ease-in;
+      }
+
+      .toast-container {
+        position: absolute;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 2000;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        align-items: center;
+        pointer-events: none;
+      }
+
+      .toast {
+        background: var(--accent-primary);
+        color: white;
+        padding: 10px 20px;
+        font-size: 0.75rem;
+        font-weight: 900;
+        text-transform: uppercase;
+        border: 2px solid white;
+        letter-spacing: 1px;
+        opacity: 0;
+        transform: translateY(20px);
+        transition: all 0.3s ease;
+        pointer-events: none;
+      }
+
+      .toast.show {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .rotation-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 5px;
+      }
+
+      .rotation-btn {
+        padding: 8px 4px;
+        font-size: 0.58rem;
+        border: 2px solid var(--border-color);
+        background: var(--bg-card);
+        color: var(--text-main);
+        cursor: pointer;
+        font-weight: bold;
+        text-transform: uppercase;
+        text-align: center;
+      }
+
+      .rotation-btn:hover {
+        background: var(--accent-primary);
+        color: white;
+        transform: translate(-1px, -1px);
+      }
+
+      .slider-row {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+      }
+
+      .slider-label-row {
+        display: flex;
+        justify-content: space-between;
+        font-size: 0.65rem;
+        font-weight: bold;
+      }
+
+      .explode-slider-wrap {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+      }
+
+      .annotation-list {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        max-height: 120px;
+        overflow-y: auto;
+      }
+
+      .annotation-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 4px 6px;
+        border: 1px solid var(--border-color);
+        font-size: 0.62rem;
+        background: var(--bg-app);
+      }
+
+      .annotation-item button {
+        background: #ef4444;
+        color: white;
+        border: none;
+        padding: 2px 6px;
+        cursor: pointer;
+        font-size: 0.6rem;
+        font-weight: bold;
+      }
+
+      .camera-preset-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 5px;
+      }
+
+      .cam-btn {
+        padding: 8px 4px;
+        font-size: 0.58rem;
+        border: 2px solid var(--border-color);
+        background: var(--bg-card);
+        color: var(--text-main);
+        cursor: pointer;
+        font-weight: bold;
+        text-transform: uppercase;
+        text-align: center;
+      }
+
+      .cam-btn:hover {
+        background: var(--accent-primary);
+        color: white;
+        transform: translate(-1px, -1px);
+      }
+
+      .measure-output {
+        font-size: 0.7rem;
+        padding: 8px;
+        border: 2px dashed var(--border-color);
+        background: var(--bg-app);
+        min-height: 40px;
+        word-break: break-all;
+      }
+
+      .history-list {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        max-height: 150px;
+        overflow-y: auto;
+      }
+
+      .history-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 5px 8px;
+        border: 1px solid var(--border-color);
+        font-size: 0.62rem;
+        background: var(--bg-app);
+        cursor: pointer;
+      }
+
+      .history-item:hover {
+        background: var(--accent-primary);
+        color: white;
+      }
+
+      .cross-section-controls {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+
+      .axis-selector {
+        display: flex;
+        gap: 5px;
+      }
+
+      .axis-btn {
+        flex: 1;
+        padding: 6px;
+        font-size: 0.62rem;
+        border: 2px solid var(--border-color);
+        background: var(--bg-card);
+        color: var(--text-main);
+        cursor: pointer;
+        font-weight: bold;
+        text-transform: uppercase;
+        text-align: center;
+      }
+
+      .axis-btn.active {
+        background: var(--accent-primary);
+        color: white;
+      }
+
+      .axis-btn:hover {
+        background: var(--accent-primary);
+        color: white;
+      }
+
+      .modal-overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(0,0,0,0.8);
+        z-index: 5000;
+        display: none;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .modal-overlay.show {
+        display: flex;
+      }
+
+      .modal-box {
+        background: var(--bg-sidebar);
+        border: var(--border-width) solid var(--border-color);
+        padding: 30px;
+        max-width: 480px;
+        width: 90%;
+        box-shadow: var(--hard-shadow);
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+      }
+
+      .modal-title {
+        font-size: 1rem;
+        font-weight: 900;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        border-bottom: 2px solid var(--border-color);
+        padding-bottom: 10px;
+      }
+
+      .modal-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 0.75rem;
+        border-bottom: 1px dashed var(--border-color);
+        padding: 6px 0;
+      }
+
+      .modal-close-btn {
+        padding: 10px 20px;
+        font-size: 0.75rem;
+        font-weight: 900;
+        border: var(--border-width) solid var(--border-color);
+        background: var(--accent-primary);
+        color: white;
+        cursor: pointer;
+        text-transform: uppercase;
+        align-self: flex-end;
+        box-shadow: var(--hard-shadow-small);
+      }
+
+      .modal-close-btn:hover {
+        transform: translate(-2px, -2px);
+        box-shadow: 5px 5px 0px var(--border-color);
+      }
+
+      .progress-bar-wrap {
+        height: 8px;
+        border: 2px solid var(--border-color);
+        background: var(--bg-app);
+        overflow: hidden;
+      }
+
+      .progress-bar-fill {
+        height: 100%;
+        background: var(--accent-primary);
+        transition: width 0.3s ease;
+      }
+
+      .screenshot-panel {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+
+      .screenshot-size-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 5px;
+      }
+
+      .size-btn {
+        padding: 8px;
+        font-size: 0.6rem;
+        border: 2px solid var(--border-color);
+        background: var(--bg-card);
+        color: var(--text-main);
+        cursor: pointer;
+        font-weight: bold;
+        text-transform: uppercase;
+        text-align: center;
+      }
+
+      .size-btn.selected {
+        background: var(--accent-primary);
+        color: white;
+      }
+
+      .size-btn:hover {
+        background: var(--accent-primary);
+        color: white;
+      }
     </style>
-    </head>
+  </head>
 
-<body data-theme="light">
+  <body data-theme="light">
     <div class="app-shell">
-        <aside class="sidebar">
-            <div
-              style="
-              display: flex;
-              justify-content: space-between;
-              align-items: center;
-              ">
-              <div class="brand-title">PRECISION 3D</div>
+      <aside class="sidebar">
+        <div
+          style="
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+          ">
+          <div class="brand-title">PRECISION 3D</div>
 
-              <label class="theme-toggle-container">
-                <input type="checkbox" id="theme-toggle" />
-                <span>DARK</span>
-              </label>
-            </div>
+          <label class="theme-toggle-container">
+            <input type="checkbox" id="theme-toggle" />
+            <span>DARK</span>
+          </label>
+        </div>
 
-            <div
-            class="btn btn-primary"
-            id="drop-zone"
-            style="height: 80px; flex-direction: column; gap: 10px">
-            <div style="font-size: 0.9rem">LOAD STL FILE</div>
-            <div style="font-size: 0.65rem">DRAG & DROP HERE</div>
-            <input type="file" id="file-input" accept=".stl" />
+        <div
+          class="btn btn-primary"
+          id="drop-zone"
+          style="height: 80px; flex-direction: column; gap: 10px">
+          <div style="font-size: 0.9rem">LOAD STL FILE</div>
+          <div style="font-size: 0.65rem">DRAG & DROP HERE</div>
+          <input type="file" id="file-input" accept=".stl" />
         </div>
 
         <div class="tabs-container">
-            <button class="tab-button active" data-tab="analysis">
-                ANALYSIS
-            </button>
-            <button class="tab-button" data-tab="controls">CONTROLS</button>
-            <button class="tab-button" data-tab="render">RENDER</button>
-            <button class="tab-button" data-tab="tools">TOOLS</button>
-            <button class="tab-button" data-tab="camera">CAMERA</button>
-            <button class="tab-button" data-tab="advanced">ADVANCED</button>
+          <button class="tab-button active" data-tab="analysis">
+            ANALYSIS
+          </button>
+          <button class="tab-button" data-tab="controls">CONTROLS</button>
+          <button class="tab-button" data-tab="render">RENDER</button>
+          <button class="tab-button" data-tab="tools">TOOLS</button>
+          <button class="tab-button" data-tab="camera">CAMERA</button>
+          <button class="tab-button" data-tab="advanced">ADVANCED</button>
         </div>
 
         <div class="tab-content active" id="tab-analysis">
-            <div class="card">
-                <span class="section-lable">MODEL STATS</span>
+          <div class="card">
+            <span class="section-label">MODEL STATS</span>
 
-                <div class="start-row">
-                    <span>WEIGHT</span>
-                    <span id="val-weight">0.00G</span>
-                </div>
-
-                <div class="start-row">
-                    <span>VOLUME</span>
-                    <span id="val-vol">0CM³</span>
-                </div>
-
-                <div class="start-row">
-                    <span>SURFACE AREA</span>
-                    <span id="val-area">0CM²</span>
-                </div>
-
-                <div class="start-row">
-                    <span>TRIANGLES</span>
-                    <span id="val-tris">0</span>
-                </div>
-
-                <div class="start-row">
-                    <span>PRINT TIME</span>
-                    <span id="val-time">0H 0M</span>
-                </div>
+            <div class="stat-row">
+              <span>WEIGHT</span>
+              <span id="val-weight">0.00G</span>
             </div>
 
-            <div class="card">
-                <span class="section-label">DIMENSIONS</span>
+            <div class="stat-row">
+              <span>VOLUME</span>
+              <span id="val-vol">0CM³</span>
+            </div>
 
-                <div class="start-row-mini">
-                    <span>X</span>
-                    <span id="dim-x">0.0</span>
-                </div>
+            <div class="stat-row">
+              <span>SURFACE AREA</span>
+              <span id="val-area">0CM²</span>
+            </div>
 
-                <div class="start-row-mini">
-                    <span>Y</span>
-                    <span id="dim-y">0.0 MM</span>
-                </div>
+            <div class="stat-row">
+              <span>TRIANGLES</span>
+              <span id="val-tris">0</span>
+            </div>
 
-                <div class="start-row-mini">
-                    <span>Diangonal</span>
-                    <span id="dim-diag">0.0 MM</span>
-                </div>
+            <div class="stat-row">
+              <span>PRINT TIME</span>
+              <span id="val-time">0H 0M</span>
+            </div>
+          </div>
+
+          <div class="card">
+            <span class="section-label">DIMENSIONS</span>
+
+            <div class="stat-row-mini">
+              <span>X</span>
+              <span id="dim-x">0.0 MM</span>
+            </div>
+
+            <div class="stat-row-mini">
+              <span>Y</span>
+              <span id="dim-y">0.0 MM</span>
+            </div>
+
+            <div class="stat-row-mini">
+              <span>Z</span>
+              <span id="dim-z">0.0 MM</span>
+            </div>
+
+            <div class="stat-row-mini">
+              <span>Diagonal</span>
+              <span id="dim-diag">0.0 MM</span>
+            </div>
+          </div>
+
+          <div class="card">
+            <span class="section-label">FILE INFO</span>
+
+            <div
+              id="info-name"
+              style="
+                font-size: 0.75rem;
+                font-weight: bold;
+                word-break: break-all;
+              ">
+              IDLE_WAITING...
             </div>
 
             <div
-               id="info-name"
-               style="
-                    font-size: 0.75rem;
-                    font-weight: bold;
-                    word-break: break-all;
-                    ">
-                    IDLE_WAITING...
-                </div>
-                
-                <div
-                id="info-type"
-                style="
-                    font-size: 0.7rem;
-                    color: var(--accent-primary);
-                    margin-top: 5px;
-                    ">
-                    FILE_TYPE: UNKNOWN
-                </div>
-
-                <div
-                id="info-timestamp"
-                style="font-size: 0.7rem; margin-top: 3px">
-                LOADED: N/A 
-                </div>
+              id="info-type"
+              style="
+                font-size: 0.7rem;
+                color: var(--accent-primary);
+                margin-top: 5px;
+              ">
+              FILE_TYPE: UNKNOWN
             </div>
+
+            <div
+              id="info-timestamp"
+              style="font-size: 0.7rem; margin-top: 3px">
+              LOADED: N/A
+            </div>
+          </div>
         </div>
 
         <div class="tab-content" id="tab-controls">
+          <div class="card">
+            <span class="section-label">VIEWPORT</span>
+
+            <button class="btn btn-small" id="btn-home" style="width: 100%">
+              RESET CAMERA
+            </button>
+
+            <button
+              class="btn btn-small"
+              id="btn-wireframe"
+              style="width: 100%; margin-top: 5px">
+              X-RAY MODE
+            </button>
+
+            <button
+              class="btn btn-small"
+              id="btn-fit"
+              style="width: 100%; margin-top: 5px">
+              FIT TO VIEW
+            </button>
+          </div>
+
+          <div class="card">
+            <span class="section-label">MATERIAL COLOR</span>
+
+            <div style="display: flex; gap: 5px; margin-bottom: 10px">
+              <input
+                type="color"
+                id="ui-color"
+                value="#8b5cf6"
+                style="
+                  border: 2px solid var(--border-color);
+                  cursor: pointer;
+                  width: 50px;
+                  height: 40px;
+                " />
+
+              <button
+                class="btn btn-small"
+                id="btn-color-reset"
+                style="flex: 1">
+                RESET
+              </button>
+            </div>
+
+            <div class="preset-grid">
+              <div class="preset-btn" data-color="#8b5cf6">PURPLE</div>
+              <div class="preset-btn" data-color="#ef4444">RED</div>
+              <div class="preset-btn" data-color="#3b82f6">BLUE</div>
+              <div class="preset-btn" data-color="#10b981">GREEN</div>
+              <div class="preset-btn" data-color="#f59e0b">ORANGE</div>
+              <div class="preset-btn" data-color="#000000">BLACK</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="tab-content" id="tab-render">
+          <div class="card">
+            <span class="section-label">LIGHTING</span>
+
+            <div
+              style="font-size: 0.7rem; font-weight: bold; margin-bottom: 8px">
+              EXPOSURE
+            </div>
+
+            <input
+              type="range"
+              id="ui-light"
+              min="0"
+              max="2"
+              step="0.1"
+              value="1" />
+
+            <div style="font-size: 0.65rem; margin-top: 5px" id="light-value">
+              1.0x
+            </div>
+          </div>
+
+          <div class="card">
+            <span class="section-label">BACKGROUND</span>
+
+            <div class="preset-grid">
+              <div class="preset-btn" data-bg-color="#ffffff">WHITE</div>
+              <div class="preset-btn" data-bg-color="#000000">BLACK</div>
+              <div class="preset-btn" data-bg-color="#e0e7ff">LIGHT</div>
+              <div class="preset-btn" data-bg-color="#1a1c2c">DARK</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="tab-content" id="tab-tools">
+          <div class="card">
+            <span class="section-label">UTILITIES</span>
+
+            <button
+              class="action-btn"
+              id="btn-center-model"
+              style="width: 100%">
+              CENTER MODEL
+            </button>
+
+            <button
+              class="action-btn"
+              id="btn-scale-reset"
+              style="width: 100%; margin-top: 5px">
+              RESET SCALE
+            </button>
+          </div>
+
+          <div class="card">
+            <span class="section-label">KEYBOARD SHORTCUTS</span>
+
+            <div class="keyboard-shortcuts">
+              <div class="shortcut-item">
+                <span>HOME</span>
+                <span class="key-badge">H</span>
+              </div>
+
+              <div class="shortcut-item">
+                <span>X-RAY</span>
+                <span class="key-badge">X</span>
+              </div>
+
+              <div class="shortcut-item">
+                <span>FIT VIEW</span>
+                <span class="key-badge">F</span>
+              </div>
+
+              <div class="shortcut-item">
+                <span>SCREENSHOT</span>
+                <span class="key-badge">S</span>
+              </div>
+
+              <div class="shortcut-item">
+                <span>ROTATE LEFT</span>
+                <span class="key-badge">A</span>
+              </div>
+
+              <div class="shortcut-item">
+                <span>ROTATE RIGHT</span>
+                <span class="key-badge">D</span>
+              </div>
+
+              <div class="shortcut-item">
+                <span>AUTO SPIN</span>
+                <span class="key-badge">R</span>
+              </div>
+
+              <div class="shortcut-item">
+                <span>STATS PANEL</span>
+                <span class="key-badge">I</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="tab-content" id="tab-camera">
+          <div class="card">
+            <span class="section-label">CAMERA PRESETS</span>
+            <div class="camera-preset-grid">
+              <div class="cam-btn" data-cam="front">FRONT</div>
+              <div class="cam-btn" data-cam="back">BACK</div>
+              <div class="cam-btn" data-cam="left">LEFT</div>
+              <div class="cam-btn" data-cam="right">RIGHT</div>
+              <div class="cam-btn" data-cam="top">TOP</div>
+              <div class="cam-btn" data-cam="bottom">BOTTOM</div>
+              <div class="cam-btn" data-cam="iso">ISO</div>
+              <div class="cam-btn" data-cam="iso2">ISO 2</div>
+              <div class="cam-btn" data-cam="iso3">ISO 3</div>
+            </div>
+          </div>
+
+          <div class="card">
+            <span class="section-label">AUTO ROTATION</span>
+            <div class="slider-row">
+              <div class="slider-label-row">
+                <span>SPEED</span>
+                <span id="spin-speed-val">0.5</span>
+              </div>
+              <input type="range" id="spin-speed" min="0.1" max="3" step="0.1" value="0.5" />
+            </div>
+            <button class="action-btn" id="btn-auto-spin" style="width:100%; margin-top:8px;">
+              START AUTO SPIN
+            </button>
+          </div>
+
+          <div class="card">
+            <span class="section-label">MANUAL ROTATION</span>
+            <div class="rotation-grid">
+              <div class="rotation-btn" data-rot="x-" >-X</div>
+              <div class="rotation-btn" data-rot="x0" >CTR X</div>
+              <div class="rotation-btn" data-rot="x+" >+X</div>
+              <div class="rotation-btn" data-rot="y-" >-Y</div>
+              <div class="rotation-btn" data-rot="y0" >CTR Y</div>
+              <div class="rotation-btn" data-rot="y+" >+Y</div>
+              <div class="rotation-btn" data-rot="z-" >-Z</div>
+              <div class="rotation-btn" data-rot="z0" >CTR Z</div>
+              <div class="rotation-btn" data-rot="z+" >+Z</div>
+            </div>
+          </div>
+        </div>    
+
+        <div class="tab-content" id="tab-advanced">
             <div class="card">
-                <button class="btn btn-small" id="btn-home" style="width: 100%">
-                    RESET CAMERA
-                </button>
-
-                <button
-                  class="btn btn-small"
-                  id="btn-wireframe"
-                  style="width: 100%; margin-top: 5px">
-                  X-RAY MODE
-                </button>
-
-                <button
-                  class="btn btn-small"
-                  id="btn-fit"
-                  style="width: 100%; margin-top: 5px">
-                  FIT TO VIEW
-                </button>
-              </div>
-              
-              <div class="card">
-                <span class="section-label">MATERIAL COLOR</span>
-
-                <div style="display: flex; gap: 5px; margin-bottom: 10px">
-                    <input
-                      type="color"
-                      id="ui-color"
-                      value="#8b5cf6"
-                      style="
-                        border: 2px solid var(--border-color);
-                        cursor: pointer;
-                        width: 50px;
-                        height: 40px;
-                        " />
-
-                <button
-                    class="btn btn-small"
-                    id="btn-color-reset"
-                    style="flex: 1">
-                    RESET
-                </button>        
-                </div>
-
-                <div class="preset-grid">
-                    <div class="preset-btn" data-color="#8b5cfc">PURPEL</div>
-                    <div class="preset-btn" data-color="#ef4444">RED</div>
-                    <div class="preset-btn" data-color="#3b82f6">BLUE</div> 
-                    <div class="preset-btn" data-color="#10b981">GREEN</div>
-                    <div class="preset-btn" data-color="#f59e0b">ORANGE</div>
-                    <div class="preset-btn" data-color="#000000">BLACK</div>
+                <span class="section-label">SCREENSHOT</span>
+                <div class="screenshot-panel">
+                    <div style="font-size:0.7rem; font-weight:bold;">RESOLUTION</div>
+                    <div class="screenshot-size-grid">
+                        <div class="size-btn selected" data-res="viewport">VIEWPORT</div>
+                        <div class="size-btn" data-res="hd">HD 1280x720</div>
+                        <div class="size-btn" data-res="fhd">FHD 1920x1080</div>
+                        <div class="size-btn" data-res="4k">4K 3840x2160</div>
                     </div>
-                </div>
-              </div>
-
-              <div class="tab-content" id="tab-render">
-                <div class="card">
-                    <span class="section-label">LIGHTING</span>
-
-                    <div
-                        style="font-size: 0.7rem; font-weight: bold; margin-bottom: 8px">
-                        EXPOSURE
+                    <div style="font-size:0.7rem; font-weight:bold; margin-top:4px;">FORMAT</div>
+                    <div class="screenshort-size-grid">
+                        <div class="size-btn selected" data-fmt="png">PNG</div>
+                        <div class="size-btn" data-fmt="jpeg">JPEG</div>
                     </div>
-
-                    <input 
-                        type="range"
-                        id="ui-light"
-                        min="0"
-                        max="2"
-                        step="0.1"
-                        value="1"  />
-
-                    <div style="font-size: 0.65rem; margin-top: 5px id=light-value">
-                        1.0x
-                    </div>    
-                </div>
-
-                <div class="card">
-                    <span class="section-label">BACKGROUND</span>
-
-                    <div class="preset-grid">
-                        <div class="preset-btn" data-bg-color="#ffffff">WHITE</div>
-                        <div class="preset-btn" data-bg-color="#000000">BLACk</div>
-                        <div class="preset-btn" data-bg-color="#e0e7ff">LIGHT</div>
-                        <div class="preset-btn" data-bg-color="#1a1c2c">DARk</div>
-                    </div>
-                </div>
-              </div>
-              
-              <div class="tab-content" id="tab-tools">
-                <div class="card">
-                    <span class="section-label">UTLITIES</span>
-
-                    <button
-                        class="action-btn"
-                        id="btn-center-model"
-                        style="width: 100%">
-                        CENTER MODEL
+                    <button class="action-btn" id="btn-screenshot-adv" style="width:100%; margin-top:6px;">
+                        CAPTURE NOW 
                     </button>
-
-                    <button
-                        class="action-btn"
-                        id="btn-scale-reset"
-                        style="width: 100%; margin-top: 5px">
-                        RESET SCALE
-                    </button>
+                    <div id="screenshot-status" style="font-size:0.62rem; color:var(--accent-primary); min-height:14px;"></div>
                 </div>
+            </div>
 
-                <div class="card">
-                    <span class="section-label">KEYBOARD SHORTCUTS</span>
-
-                    <div class="keyboard-shortcuts">
-                        <div class="shortcut-item">
-                            <span>HOME</span>
-                            <span class="key-badge">H</span>
-                            </div>
-
-                            <div class="shortcut-item">
-                                <span>X-RAY</span>
-                                <span class="key-badge">F</span>
-                                </div>
-
-                            <div class="shortcut-item">
-                                <span class="key-badge">S</span>
-                                </div>
-                             
-                            <div class="shortcut-item">
-                                <span class="key-badge">D</span>
-                                </div>
-
-                            <div class="shortcut-item">
-                                <span>STATS PANEL</span>
-                                <span class="key-badge">I</span>
-                            </div>   
-                        </div>
+            <div class="card">
+                <span class="section-label">CROSS SECTION</span>
+                <div class="cross-section-controls">
+                    <div class="axis-selector">
+                        <div class="axis-btn active" data-axis="x">X</div>
+                        <div class="axis-btn" data-axis="y">Y</div>
+                        <div class="axis-btn" data-axis="z">Z</div>
                     </div>
+                    <div class="slider-row">
+                        <div class="slider-label-row">
+                            <span>CLIP POSITION</span>
+                            <span id="clip-pos-val">0</span>
+                        </div>
+                        <input type="range" id="clip-slider" min=" -200" max="200" step="1" value="0" />
+                    </div>
+                    <button class="action-btn" id="btn-clip-toggle" style="width:100%">ENABLE CLIP</button>
+                    <button class="action-btn" id="btn-clip-reset" style="width:100%; margin-top: 4px;">RESET CLIP</button>
                 </div>
+            </div>
 
-                <div class="tab-content" id="tab-camera">
-                    <div class="card">
-                        <span class="section-label">CAMERA PRESETS</span>
-                        <div class="camera-preset-grid">
-                            <div class="cam-btn" data-cam="front">FRONT</div>
-                            <div class="cam-btn" data-cam="back">BACK</div>
-                            <div class="cam-btn" data-cam="left">LEFT</div>
-                            <div class="cam-btn" data-cam="right">RIGHT</div>
-                            <div class="cam-btn" data-cam="top">TOP</div>
-                            <div class="cam-btn" data-cam="bottom">BOTTOM</div>
-                            <div class="cam-btn" data-cam="iso">ISO</div>
-                            <div class="cam-btn" data-cm="iso2">ISO 2</div>
-                            <div class="cam-btn" data-cam="iso3">ISO 3</div>
-                        </div>
-                    </div>
-
-                    <div class="card">
-                        <span class="section-label">AUTO ROTATION</span>
-                        <div class="slider-row">
-                            <div class="slider-label-row">
-                                <span>SPEED</span>
-                                <span id="spin-speed-val">0.5</span>
-                            </div>
-                            <input type="range" id="spin-speed" min="0.1" max="3" step="0.1" value="0.5" />
-                            </div>
-                            <button class="action-btn" id="btn-auto-spin" style="width:100%; margin-top:8px;">
-                                START AUTO SPIN
-                            </button>
-                        </div>
-
-                        <div class="card">
-                            <span class="section-label">MANUAL ROTATION</span>
-                            <div class="rotation-grid">
-                                <div class="rotation-btn" data-rot="x-" >-X</div>
-                                <div class="rotation-btn" data-rot="x0" >CTR X</div>
-                                <div class="rotation-btn" data-rot="x+" >+X</div>
-                                <div class="rotation-btn" data-rot="y-" >-Y</div>
-                                <div class="rotation-btn" data-rot="y0" >CTR Y</div>
-                                <div class="rotation-btn" data-rot="y+" >+Y</div>
-                                <div class="rotation-btn" data-rot="z-" >-Z</div>
-                                <div class="rotation-btn" data-rot="z0" >CTR Z</div>
-                                <div class="rotation-btn" data-rot="z+" >+Z</div>
-                            </div>
-                        </div>
-                    </div>    
+            <div class="card">
+                <span class="section-label">SCALE MODEL</span>    
+                <div class="slider-row">
+                    <div class="slider-label-row">
+                    <span>SCALE</span>
+                    <span id="scale-val">1.0x</span>
+                </div>
+                <input type="range" id="scale-slider" min="0.1" max="5" step="0.05" value="1" />
+            </div>
+            <div style="display:flex; gap:5px; margin-top:6px;">
+                <button class="action-btn" style="flex:1;" id="btn-scale-half">0.5x</button>
+                <button class="action-btn" style="flex:1;" id="btn-scale-1">1x</button>
+                <button class="cation-btn" style="flex:1;" id="btn-scale-2">2x</button>
+            </div>    
+        </div>
+        
+        
+                </span>
+            </div>
+        </div>
 
 
                     </div>
