@@ -580,6 +580,11 @@ src="https://cdn.jsdelivr.net/gh/mrdoob/three.js@r128/examples/js/controls/Orbit
             cursor: pointer;
         }
 
+        .history-item:hover {
+            background: var(--accent-primary);
+            color: white;
+        }
+
         
     </style>
     </head>
@@ -705,6 +710,54 @@ src="https://cdn.jsdelivr.net/gh/mrdoob/three.js@r128/examples/js/controls/Orbit
                     RESET CAMERA
                 </button>
 
+                <button
+                  class="btn btn-small"
+                  id="btn-wireframe"
+                  style="width: 100%; margin-top: 5px">
+                  X-RAY MODE
+                </button>
+
+                <button
+                  class="btn btn-small"
+                  id="btn-fit"
+                  style="width: 100%; margin-top: 5px">
+                  FIT TO VIEW
+                </button>
+              </div>
+              
+              <div class="card">
+                <span class="section-label">MATERIAL COLOR</span>
+
+                <div style="display: flex; gap: 5px; margin-bottom: 10px">
+                    <input
+                      type="color"
+                      id="ui-color"
+                      value="#8b5cf6"
+                      style="
+                        border: 2px solid var(--border-color);
+                        cursor: pointer;
+                        width: 50px;
+                        height: 40px;
+                        " />
+
+                <button
+                    class="btn btn-small"
+                    id="btn-color-reset"
+                    style="flex: 1">
+                    RESET
+                </button>        
+                </div>
+
+                <div class="preset-grid">
+                    <div class="preset-btn" data-color="#8b5cfc">PURPEL</div>
+                    <div class="preset-btn" data-color="#ef4444">RED</div>
+                    <div class="preset-btn" data-color="#3b82f6">BLUE</div> 
+                    <div class="preset-btn" data-color="#10b981">GREEN</div>
+                    <div class="preset-btn" data-color="#f59e0b">ORANGE</div>
+                    <div class="preset-btn" data-color="#000000">BLACK</div>
+                    </div>
+                </div>
+              </div>
 
                 </span>
             </div>
