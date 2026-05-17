@@ -411,7 +411,7 @@ src="https://cdn.jsdelivr.net/gh/mrdoob/three.js@r128/examples/js/controls/Orbit
         
         .screenshot-flash {
             position: absolute;
-            insert: 0;
+            inset: 0;
             background: white;
             opacity: 0;
             pointer-events: none;
@@ -557,7 +557,7 @@ src="https://cdn.jsdelivr.net/gh/mrdoob/three.js@r128/examples/js/controls/Orbit
             padding: 8px;
             border: 2px dashed var(--border-color);
             background: var(--bg-app);
-            mini-height: 40px;
+            min-height: 40px;
             word-break: break-all;
         }
 
@@ -619,6 +619,40 @@ src="https://cdn.jsdelivr.net/gh/mrdoob/three.js@r128/examples/js/controls/Orbit
             color: white;
         }
 
+        .modal-overlay {
+            position : fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 5000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-overlay.show {
+            display: flex;
+        }
+
+        .modal-box {
+            background: var(--bg-sidebar);
+            border: var(--border-width) solid var(--border-color);
+            padding: 30px;
+            max-width: 480px;
+            width: 90%;
+            box-shadow: var(--hard-shadow);
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .modal-title {
+            font-size: 16px;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 18px;
+        }
         
     </style>
     </head>
@@ -827,6 +861,67 @@ src="https://cdn.jsdelivr.net/gh/mrdoob/three.js@r128/examples/js/controls/Orbit
                 </div>
               </div>
               
+              <div class="tab-content" id="tab-tools">
+                <div class="card">
+                    <span class="section-label">UTLITIES</span>
+
+                    <button
+                        class="action-btn"
+                        id="btn-center-model"
+                        style="width: 100%">
+                        CENTER MODEL
+                    </button>
+
+                    <button
+                        class="action-btn"
+                        id="btn-scale-reset"
+                        style="width: 100%; margin-top: 5px">
+                        RESET SCALE
+                    </button>
+                </div>
+
+                <div class="card">
+                    <span class="section-label">KEYBOARD SHORTCUTS</span>
+
+                    <div class="keyboard-shortcuts">
+                        <div class="shortcut-item">
+                            <span>HOME</span>
+                            <span class="key-badge">H</span>
+                            </div>
+
+                            <div class="shortcut-item">
+                                <span>X-RAY</span>
+                                <span class="key-badge">F</span>
+                                </div>
+
+                            <div class="shortcut-item">
+                                <span class="key-badge">S</span>
+                                </div>
+                             
+                            <div class="shortcut-item">
+                                <span class="key-badge">D</span>
+                                </div>
+
+                            <div class="shortcut-item">
+                                <span>STATS PANEL</span>
+                                <span class="key-badge">I</span>
+                            </div>   
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="tab-camera">
+                    <div class="card">
+                        <span class="section-label">CAMERA PRESETS</span>
+                        <div class="camera-preset-grid">
+                            <div class="cam-btn" data-cam="front">FRONT</div>
+                        </div>
+                    </div>
+                </div>
+                        </div>
+                    </div>
+                </div>
+              </div>
                 </span>
             </div>
         </div>
