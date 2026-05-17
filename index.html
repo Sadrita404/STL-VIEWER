@@ -722,10 +722,13 @@ src="https://cdn.jsdelivr.net/gh/mrdoob/three.js@r128/examples/js/controls/Orbit
             background: var(--aaent-primary);
             color: white;
         }
-        
+
+        .size-btn:hover {
+            background: var(--accent-primary);
+            color:white;
+        }      
     </style>
     </head>
-</html>
 
 <body data-theme="light">
     <div class="app-shell">
@@ -1008,6 +1011,22 @@ src="https://cdn.jsdelivr.net/gh/mrdoob/three.js@r128/examples/js/controls/Orbit
                                 START AUTO SPIN
                             </button>
                         </div>
+
+                        <div class="card">
+                            <span class="section-label">MANUAL ROTATION</span>
+                            <div class="rotation-grid">
+                                <div class="rotation-btn" data-rot="x-" >-X</div>
+                                <div class="rotation-btn" data-rot="x0" >CTR X</div>
+                                <div class="rotation-btn" data-rot="x+" >+X</div>
+                                <div class="rotation-btn" data-rot="y-" >-Y</div>
+                                <div class="rotation-btn" data-rot="y0" >CTR Y</div>
+                                <div class="rotation-btn" data-rot="y+" >+Y</div>
+                                <div class="rotation-btn" data-rot="z-" >-Z</div>
+                                <div class="rotation-btn" data-rot="z0" >CTR Z</div>
+                                <div class="rotation-btn" data-rot="z+" >+Z</div>
+                            </div>
+                        </div>
+                    </div>    
 
 
                     </div>
