@@ -585,6 +585,40 @@ src="https://cdn.jsdelivr.net/gh/mrdoob/three.js@r128/examples/js/controls/Orbit
             color: white;
         }
 
+        .cross-section-controls {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .axis-selector {
+            display: flex;
+            gap: 5px;
+        }
+
+        .axis-btn {
+            flex: 1;
+            padding: 6px;
+            font-size: 9.92px;
+            border: 2px solid var(--border-color);
+            background: var(--bg-color);
+            color: var(--text-main);
+            cursor: pointer;
+            font-weight: bold;
+            text-transform: uppercase;
+            text-align: center;
+        }
+
+        .axis-btn.active {
+            background: var(--accent-primary);
+            color: white;
+        }
+
+        .axis-btn:hover {
+            background: var(--accent-primary);
+            color: white;
+        }
+
         
     </style>
     </head>
@@ -759,6 +793,40 @@ src="https://cdn.jsdelivr.net/gh/mrdoob/three.js@r128/examples/js/controls/Orbit
                 </div>
               </div>
 
+              <div class="tab-content" id="tab-render">
+                <div class="card">
+                    <span class="section-label">LIGHTING</span>
+
+                    <div
+                        style="font-size: 0.7rem; font-weight: bold; margin-bottom: 8px">
+                        EXPOSURE
+                    </div>
+
+                    <input 
+                        type="range"
+                        id="ui-light"
+                        min="0"
+                        max="2"
+                        step="0.1"
+                        value="1"  />
+
+                    <div style="font-size: 0.65rem; margin-top: 5px id=light-value">
+                        1.0x
+                    </div>    
+                </div>
+
+                <div class="card">
+                    <span class="section-label">BACKGROUND</span>
+
+                    <div class="preset-grid">
+                        <div class="preset-btn" data-bg-color="#ffffff">WHITE</div>
+                        <div class="preset-btn" data-bg-color="#000000">BLACk</div>
+                        <div class="preset-btn" data-bg-color="#e0e7ff">LIGHT</div>
+                        <div class="preset-btn" data-bg-color="#1a1c2c">DARk</div>
+                    </div>
+                </div>
+              </div>
+              
                 </span>
             </div>
         </div>
