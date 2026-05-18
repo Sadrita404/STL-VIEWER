@@ -1155,6 +1155,165 @@
 </main>
 </div>
 
+<div class="modal-overlay" id="stats-modal">
+  <div class="modal-box">
+    <div class="modal-title">FULL MODEL REPORT</div>
+    <div id="modal-ststs-content" style="display:flex;flex-direction:column;gap:4px;"></div>
+    <button class="modal-close-btn" id="modal-close">CLOSE</button>
+  </div>  
+</div>
+
+<script>
+  const DENSITY_PLA = 1.24;
+  const PRINT_SPEED =50;
+
+  let scene;
+  let camera;
+  let render;
+  let controls;
+  let mesh;
+  let light;
+  let frameCount = 0;
+  let lastFrameTime = Date.now();
+  let modelBounds = {
+    min: new THREE.Vector3(),
+    max: new THREE.Vector3(),
+  };
+
+  function init() {
+    scene = new THREE.Scene();
+    scene.background = new THREE.Color(0xffffff);
+
+    const viewport = document.getElementById("viewport");
+
+    camera = new THREE.PerspectiveCamera(
+      45,
+      viewport.clientwidth / viewport.clientHeight,
+      1,
+      10000
+    );
+
+    renderer = new THREE.WebGLRender({
+      antialias: true,
+      preserveDrawingBuffer: true,
+    });
+
+    renderer.setSize(viewport.clientWidth, viewport.clientHeight);
+    renderer.setPixelRatio(window.devicePixelRatio);
+
+    viewport.appendChild(renderer.domElement);
+
+    const grid = new THREE.GridHelper(500, 20, 0x8b5cf6, 0xe2e8f0);
+
+    scene.add(grid);
+
+    const ambientLightv= new THREE.HeisphereLight(
+      0xffffff,
+      0x444444,
+      1
+    );
+
+    scene.add(ambientLight);
+
+    light = new THREE.DirectionalLight(0xffffff, 1);
+
+    light.position.set(200, 400, 300);
+
+    scene.add(light);
+
+    controls = new THREE.OrbitControls(
+      camera,
+      renderer.domElement
+    );
+
+    controls.enableDamping = true;
+
+    resetCamera();
+
+    window.addEventListener("resize" , onResize);
+
+    document.addEventListener("keydown" , handleKeypress);
+
+    setupEvents();
+
+    setupAdvancedEvents();
+
+    animate();
+  }
+
+  function setupEvents() {
+    document 
+      .getElementById("theme-toggle")
+      .addEventListener("change", (e) => {
+        document.body.setAttribute(
+          "data-theme",
+          e.target.checked ? "dark" : "light" 
+        );
+
+        scene.background = new THREE.Color(
+          e.target.checked ? 0x000000 : 0xffffff
+        );
+      });
+      
+      document.querySelectorAll(".tab-button").foEach((btn)) => {
+        btn.addEventListener("click" , () => {
+          document
+            .querySelectorAll(".tab-button")
+            .forEach((b) => b.classList.remove("active"));        
+
+          document
+            .querySelectorAll(".tab-content")
+            .forEach((c) => c.classList.remove("active"));
+
+        btn.classList.add("active");
+        
+        document
+          .getElementById(`tab-${btn.daraset.tab}`)
+          .classList.add('active');
+        });
+      });  
+    
+      document.getElementById("drop-zone").onclick = () => {
+        document.getElementById("file-input").click();
+      };
+
+      document.getElementById("file-input").onchange = handleFileSelect;
+
+      document
+        .getElementById("viewport")
+        .addEventListener("dragover" , (e) => {
+          e.preventDefault();
+        });
+
+        document
+          .getElementById("viewport")
+          .addEventListener("drop", (e) => {
+            e.preventDefault();
+
+            if (e.datafransfer.files[0]) {
+              const input = document.getElementById("file-input");
+
+              input.files = e.dataTransfer.files;
+
+              handelFilesSelect({ target: input });
+            }
+          });
+
+          document.getElementById("btn-home").onclick = resetCamera;
+
+          document.getElementById("btn-fit").onclick = fitModelToView;
+
+          document.getElementById("btn-wireframe").onclick = (e) => {
+            if (!mesh) return;
+
+            mesh.material.wireframe = !mesh.material.wireframe;
+
+            e.target.classList.toggle("btn-selected");
+
+            updateHUD();
+          };
+          
+    </script>
 
             </div>
         </div>
@@ -1172,4 +1331,4 @@
         </div>
         </aside>
     </div>
-</body>
+  </body>
