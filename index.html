@@ -1312,7 +1312,213 @@
 
             updateHUD();
           };
+
+          document.getElementById("ui-color").oniput = (e) => {
+            if (mesh) {
+              mesh.material.color.set(e.target.value);
+            }
+          };
+
+          document.getElementById("btn-color-reset").onclick = () => {
+            document.getElementById("ui-color").value = "#8b5cf6";
+
+            if (mesh) {
+              mesh.material.color.set("#8b5cf6");
+            }
+          };
+
+          document.querySelectorAll("[data-color]").forEach((btn) => {
+            btn.onclick = () => {
+              const color = btn.datset.color;
+
+              document.getElementById("ui-color").value =color;
+
+              if (mesh) {
+                mesh.material.color.set(color);
+              }
+            };
+          });
+
+          document.getElementById("ui-light").oniput = (e) => {
+            light.intensity = parseFloat(e.target.value);
+
+            document.getElementById("light-value").innerText = 
+              e.target.value + "x";
+          };
+
+          docuemnt.getElementById("[data-bg-color]").forEach((btn) => {
+            btn.onclick = () => {
+              sccen.background = new THREE.Color(btn.dataset.bgColor);
+            };
+          });
+
+          document.getElementById("btn-scale-reset").onclick = () => {
+            if (mesh) {
+              mesh.position.set(0, 0, 0);
+            }
+          };
+
+          document.getElementById("btn-scale-reset").onclick = () => {
+            if (mesh) {
+              mesh.scale.set(1, 1, 1);
+              document.getElementById("scale-slider").value =1;
+              document.getElementById("scale-val").innerText = "1.0x"
+            }
+          };
+        }
+
+        function handleFileSelect(e) {
+          const file = e.target.files[0];
+
+          if (!file) return;
+
+          showLoadingOverlay(true);
+
+          const renser = new FileRender();
+
+          render.onload = (event) => {
+            const loader = new THREE.STLLoader();
+
+            loader.load(event.target.result, (geometry) => {
+              createMesh(geometry, file.name);
+
+              showLoadingOverlay(false);
+
+              addToHistory(file.name, file.size);
+            });
+          };
+
+          reader.readAsDataURL(file);
+        }
+
+        function createMesh(geometry, fileName) {
+          if(mesh) {
+            scene.remove(mesh);
+          }
+
+          const material = new THREE.MeshPhongMaterial({
+            color: document.getElementById("ui-color").value,
+            shininess: 40,
+            side: THREE.DoubleSide,
+          });
+
+          mesh = new THREE.mesh(geometry, material);
+
+          geometry.computerBoundingBox();
+
+          const center = new THREE.Vector3();
+
+          geometry.boundingBox.getCenter(center);
+
+          mesh.position.set(-center.x, -center.y, -center.z);
+
+          scene.add(mesh);
+
+          modelBounds.min.copy(geometry.boundingBox.min);
+
+          modeBounds.max.copy(geometry.boundingBox.max);
+
+          calculateStats(geometry);
+
+          document.getElemntById("info-name").innerText =
+            filename.toUpperCase();
+
+          document.getElementById("info-type").innerText =
+            "FILE_TYPE: STL";
+
+          document.getElementById(
+            "info-timestamp"
+          ).innerText = `LOADED: ${new Date().toLocalTimeString()}` ;
+
+          fitModelToView();
+
+          updateHUD();
+
+          document.getElementById("viewport-hud").classList.add("show");
+
+          showToast("MODEL LOADED: " + fileName.toUpperCase());
+        }
+
+        function calculateStats(geometry) {
+          let volume = 0;
+
+          let area = 0;
+
+          const pos = geomenty.attributes.position;
+
+          for (let i = 0; i < pos.count; i += 3) {
+            const v1 = new THREE.Vector3().fromBufferAttribute(pos, i);
+
+            const v2 = new THREE.Vector3().fromBufferAttribute(pos, i + 1);
+
+            const v3 = new THREE.Vector3().fromBufferAttribute(pos, i + 2);
+
+            volume += v1.dot(v2.cross(v3)) / 6;
+
+            const edge1 = new THREE.Vector3().subVectors(v2, v1);
+
+            const edge2 = new THREE.Vector3().subVectors(v3, v1);
+
+            const cross = new THREE.Vector3().crossVector(edge1, edge2);
+
+            area += cross.length() / 2;
+          }
+
+          volume = Math.abs(Volume) / 1000;
+
+          area /= 100;
+
+          const weight = volume * 0.2 * DENSITY_PLA;
+
+          const size = new THREE.Vector3();
+
+          geometry.boundingBox.getSize(size);
+
+          const diagonal = new Three.Vector3()
+          .subVectors(
+            geometry.boundingBox.max,
+            geometry.boundingBox.min,
+          )
+          .length();
+
+        const  printTime = (volume * 1000) / (PRINT_SPEED * 60);
+
+        const hours = Math.floor(printTime);
+
+        const minutes = Math.round((printTime - hours) * 60);
+
+        document.getElementById("val-weight").innerText =
+          weight.toFixed(2) + "G";
+
+        document.getElementById("val-vol").innerText =
+          volume.toFixed(1) + "CM³";
+
+        document.getElementById("val-area").innerText =
+          area.toFixed(1) + "CM²" ;
+
+        document.getElementById("val-tris").innerText = (
+          pos.count / 3
+        ).toLocaleString();
+
+        document.getElementById("val-time").innerText = 
+          `${hours}H ${minutes}M` ;
+
+        document.getElementById("dim-x").innerText = 
+          Math.round(size.x) + " MM";
           
+        document.getElementById("dim-y").innerText = 
+          Math.round(size.y) + " MM";
+          
+        document.getElementById("dim-z").innerText = 
+          Math.round(size.z) + " MM";
+
+        document.getElementById("dim-diag").innerText =
+          Math.round(diagonal) + " MM";
+
+        currentStats = { volume, area, weight, hour, minutes, siz, diagonal, triCount:pos.count / 3 };  
+        }
+
+        
     </script>
 
             </div>
