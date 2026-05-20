@@ -1518,6 +1518,214 @@
         currentStats = { volume, area, weight, hour, minutes, siz, diagonal, triCount:pos.count / 3 };  
         }
 
+        function resetCamera() {
+          camera.position.set(250, 250, 250);
+
+          controls.target.set(0, 0, 0);
+
+          controls.update();
+        }
+
+        function fitModelToView() {
+          if (!mesh) return;
+
+          const size = new THREE.Vector3().subVectors(
+            modelBounds.max,
+            modelBounds.min
+          );
+
+          const maxDim = Math.max(size.x, size.y, size.z);
+
+          const fov = camera.fov * (Math.PI / 180);
+
+          let cameraZ = Math.abs(maxDim / 2 / Math.tan(fov / 2));
+
+          cameraZ *= 1.5;
+
+          camera.position.z = cameraZ;
+
+          controls.update();
+        }
+
+        function updateHUD() {
+          if (!mesh) return;
+
+          document.getElementById("hud-tris").innerText = 
+            mesh.geometry.attributes.position.count / 3;
+
+          document.getElementById(
+            "hud-camera"
+          ).innerText = `${camers.position.x.toFixed(
+            0
+          )},${camera.position.y.toFixed(
+            0
+          )},${camera.position.z.toFixed(0)}`
+
+          document.getElementById("hud-mode").innerText = 
+            mesh.material.wireframe ? "X-RAY" : "SOLID";
+
+          document.getElementById("hud-spin").innerText = autoSpinActive ? "ON" : "OFF";  
+        }
+
+        function animate() {
+          requestAnimationFrame(animate);
+
+          controls.update();
+
+          if (autoSpinActive && mesh) {
+            const speed = parseFloat(document.getElementById("spin-speed").value);
+            mesh.rotation.y += 0.005 * speed;
+          }
+
+          frameCount++;
+
+          const now = Date.now();
+
+          if (now - lastFrameTime >= 1000) {
+            document.getElementById("hud-fps").innerText = 
+              frameCount;
+
+            frameCount = 0;
+            
+            lastFrameTime = now;
+          }
+
+          render.render(scene, camera);
+        }
+
+        function onResize() {
+          const viewport = document.getElementById("viewport");
+
+          camera.aspect = 
+            viewport.clientWidth / viewport.clientHeight;
+
+          camera.updateProjectionMatrix();
+          
+          render.setSize(
+            viewport.clientWidth,
+            viewport.clientHeight,
+          );
+        }
+
+        function showLoadingOverlay(show) {
+          const overlay = document.getElementById(
+            "loading-overlay"
+          );
+
+          if (show) {
+            overlay.classList.add("show");
+          } else {
+            overlay.classList.remove("show");
+          }
+        }
+
+        function takeScreenshot() {
+          triggerFlash();
+          renederer.render(scene, camera);
+          const image = renderer.document.toDataURL("image/ping");
+          const link = document.createElement("a");
+          link.herf = image;
+          link.download = `precision3d-${Date.now()}.png`;
+          link.click();
+          showToast("SCREENSHOT SAVED")
+        }
+
+        function handleKeypress(e) {
+          if (e.key.toLowerCase() === "h") {
+            resetCamera();
+          }
+
+          if (e.key.toLowerCase() === "x") {
+            document.getElementById("btn-wireframe").click();
+          }
+
+          if (e.key.toLowerCase() === "f") {
+            fitModelToView();
+          }
+
+          if (e.key.toLowerCase() === "s") {
+            takeScreenshot();
+          }
+
+          if (e.key.toLowerCase() === "r") {
+            toggleAutoSpin();
+          }
+          
+          if (e.key.toLowerCase() === "a" && mesh) {
+            mesh.rotation.y -= 0.1;
+          }
+
+          if (e.key.toLowerCase() === "d" && mesh) {
+            mesh.rotation.y += 0.1;
+          }
+
+          if (e.key.toLowerCase() === "1") {
+            const hud = document.getElementById("viewport-hud");
+            hud.classList.toggle("show");
+          }
+        }
+
+        let autoSpinActive = false;
+        let selectedResolution = "viewport";
+        let selectedFormat = "png";
+        let clipEnabled = false;
+        let clipAxis = "x";
+        let clippingPlane = null;
+        let fileHistory = [];
+        let currentStats = {};
+
+        function setupAdvancedEvents() {
+          document.querySelectorAll("[data-cam]").forEach(btn) => {
+            btn.addEventListener("click", () => {
+              applyCameraPreset(btn.dataset.cam);
+            });
+          });
+
+
+        function exportTextReport() {
+          if (!currentStats || Object.keys(currentStats).length === 0) {
+            showToast("NO MODEL LOADED");
+            return;
+          }
+
+          const fileName = document.getElementById("info-name").innerText;
+          const timestamp = document.getElementById("info-timestamp").innerText;
+          const lines = [
+            "========================================",
+            "       PRECISION3D - MODEL REPORT       ",
+            "========================================",
+            "",
+            "FILE: " + fileName,
+            timestamp,
+            "GENERATED: " + new Date().toLocaleString(),
+            "",
+            "--- DIMENSIONS ---",
+            "X: " + document.getElementById("dim-x").innerText,
+            "Y: " + document.getElementById("dim-y").innerText,
+            "Z: " + document.getElementById("dim-z").innerText,
+            "DIAGONAL: " + document.getElementById("dim-diag").innerText,
+            "",
+            "--- MODEL STATS ---",
+            "VOLUME: " + document.getElementById("val-vol").innerText,
+            "SURFACE AREA: " + document.getElementById("val-area").innerText,
+            "WEIGHT (PLA): " + document.getElementById("val-weight").innerText,
+            "TRIANGLES: " + document.getElementById("val-tris").innerText,
+            "EST. PRINT TIME: " + document.getElementById("val-time").innerText,
+            "",
+            "--- NOTES ---",
+            "Density used: PLA @ 1.24 g/cm³"
+            "Print speed estimate: 50m/s",
+            "",
+            "========================================",
+            "        Generated By Precision3D        ",
+            "        By Sadrita Neogi(HackClub)      ",
+            "========================================="
+          ];
+        }
+
+
+
+
         
     </script>
 
