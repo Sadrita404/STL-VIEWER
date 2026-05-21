@@ -1789,6 +1789,49 @@
           });
         }  
 
+        function applyCameraPreset(preset) {
+          if (!mesh) return;
+
+          const size = new THREE.Vector3().subVectors(modelBounds.max, modalBounds.min);
+          const maxDim = Math.max(size.x, sixe.y, size.z);
+          const fov = camera.fov * (Math.PI / 180);
+          const dist = Math.abs(maxDim / 2 / Math.tan(fov / 2)) * 1.5;
+
+          const presets = {
+            font:   [],
+            back:   [],
+            left:   [],
+            right:  [],
+            top:    [],
+            bottom:   [],
+            ios:  [],
+            ios1:   [],
+            ios2:   [], 
+          };
+
+          const pos = presets[preset];
+          if (!pos) return;
+
+          camera.postion.set(pos[0], pos[1], pos[2]);
+          controls.target.set(0, 0, 0);
+          controls.update();
+
+          showToast("CAMERA: " + preset.toUpperCase());
+          updateHUD();
+        }
+
+        function toggleAutoSpin() {
+          autoSpinActive = !autoSpinActive;
+          const btn = document.getElementById("btn-auto-spin");
+          btn.innerText = autoSpinActive ? "STOPP AUTO SPIN" : "START AUTO SPIN";
+          if (autoSpinActive) {
+            btn.classList.add("btn-selected");
+            showToast("AUTO SPIN: ON");
+          } else {
+            showToast("AUTO SPIN: OFF")
+          }
+          updateHUD()
+        }
 
 
         function exportTextReport() {
@@ -1869,7 +1912,7 @@
         ["PRINT SPEED", "50 MM/S"],
         ];
 
-
+        
 
 
         
