@@ -1833,6 +1833,19 @@
           updateHUD()
         }
 
+        function applyManualRotation(code) {
+          if (!mesh) return;
+          const step = Math.PI / 12;
+          if (code === "x+") mesh.rotation.x += step;
+          if (code === "x-") mesh.rotation.x -= step;
+          if (code === "x0") mesh.rotation.x = 0;
+          if (code === "y+") mesh.rotation.y += step;
+          if (code === "y-") mesh.rotation.y -= step;
+          if (code === "y0") mesh.rotation.y = 0;
+          if (code === "z+") mesh.rotation.z += step;
+          if (code === "z-") mesh.rotation.z -= step;
+          if (code === "z0") mesh.rotation.z = 0;
+        }
 
         function exportTextReport() {
           if (!currentStats || Object.keys(currentStats).length === 0) {
