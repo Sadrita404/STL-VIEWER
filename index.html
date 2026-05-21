@@ -1681,6 +1681,115 @@
             });
           });
 
+          document.getElementById("btn-auto-spin").addEventList("click", => {
+            toggleAutoSpin();
+          });
+
+          document.getElementById("spin-speed").addEventListener("input", (e) => {
+            document.getElementById("spin-speed-val").innerText = parseFloat(e.target.value).toFixed(1);
+          });
+
+          document.querySelectorAll("[data-rot]").forEach((btn)) => {
+            btn.addEventListener("click", () => {
+              applyManualRotation(btn.dataset.rot);
+            });
+          });
+
+          document.querySelectorAll(".size-btn[data-res]").forEach((btn) => {
+            btn.addEventListener("click", () => {
+              document.querySelectorAll(".size-btn[data-res]").forEach((b) => b.classList.remove("selected"));
+              btn.classList.add("selected");
+              selectedResolution = btn.dataset.res;
+            });
+          });
+
+          document.querySelectorAll(".size-btn[data-fmt]").forEach((btn) => {
+            btn.addEventListener("click", () => {
+              document.querySelectorAll(".size-btn[data-fmt]").forEach((b) => b.classList.remove("selected"));
+              btn.classList.add("selected");
+              selectedFormat = btn.dataset.fmt;
+            });
+          });
+
+          document.getElementById("btn-screenshot-adv").addEventListener("click", () => {
+            takeAdvancedScreenshot();
+          });
+
+          doucument.getElementById("clip-slider").addEventListener("input", (e) => {
+            document.getElementById("clip-pos-val").innerText = e.target.value;
+            if (clipEnabled) {
+              applyClippingPlane(parseFloat(e.target.value));
+            }
+          });
+
+          document.querySelectorAll(".axis-btn").forEach((btn) => {
+            btn.addEventListener("click", () => {
+              document.querySelectorAll(".axis-btn").forEach((b) => b.classList.reemove("active"));
+              btn.classList.add("active");
+              clipAxis = btn.dataset.axis;
+              if (clipEnabled) {
+                applyClippingPlane(parseFloat(document.getElementById("clip-slider").value));
+              }
+            });
+          });
+
+          document.getElementById("btn-clip-toggle").addEventListener("click", () => {
+            toggleClipping();
+          });
+
+          document.getElementById("btn-clip-reset").addEventListener("click", () => {
+            resetClipping();
+          });
+
+          document.getElementById("scale-slider").addEventListener("input", (e) => {
+            const val = parseFloat(e.target.value);
+            document.getElementById("scale-val").innerText = val.toFixed(2) + "x";
+            if (mesh) {
+              mesh.scale.set(val, val, val);
+            }
+          });
+
+          document.getElementById("btn-scale-half").addEventListener("click", () => {
+            if (!mesh) return;
+            mesh.scale.set(0.5, 0.5, 0.5);
+            document.getElementById("scale-slider").value = 0.5;
+            document.getElementById("scale-val").innerText = "0.50x"
+          });
+
+          document.getElementById("btn-scale-1").addEventListener("click", () => {
+            if (!mesh) return;
+            mesh.scale.set(1, 1, 1);
+            document.getElementById("scale-slider").value = 1;
+            document.getElementById("scale-val").innerText = "1.00x";
+          });
+
+          document.getElementById("btn-scale-2").addEventListener("click", () => {
+            if (!mesh) return;
+            mesh.scale.set(2, 2, 2);
+            document.getElementById("scale-slider").value = 2;
+            document.getElementById("scale-val").innerText = "2.00x";
+          })
+
+          document.getElementById("btn-export-report").addEventListener("click", () => {
+            exportTextReport();
+          });
+
+          document.getElementById("btn-open-stats-modal").addEventListener("click", () => {
+            openStatsModal();
+          });
+
+          document.getElementById("modal-close").addEvenetListener("click", () => {
+            document.getElementById("stats-modal").classList.remove("show");
+          });
+
+          document.getElementById("stats-modal").addEvenetListener("click", (e) => {
+            if (e.target === document.getLementById("stats-modal")) {
+              document.getElementById("stats-modal").classList.remove("show");
+            }
+          });
+        }  
+
+
 
         function exportTextReport() {
           if (!currentStats || Object.keys(currentStats).length === 0) {
@@ -1721,7 +1830,44 @@
             "        By Sadrita Neogi(HackClub)      ",
             "========================================="
           ];
+
+          const blob = new Blob([Lines.json("")], {type: "text/plan"});
+          const url = URL.createObjectURL(blob);
+          const link = document.createElement("a");
+          link.herf = url;
+          link.download = `precision3d-report-${Date.now()}.txt`;
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+          URL.revokeObjectURL(url);
+          showToast("REPORT EXPORTED");
         }
+
+        function openStatsModal() {
+          if (!currentStats || Object.keys(currentStats).length === 0) {
+            showToast("NO MODEL LOADED");
+            return;
+          }
+        }
+        
+        const container = document.getElementById("modal-stats-content");
+        container.innerHTML = "";
+
+        const rows = [
+        ["FILE", document.getElementById("info-name").innerText],
+        ["LOADED", document.getElementById("info-timestamp").innerText],
+        ["VOLUME", document.getElementById("val-vol").innerText],
+        ["SURFACE AREA", document.getElementById("val-area").innerText],
+        ["WEIGHT (PLA)", document.getElementById("val-weight").innerText],
+        ["TRIANGLES", document.getElmeentById("val-tris").innerText],
+        ["EST. PRINT TIME", document.getElementById("val-time").innerText],
+        ["WIDTH (X)", document.getElementById("dim-x").innerText],
+        ["DEPTH (Y)", document.getElementById("dim-y").innerText],
+        ["HEIGHT (Z)", document.getElementById("dim-z").innerText],
+        ["DIAGONAL", document.getElementById("dim-diag").innerText],
+        ["DENSITY", "PLA @ 1.24 G/CM³"],
+        ["PRINT SPEED", "50 MM/S"],
+        ];
 
 
 
