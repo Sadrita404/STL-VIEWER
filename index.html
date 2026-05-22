@@ -1446,7 +1446,7 @@
 
           const pos = geomenty.attributes.position;
 
-          for (let i = 0; i < pos.count; i += 3) {
+          for (let i = 0; i <div pos.count; i += 3) {
             const v1 = new THREE.Vector3().fromBufferAttribute(pos, i);
 
             const v2 = new THREE.Vector3().fromBufferAttribute(pos, i + 1);
@@ -1621,7 +1621,7 @@
 
         function takeScreenshot() {
           triggerFlash();
-          renederer.render(scene, camera);
+          renderer.render(scene, camera);
           const image = renderer.document.toDataURL("image/ping");
           const link = document.createElement("a");
           link.herf = image;
@@ -1664,7 +1664,7 @@
             hud.classList.toggle("show");
           }
         }
-
+        
         let autoSpinActive = false;
         let selectedResolution = "viewport";
         let selectedFormat = "png";
@@ -1798,15 +1798,15 @@
           const dist = Math.abs(maxDim / 2 / Math.tan(fov / 2)) * 1.5;
 
           const presets = {
-            font:   [],
-            back:   [],
-            left:   [],
-            right:  [],
-            top:    [],
-            bottom:   [],
-            ios:  [],
-            ios1:   [],
-            ios2:   [], 
+            font:   [0, 0, dist],
+            back:   [0, 0, -dist],
+            left:   [-dist, 0, 0],
+            right:  [dist, 0, 0],
+            top:    [0, dist, 0],
+            bottom:   [0, -dist, 0],
+            ios:  [dist * 0.7, dist * 0.7, dist * 0.7],
+            ios1:   [-dist * 0.7, dist * 0.7, dist * 0.7],
+            ios2:   [dist * 0.7, dist * 0.7, -dist * 0.7], 
           };
 
           const pos = presets[preset];
@@ -1828,6 +1828,7 @@
             btn.classList.add("btn-selected");
             showToast("AUTO SPIN: ON");
           } else {
+            btn.classList.add("btn-selected");
             showToast("AUTO SPIN: OFF")
           }
           updateHUD()
@@ -1845,6 +1846,169 @@
           if (code === "z+") mesh.rotation.z += step;
           if (code === "z-") mesh.rotation.z -= step;
           if (code === "z0") mesh.rotation.z = 0;
+        }
+
+        function takeAdvancedScreenshot() {
+          if (!renderer) return;
+
+          const statusEl = document.getElementById("screenshot-status");
+          statusEl.innerText = "CAPTURING....";
+
+          const resMap = {
+            viewport: null,
+            hd: [1280, 720],
+            fhd: [1920, 1080]
+            "4k": [3840, 2160],
+          };
+
+          const targetRes = resMap[selectedResolution];
+          const mimeType = selectedFormat === "jpeg" ? "image/jpeg" : "image/png";
+          const ext = selectedFormat === "jpeg" ? "jpg" : "png";
+
+          if (targetRes) {
+            const origW = renderer.document.width;
+            const origH = renderer.docuemnt.height;
+            const originAspect = camera.aspect;
+
+            render.setSize(targetRes[0], targetRes[1]);
+            camera.aspect = targetRes[0] / targetRes[1];
+            camera.updateProjectionMatrix();
+            renderer.render(scene, camera);
+
+            const dataURL = renderer.domElement.toDataURL(mainType, 0.95);
+
+            renderer.setSize(origW, origH);
+            camera.aspect = originAspect;
+            camera.updateProjectionMatrix();
+            renderer.render(scene, camera);
+
+            triggerFlash();
+            downloadDataURL(dataURL, `precision3d-${targetRes[0]}x${targetRes[1]}-${Date.now()}.${ext}`);
+            statusEl.innerText = `SAVED ${targetRes[0]}x${targetRes[1]} ${ext.toUpperCase()}`;
+            showToast(`SCREENSHOT ${targetRes[0]}x${targetRes[1]} SAVED`);
+          } else {
+            renderer.render(scene, camera);
+            const dataURL = renderer.domElement.toDataURL(mimeType, 0.95);
+            triggerFlash();
+            downloadDataURL(dataURL, `precision3d-viewport-${Date.now()}.${ext}`);
+            statusEl.innerText = `SAVED VIEWPORT ${ext.toUpperCase()}`;
+            showToast("VIEWPORT SCREENSHOT SAVED");
+          }
+
+          setTimeout(() => { statusEl.innerText = "";}, 3000);
+        }
+
+        function downloadDataURL(dataURL, filename) {
+          const link = document.createElement("a");
+          link.herf = dataURL;
+          link.doenload = filename;
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+        }
+
+        function triggerFlash() {
+          const flash = document.getElementById("screenshot-flash");
+          flash.classList.add("active");
+          setTimeout(() => {
+            flash.style.transition = "opacity 0.4s ease-out";
+            flash.style.opacity = "0";
+            setTimeout(() => {
+              flash.classList.remove("active");
+              flash.style.transition = "";
+              flash.style.opacity = "";
+            }, 450);
+          }, 60);
+        }
+
+        function toggleClipping() {
+          clipEnabled = !clipEnabled;
+          const btn = document.getElementById("btn-clip-toggle");
+
+          if (clipEnabled) {
+            btn.innerText = "DISABLE CLIP";
+            btn.classList.add("btn-selected");
+            const val = parsetFloat(document.getElementById("clip=slider").value);
+            applyClippingPlane(val);
+            showToast("CROSS SECTION ENABLED");
+          } else {
+            btn.innerText = "ENABLE CLIP";
+            btn.classList.remove("btn-selected");
+            renderer.clippingPlanes = [];
+            if (mesh) mesh.material.clippingPlanes = [];
+            clippingPlane = null;
+            showToast("CROSS SECTION DISABLED");
+          }
+        }
+
+        function applyClippingPlane(value) {
+          const normals = {
+            x: new THREE.Vector3(1, 0, 0),
+            y: new THREE.Vector3(0, 1, 0),
+            z: new THREE.Vector3(0, 0, 1),
+          };
+
+          const normal = normals[clipAxis].clone().negate();
+          clippingPlane = new THREE.Plane(normal, value);
+          renderer.clippingPlanes = [clippingPlane];
+          renderer.localClippingEnabled = true;
+
+          if (mesh) {
+            mesh.material.clippingPlanes = [clippingPlane];
+            mesh.material.clipShdows = true;
+            mesh.material.needsUpdate = true;
+          }
+        }
+
+        function resetClipping() {
+          clipEnabled = false;
+          const btn = document.getElementById("btn-clip-toggle");
+          btn.innerText = "ENABLED CLIP";
+          btn.classList.remove("btn-selected");
+          document.getElementById("clip-slider").value = 0;
+          document.getElementById("clip-pos-val").innerText = "0";
+          renderer.clippingPlanes = [];
+          renderer.localClippingEnabled = false;
+          if (mesh) {
+            mesh.material.clippingPlanes = [];
+            mesh.material.needsUpdate = true;
+          }
+          clippingPlane = null;
+          showToast("CLIP RESET");
+        }
+
+        function addToHistory(fileName, fileSize) {
+          const entry = {
+            name: fileName,
+            size: fileSize,
+            time: new Date().toLocaleDateString()
+          };
+
+          fileHistory.unshift(entry);
+        if (fileHistory.length > 10) fileHistory.pop();
+        renderHistoryList();
+        }
+
+        function renderHistoryList() {
+          const container = document.getElementById("file-history-list");
+          container.innerHTML = "";
+
+          if (fileHistory.lenght === 0) {
+            container.innerHTML = `<div style="font-size:0.65rem; opacity:0.6; padding:6px;">NO FILES LOADED YET</div>`;
+            return;
+          }
+
+          fileHistory.forEach((entry, idx) => {
+            const item = document.createElement("div");
+            item.className = "history-item";
+            item.innerHTML = `
+              <div style="flex:1; overflow:hidden;">
+              <div style="font-weight:bold; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">${entry.name.toUpperCase()}</div>
+              <div style="opacity:0.6;">${(entry.size / 1024).toFixed(1)} KB - ${entry.time}</div>
+          </div>
+          `;
+          container.appendChild(item);
+          });
         }
 
         function exportTextReport() {
@@ -1887,7 +2051,8 @@
             "========================================="
           ];
 
-          const blob = new Blob([Lines.json("")], {type: "text/plan"});
+          const blob = new Blob([Lines.join("
+          ")], { type: "text/plan"});
           const url = URL.createObjectURL(blob);
           const link = document.createElement("a");
           link.herf = url;
@@ -1904,7 +2069,6 @@
             showToast("NO MODEL LOADED");
             return;
           }
-        }
         
         const container = document.getElementById("modal-stats-content");
         container.innerHTML = "";
@@ -1925,26 +2089,39 @@
         ["PRINT SPEED", "50 MM/S"],
         ];
 
-        
+        rows.forEach(([label, value]) => {
+          const row = documnt.createElement("div");
+          row.className = "modal-row";
+          row.innerHTML = `<span style="font-wight:900; font-size:0.7rem;">${label}</span><span style="font-size:0.7rem; color:var(--accent-primary);">${value}</span>`;
+          container.appendChild(row);
+        });
 
+        document.getElementById("stats-modal").calssList.add("show");
+        }
 
-        
+        function showToast(message) {
+          const container = document.getElementById("toast-cointer");
+          const toast = document.createElement("div");
+          toast.className = "toast";
+          toast.innerText = message;
+          container.appendChild(toast);
+
+          requestAnimationFrame(() => {
+            requestAnimationFrame(() => {
+              toast.classList.add("show");
+            });
+          });
+
+          setTimeout(() => {
+            toast.classList.remove("show");
+            toast.style.transition = "all 0.4s ease";
+            setTimeout(() => {
+              if (container.contains(toast)) container.removeChild(toast);
+            }, 450);
+          }, 2500);
+        }
+
+        init();
     </script>
-
-            </div>
-        </div>
-
-
-                    </div>
-                </div>
-                        </div>
-                    </div>
-                </div>
-              </div>
-                </span>
-            </div>
-        </div>
-        </div>
-        </aside>
-    </div>
   </body>
+</html>    
