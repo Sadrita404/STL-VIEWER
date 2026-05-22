@@ -61,6 +61,20 @@
         gap: 20px;
       }
 
+
+      .app-shell.fullscreen-mode {
+        grid-template-columns: 0px 1fr;
+        padding: 0;
+        gap: 0;
+      }
+      .app-shell.app-shell.fullscreen-mode .sidebar {
+        display: none;
+      }
+      .app-shell.fullscreen-mode .viewport-wrapper {
+        border: none;
+        box-shadow: none;
+      }
+
       .sidebar {
         background: var(--bg-sidebar);
         border: var(--border-width) solid var(--border-color);
@@ -727,6 +741,86 @@
         background: var(--accent-primary);
         color: white;
       }
+      
+      .zoom-controls {
+        position: absolute;
+        bottom: 15px;
+        right: 15px;
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        z-index: 100;
+      }
+
+      .zoom-btn {
+        width: 36px;
+        height: 36px;
+        background: rgba(0, 0, 0, 0.65);
+        color: white;
+        border: 2px solid var(--accent-primary);
+        font-size: 1.1rem;
+        font-weight: 900;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: background 0.15s;
+        font-family: monospace;
+      }
+
+      .zoom-btn:hover {
+        background: var(--accent-primary);
+      }
+
+      .fullscreen-btn {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        background: rgba(0, 0, 0, 0.65);
+        color: white;
+        border: 2px solid var(--accent-primary);
+        padding: 6px 10px;
+        font-size: 0.62rem;
+        font-weight: 900;
+        cursor: pointer;
+        font-family: monospace;
+        text-transform: uppercase;
+        z-index: 100;
+        transition: background 0.15s;
+      }
+
+      .fullscreen-btn:hover {
+        background: var(--accent-primary);
+      }
+      
+
+      .heat-legend {
+        position: absolute;
+        bottom: 15px;
+        left: 15px;
+        background: rgba(0, 0, 0, 0.75);
+        border: 1px solid var(--accent-primary);
+        padding: 8px 12px;
+        font-size: 0.6rem;
+        color: white;
+        font-family: monospace;
+        display: none;
+        z-index: 100;
+      }
+      .heat-legend.show { display: block;}
+      .heat-bar {
+        width: 120px;
+        height: 10px;
+        background: linear-gradient(to right, #0000ff, #00ffff, #00ff00, #ffff00, #ff0000);
+        border: 1px solid white;
+        margin-top: 4px;
+      }
+      .heat.labels {
+        display: flex;
+        justify-content: space-between;
+        font-size: 0.55rem;
+        margin-top: 2px;
+      }
     </style>
   </head>
 
@@ -734,7 +828,7 @@
     <a href="https://hackclub.com/"><img style="position: absolute; top: 0; left: 10px; border: 0; width: 82px; z-index: 999;" src="https://assets.hackclub.com/flag-orpheus-top.svg" alt="Hack Club"/></a>
     <a href="https://hackclub.com/"><img style="position: absolute; bottom: 0; left: 700px; border: 0; width: 91px; z-index: 999;" src="https://assets.hackclub.com/banners/2026.svg" alt="Hack Club"/></a>
     <div class="app-shell">
-      <aside class="sidebar">
+      <div class="sidebar">
         <div
           style="
             display: flex;
@@ -854,6 +948,9 @@
           </div>
         </div>
 
+        <button class="action-btn" id="btn-copy-stats" style="width:100%"> COPY STATS </button>
+      </div>
+
         <div class="tab-content" id="tab-controls">
           <div class="card">
             <span class="section-label">VIEWPORT</span>
@@ -875,6 +972,22 @@
               style="width: 100%; margin-top: 5px">
               FIT TO VIEW
             </button>
+
+
+            <button
+            class="btn btn-small"
+            id="btn-grid"
+            style="width: 100%; margin-top: 5px">
+            EDGE HIGHLIGHT
+          </button>
+
+
+          <button
+            class="btn btn-small"
+            id="btn-grid"
+            style="width: 100%; margin-top: 5px">
+            TOGGLE GRID
+          </button>
           </div>
 
           <div class="card">
@@ -909,9 +1022,22 @@
               <div class="preset-btn" data-color="#000000">BLACK</div>
             </div>
           </div>
-        </div>
 
-        <div class="tab-content" id="tab-render">
+
+        </div class="card">
+          <span class="section-label">OPACITY / TRANSPARENCY</span>
+          </div class="slider-row">
+            <div class="slider-label-row">
+              <span>OPACITY</span>
+            <span id="opacity-val">100%</span>  
+          </div>
+          <input type="range" id="opacity-slider" min="0.05" max="1" step="0.05" value="1" />
+        </div>
+        <button class="action-btn" id="btn-opacity-reset" style="width: 100%; margin-top:4px;">RESET OPACITY</button>  
+    </div>
+  </div>  
+
+    <div class="tab-content" id="tab-render">
           <div class="card">
             <span class="section-label">LIGHTING</span>
 
@@ -943,6 +1069,22 @@
               <div class="preset-btn" data-bg-color="#1a1c2c">DARK</div>
             </div>
           </div>
+
+
+          <div class="card">
+            <span class="section-label">VISUALISATION MODE</span>
+            <div class="preset-grid">
+              <div class="preset-btn" data-vis="normal">NORMAL</div>
+              <div class="preset-btn" data-vis="normals">NORMALS MAP</div>
+              <div class="preset-btn" data-vis="depth">DEPTH SHADE</div>
+              <div class="preset-btn" data-vis="heat">HEIGHT MAP</div>
+            </div>
+            <div id="heat-legend" class="heat-legend">
+              HEIGHT MAP
+              <div class="heat-bar"></div>
+              <div class="heat-labels"><span>LOW</span><span>HIGH</span></div>
+            </div>
+          </div>
         </div>
 
         <div class="tab-content" id="tab-tools">
@@ -962,6 +1104,13 @@
               style="width: 100%; margin-top: 5px">
               RESET SCALE
             </button>
+
+
+            <div style="display:flex; gap:5px; margin-top:5px">
+              <button class="action-btn" style="flex: 1;" id="btn-flip-x">FLIP X</button>
+              <button class="action-btn" style="flex: 1;" id="btn-flip-y">FLIP Y</button>
+              <button class="action-btn" style="flex: 1;" id="btn-flip-z">FLIP Z</button>
+            </div>
           </div>
 
           <div class="card">
@@ -1006,6 +1155,32 @@
               <div class="shortcut-item">
                 <span>STATS PANEL</span>
                 <span class="key-badge">I</span>
+              </div>
+
+
+              <div class="shortcuts-item">
+                <span>EDGE HIGHLIGHT</span>
+                <span class="key-badge">E</span>
+              </div>
+              <div class="shortcut-item">
+                <span>TOGGLE GRID</span>
+                <span class="key-badge">G</span>
+              </div>
+              <div class="shortcut-item">
+                <span>FULLSCREEN</span>
+                <span class="key-badge">P</span>
+              </div>
+              <div class="shortcut-item">
+                <span>ZOOM IN</span>
+                <span class="key-badge">+</span>
+              </div>
+              <div class="shortcut-item">
+                <span>ZOOM OUT</span>
+                <span class="key-badge">-</span>
+              </div>
+              <div class="shortcut-item">
+                <span>TABS 1-6</span>
+                <span class="key-badge">1-6</span>
               </div>
             </div>
           </div>
@@ -1153,6 +1328,26 @@
           </div>
           <div class="hud-item">MODE: <span id="hud-mode">NORMAL</span></div>
           <div class="hud-item">SPIN: <span id="hud-spin">OFF</span></div>
+
+          <div class="hud-item">OPACITY: <span id="hud-opacity">100%</span></div>
+          <div class="hud-item">VIS: <span id="hud-vis">NORMAL</span></div>
+        </div>
+
+
+        <button class="fullscreen-btn" id="btn-fullscreen"> FULLSCREEN [P]</button>
+
+
+        <div class="zoom-controls">
+          <button class="zoom-btn" id="btn-zoom-in" title="Zoom In (+)">+</button>
+          <button class="zoom-btn" id="btn-zoom-out" title="Zoom Out (-)">-</button>
+          <button class="zoom-btn" id="btn-zoom-fit" title="Fit to View (F)" style="font-size: 0.55rem; padding: 2px;">FIT</button>
+        </div>
+
+
+        <div class="heat-legend" id="heatmap-legend">
+          HEIGHT MAP
+          <div class="heat-bar"></div>
+          <div class="heat-labels"><span>LOW</span><span>HIGH</span></div>
         </div>
       </main>
     </div>
@@ -1182,6 +1377,14 @@
         max: new THREE.Vector3(),
       };
 
+
+      let gridHelper = null;
+      let edgeMesh = null;
+      let gridVisible = true;
+      let edgeVisible = false;
+      let currentVisMode = normal;
+      let originalMaterial = null;
+
       function init() {
         scene = new THREE.Scene();
         scene.background = new THREE.Color(0xffffff);
@@ -1205,9 +1408,8 @@
 
         viewport.appendChild(renderer.domElement);
 
-        const grid = new THREE.GridHelper(500, 20, 0x8b5cf6, 0xe2e8f0);
-
-        scene.add(grid);
+        gridHelper = new THREE.gridHelper(500, 20, 0x8b5cf6, 0xe2e8f0);
+        scene.add(gridHelper);
 
         const ambientLight = new THREE.HemisphereLight(
           0xffffff,
@@ -1239,6 +1441,8 @@
         setupEvents();
 
         setupAdvancedEvents();
+        
+        setupNewFeatureEvents();
 
         animate();
       }
@@ -1398,13 +1602,24 @@
           scene.remove(mesh);
         }
 
+
+        if (edgeMesh) {
+          scene.remove(edgeMesh);
+          edgeMesh = null;
+          edgeVisible = false;
+          document.getElementById("btn-edge").classList.remove("btn-selected");
+        }
+
         const material = new THREE.MeshPhongMaterial({
           color: document.getElementById("ui-color").value,
           shininess: 40,
           side: THREE.DoubleSide,
+          transparent: true,
+          opacity: parseFloat(document.getElementById("opacity-slider").value),
         });
 
         mesh = new THREE.Mesh(geometry, material);
+        originalMaterial = material;
 
         geometry.computeBoundingBox();
 
@@ -1439,6 +1654,11 @@
         document.getElementById("viewport-hud").classList.add("show");
 
         showToast("MODEL LOADED: " + fileName.toUpperCase());
+
+
+        if (currentVisMode !== "normal") {
+          applyVisMode(currentVisMode);
+        }
       }
 
       function calculateStats(geometry) {
@@ -1567,6 +1787,11 @@
           mesh.material.wireframe ? "X-RAY" : "SOLID";
 
         document.getElementById("hud-spin").innerText = autoSpinActive ? "ON" : "OFF";
+
+
+        const opVal = Math.round(mesh.material.opacity * 100);
+        document.getElementById("hud-opacity").innerText = opVal + "%";
+        document.getElementById("hud-vis").innerText = currentVisMode.toUpperCase();
       }
 
       function animate() {
@@ -1577,6 +1802,11 @@
         if (autoSpinActive && mesh) {
           const speed = parseFloat(document.getElementById("spin-speed").value);
           mesh.rotation.y += 0.005 * speed;
+
+          if (edgeMesh) {
+            edgeMesh.rotation.copy(mesh.rotation);
+            edgeMesh.position.copy(mesh.position);
+          }
         }
 
         frameCount++;
@@ -1665,7 +1895,29 @@
           const hud = document.getElementById("viewport-hud");
           hud.classList.toggle("show");
         }
+
+
+        if (e.key.toLowerCase() === "e") {
+          document.getElementById("btn-edge").click();
+        }
+
+        if (e.key.toLowerCase() === "g") {
+          document.getElementById("btn-grid").click();
       }
+
+      if (e.key.toLowerCase() === "p") {
+          toggleFullscreen();
+      }    
+
+      if (e.key === "+" || e.key === "=") {
+        zoomCamera(-0.15);
+      }
+
+      if (e.key === "-") {
+        zoomCamera(0.15);
+      }
+
+      
 
       let autoSpinActive = false;
       let selectedResolution = "viewport";
