@@ -1053,435 +1053,435 @@
               <div class="rotation-btn" data-rot="z+" >+Z</div>
             </div>
           </div>
-        </div>    
+        </div>
 
         <div class="tab-content" id="tab-advanced">
-            <div class="card">
-                <span class="section-label">SCREENSHOT</span>
-                <div class="screenshot-panel">
-                    <div style="font-size:0.7rem; font-weight:bold;">RESOLUTION</div>
-                    <div class="screenshot-size-grid">
-                        <div class="size-btn selected" data-res="viewport">VIEWPORT</div>
-                        <div class="size-btn" data-res="hd">HD 1280x720</div>
-                        <div class="size-btn" data-res="fhd">FHD 1920x1080</div>
-                        <div class="size-btn" data-res="4k">4K 3840x2160</div>
-                    </div>
-                    <div style="font-size:0.7rem; font-weight:bold; margin-top:4px;">FORMAT</div>
-                    <div class="screenshort-size-grid">
-                        <div class="size-btn selected" data-fmt="png">PNG</div>
-                        <div class="size-btn" data-fmt="jpeg">JPEG</div>
-                    </div>
-                    <button class="action-btn" id="btn-screenshot-adv" style="width:100%; margin-top:6px;">
-                        CAPTURE NOW 
-                    </button>
-                    <div id="screenshot-status" style="font-size:0.62rem; color:var(--accent-primary); min-height:14px;"></div>
-                </div>
+          <div class="card">
+            <span class="section-label">SCREENSHOT</span>
+            <div class="screenshot-panel">
+              <div style="font-size:0.7rem; font-weight:bold;">RESOLUTION</div>
+              <div class="screenshot-size-grid">
+                <div class="size-btn selected" data-res="viewport">VIEWPORT</div>
+                <div class="size-btn" data-res="hd">HD 1280×720</div>
+                <div class="size-btn" data-res="fhd">FHD 1920×1080</div>
+                <div class="size-btn" data-res="4k">4K 3840×2160</div>
+              </div>
+              <div style="font-size:0.7rem; font-weight:bold; margin-top:4px;">FORMAT</div>
+              <div class="screenshot-size-grid">
+                <div class="size-btn selected" data-fmt="png">PNG</div>
+                <div class="size-btn" data-fmt="jpeg">JPEG</div>
+              </div>
+              <button class="action-btn" id="btn-screenshot-adv" style="width:100%; margin-top:6px;">
+                CAPTURE NOW
+              </button>
+              <div id="screenshot-status" style="font-size:0.62rem; color:var(--accent-primary); min-height:14px;"></div>
             </div>
+          </div>
 
-            <div class="card">
-                <span class="section-label">CROSS SECTION</span>
-                <div class="cross-section-controls">
-                    <div class="axis-selector">
-                        <div class="axis-btn active" data-axis="x">X</div>
-                        <div class="axis-btn" data-axis="y">Y</div>
-                        <div class="axis-btn" data-axis="z">Z</div>
-                    </div>
-                    <div class="slider-row">
-                        <div class="slider-label-row">
-                            <span>CLIP POSITION</span>
-                            <span id="clip-pos-val">0</span>
-                        </div>
-                        <input type="range" id="clip-slider" min=" -200" max="200" step="1" value="0" />
-                    </div>
-                    <button class="action-btn" id="btn-clip-toggle" style="width:100%">ENABLE CLIP</button>
-                    <button class="action-btn" id="btn-clip-reset" style="width:100%; margin-top: 4px;">RESET CLIP</button>
+          <div class="card">
+            <span class="section-label">CROSS SECTION</span>
+            <div class="cross-section-controls">
+              <div class="axis-selector">
+                <div class="axis-btn active" data-axis="x">X</div>
+                <div class="axis-btn" data-axis="y">Y</div>
+                <div class="axis-btn" data-axis="z">Z</div>
+              </div>
+              <div class="slider-row">
+                <div class="slider-label-row">
+                  <span>CLIP POSITION</span>
+                  <span id="clip-pos-val">0</span>
                 </div>
+                <input type="range" id="clip-slider" min="-200" max="200" step="1" value="0" />
+              </div>
+              <button class="action-btn" id="btn-clip-toggle" style="width:100%;">ENABLE CLIP</button>
+              <button class="action-btn" id="btn-clip-reset" style="width:100%; margin-top:4px;">RESET CLIP</button>
             </div>
+          </div>
 
-            <div class="card">
-                <span class="section-label">SCALE MODEL</span>    
-                <div class="slider-row">
-                    <div class="slider-label-row">
-                    <span>SCALE</span>
-                    <span id="scale-val">1.0x</span>
-                </div>
-                <input type="range" id="scale-slider" min="0.1" max="5" step="0.05" value="1" />
+          <div class="card">
+            <span class="section-label">SCALE MODEL</span>
+            <div class="slider-row">
+              <div class="slider-label-row">
+                <span>SCALE</span>
+                <span id="scale-val">1.0x</span>
+              </div>
+              <input type="range" id="scale-slider" min="0.1" max="5" step="0.05" value="1" />
             </div>
             <div style="display:flex; gap:5px; margin-top:6px;">
-                <button class="action-btn" style="flex:1;" id="btn-scale-half">0.5x</button>
-                <button class="action-btn" style="flex:1;" id="btn-scale-1">1x</button>
-                <button class="cation-btn" style="flex:1;" id="btn-scale-2">2x</button>
-            </div>    
-        </div>
-        
-        <div class="card">
+              <button class="action-btn" style="flex:1;" id="btn-scale-half">0.5x</button>
+              <button class="action-btn" style="flex:1;" id="btn-scale-1">1x</button>
+              <button class="action-btn" style="flex:1;" id="btn-scale-2">2x</button>
+            </div>
+          </div>
+
+          <div class="card">
             <span class="section-label">FILE HISTORY</span>
             <div class="history-list" id="file-history-list">
-                <div style="font-size:0.65rem; opacity:0.6; padding:6px;">NO FILES LOADED YET</div>
+              <div style="font-size:0.65rem; opacity:0.6; padding:6px;">NO FILES LOADED YET</div>
             </div>
-        </div>
+          </div>
 
-        <div class="card">
+          <div class="card">
             <span class="section-label">EXPORT REPORT</span>
             <button class="action-btn" id="btn-export-report" style="width:100%;">DOWNLOAD REPORT TXT</button>
-            <button class="action-btn" id="btn-open-stats-modal" style="width:100%; margin-top: 5px;">FULL STATA MODAL</button>
+            <button class="action-btn" id="btn-open-stats-modal" style="width:100%; margin-top:5px;">FULL STATS MODAL</button>
+          </div>
         </div>
-    </div>         
-</aside>
+      </aside>
 
-<main class="viewport-wrapper" id="viewport">
-    <div class-="loading-overlay" id="loading-overlay">
-        <div class="spinner"></div>
-        <div class="loading-text" id="loading-text">
-            LOADING MODEL....
+      <main class="viewport-wrapper" id="viewport">
+        <div class="loading-overlay" id="loading-overlay">
+          <div class="spinner"></div>
+          <div class="loading-text" id="loading-text">
+            LOADING MODEL...
+          </div>
         </div>
-    </div>
 
-    <div class="screenshot-flash" id="screenshot-flash"></div>
+        <div class="screenshot-flash" id="screenshot-flash"></div>
 
-    <div class="toast-container" id="toast-cotainer"></div>
+        <div class="toast-container" id="toast-container"></div>
 
-    <div class="viewport-hud" id="viewport-hud">
-        <div class="hud-item">FPS: <span id="hud-fps">60</span></div>
-        <div class="hud-item">
+        <div class="viewport-hud" id="viewport-hud">
+          <div class="hud-item">FPS: <span id="hud-fps">60</span></div>
+          <div class="hud-item">
             TRIANGLES: <span id="hud-tris">0</span>
-        </div>
-        <div class="hud-item">
+          </div>
+          <div class="hud-item">
             CAMERA: <span id="hud-camera">0,0,0</span>
+          </div>
+          <div class="hud-item">MODE: <span id="hud-mode">NORMAL</span></div>
+          <div class="hud-item">SPIN: <span id="hud-spin">OFF</span></div>
         </div>
-        <div class="hud-item">MODE: <span id="hud-mode">NORMAL</span></div>
-        <div class="hud-item">SPIN: <span id="hud-spin">OFF</span></div>
+      </main>
     </div>
-</main>
-</div>
 
-<div class="modal-overlay" id="stats-modal">
-  <div class="modal-box">
-    <div class="modal-title">FULL MODEL REPORT</div>
-    <div id="modal-ststs-content" style="display:flex;flex-direction:column;gap:4px;"></div>
-    <button class="modal-close-btn" id="modal-close">CLOSE</button>
-  </div>  
-</div>
+    <div class="modal-overlay" id="stats-modal">
+      <div class="modal-box">
+        <div class="modal-title">FULL MODEL REPORT</div>
+        <div id="modal-stats-content" style="display:flex;flex-direction:column;gap:4px;"></div>
+        <button class="modal-close-btn" id="modal-close">CLOSE</button>
+      </div>
+    </div>
 
-<script>
-  const DENSITY_PLA = 1.24;
-  const PRINT_SPEED =50;
+    <script>
+      const DENSITY_PLA = 1.24;
+      const PRINT_SPEED = 50;
 
-  let scene;
-  let camera;
-  let render;
-  let controls;
-  let mesh;
-  let light;
-  let frameCount = 0;
-  let lastFrameTime = Date.now();
-  let modelBounds = {
-    min: new THREE.Vector3(),
-    max: new THREE.Vector3(),
-  };
-
-  function init() {
-    scene = new THREE.Scene();
-    scene.background = new THREE.Color(0xffffff);
-
-    const viewport = document.getElementById("viewport");
-
-    camera = new THREE.PerspectiveCamera(
-      45,
-      viewport.clientwidth / viewport.clientHeight,
-      1,
-      10000
-    );
-
-    renderer = new THREE.WebGLRender({
-      antialias: true,
-      preserveDrawingBuffer: true,
-    });
-
-    renderer.setSize(viewport.clientWidth, viewport.clientHeight);
-    renderer.setPixelRatio(window.devicePixelRatio);
-
-    viewport.appendChild(renderer.domElement);
-
-    const grid = new THREE.GridHelper(500, 20, 0x8b5cf6, 0xe2e8f0);
-
-    scene.add(grid);
-
-    const ambientLightv= new THREE.HeisphereLight(
-      0xffffff,
-      0x444444,
-      1
-    );
-
-    scene.add(ambientLight);
-
-    light = new THREE.DirectionalLight(0xffffff, 1);
-
-    light.position.set(200, 400, 300);
-
-    scene.add(light);
-
-    controls = new THREE.OrbitControls(
-      camera,
-      renderer.domElement
-    );
-
-    controls.enableDamping = true;
-
-    resetCamera();
-
-    window.addEventListener("resize" , onResize);
-
-    document.addEventListener("keydown" , handleKeypress);
-
-    setupEvents();
-
-    setupAdvancedEvents();
-
-    animate();
-  }
-
-  function setupEvents() {
-    document 
-      .getElementById("theme-toggle")
-      .addEventListener("change", (e) => {
-        document.body.setAttribute(
-          "data-theme",
-          e.target.checked ? "dark" : "light" 
-        );
-
-        scene.background = new THREE.Color(
-          e.target.checked ? 0x000000 : 0xffffff
-        );
-      });
-      
-      document.querySelectorAll(".tab-button").foEach((btn)) => {
-        btn.addEventListener("click" , () => {
-          document
-            .querySelectorAll(".tab-button")
-            .forEach((b) => b.classList.remove("active"));        
-
-          document
-            .querySelectorAll(".tab-content")
-            .forEach((c) => c.classList.remove("active"));
-
-        btn.classList.add("active");
-        
-        document
-          .getElementById(`tab-${btn.daraset.tab}`)
-          .classList.add('active');
-        });
-      });  
-    
-      document.getElementById("drop-zone").onclick = () => {
-        document.getElementById("file-input").click();
+      let scene;
+      let camera;
+      let renderer;
+      let controls;
+      let mesh;
+      let light;
+      let frameCount = 0;
+      let lastFrameTime = Date.now();
+      let modelBounds = {
+        min: new THREE.Vector3(),
+        max: new THREE.Vector3(),
       };
 
-      document.getElementById("file-input").onchange = handleFileSelect;
+      function init() {
+        scene = new THREE.Scene();
+        scene.background = new THREE.Color(0xffffff);
 
-      document
-        .getElementById("viewport")
-        .addEventListener("dragover" , (e) => {
-          e.preventDefault();
+        const viewport = document.getElementById("viewport");
+
+        camera = new THREE.PerspectiveCamera(
+          45,
+          viewport.clientWidth / viewport.clientHeight,
+          1,
+          10000
+        );
+
+        renderer = new THREE.WebGLRenderer({
+          antialias: true,
+          preserveDrawingBuffer: true,
         });
+
+        renderer.setSize(viewport.clientWidth, viewport.clientHeight);
+        renderer.setPixelRatio(window.devicePixelRatio);
+
+        viewport.appendChild(renderer.domElement);
+
+        const grid = new THREE.GridHelper(500, 20, 0x8b5cf6, 0xe2e8f0);
+
+        scene.add(grid);
+
+        const ambientLight = new THREE.HemisphereLight(
+          0xffffff,
+          0x444444,
+          1
+        );
+
+        scene.add(ambientLight);
+
+        light = new THREE.DirectionalLight(0xffffff, 1);
+
+        light.position.set(200, 400, 300);
+
+        scene.add(light);
+
+        controls = new THREE.OrbitControls(
+          camera,
+          renderer.domElement
+        );
+
+        controls.enableDamping = true;
+
+        resetCamera();
+
+        window.addEventListener("resize", onResize);
+
+        document.addEventListener("keydown", handleKeypress);
+
+        setupEvents();
+
+        setupAdvancedEvents();
+
+        animate();
+      }
+
+      function setupEvents() {
+        document
+          .getElementById("theme-toggle")
+          .addEventListener("change", (e) => {
+            document.body.setAttribute(
+              "data-theme",
+              e.target.checked ? "dark" : "light"
+            );
+
+            scene.background = new THREE.Color(
+              e.target.checked ? 0x000000 : 0xffffff
+            );
+          });
+
+        document.querySelectorAll(".tab-button").forEach((btn) => {
+          btn.addEventListener("click", () => {
+            document
+              .querySelectorAll(".tab-button")
+              .forEach((b) => b.classList.remove("active"));
+
+            document
+              .querySelectorAll(".tab-content")
+              .forEach((c) => c.classList.remove("active"));
+
+            btn.classList.add("active");
+
+            document
+              .getElementById(`tab-${btn.dataset.tab}`)
+              .classList.add("active");
+          });
+        });
+
+        document.getElementById("drop-zone").onclick = () => {
+          document.getElementById("file-input").click();
+        };
+
+        document.getElementById("file-input").onchange = handleFileSelect;
+
+        document
+          .getElementById("viewport")
+          .addEventListener("dragover", (e) => {
+            e.preventDefault();
+          });
 
         document
           .getElementById("viewport")
           .addEventListener("drop", (e) => {
             e.preventDefault();
 
-            if (e.datafransfer.files[0]) {
+            if (e.dataTransfer.files[0]) {
               const input = document.getElementById("file-input");
 
               input.files = e.dataTransfer.files;
 
-              handelFilesSelect({ target: input });
+              handleFileSelect({ target: input });
             }
           });
 
-          document.getElementById("btn-home").onclick = resetCamera;
+        document.getElementById("btn-home").onclick = resetCamera;
 
-          document.getElementById("btn-fit").onclick = fitModelToView;
+        document.getElementById("btn-fit").onclick = fitModelToView;
 
-          document.getElementById("btn-wireframe").onclick = (e) => {
-            if (!mesh) return;
+        document.getElementById("btn-wireframe").onclick = (e) => {
+          if (!mesh) return;
 
-            mesh.material.wireframe = !mesh.material.wireframe;
+          mesh.material.wireframe = !mesh.material.wireframe;
 
-            e.target.classList.toggle("btn-selected");
-
-            updateHUD();
-          };
-
-          document.getElementById("ui-color").oniput = (e) => {
-            if (mesh) {
-              mesh.material.color.set(e.target.value);
-            }
-          };
-
-          document.getElementById("btn-color-reset").onclick = () => {
-            document.getElementById("ui-color").value = "#8b5cf6";
-
-            if (mesh) {
-              mesh.material.color.set("#8b5cf6");
-            }
-          };
-
-          document.querySelectorAll("[data-color]").forEach((btn) => {
-            btn.onclick = () => {
-              const color = btn.datset.color;
-
-              document.getElementById("ui-color").value =color;
-
-              if (mesh) {
-                mesh.material.color.set(color);
-              }
-            };
-          });
-
-          document.getElementById("ui-light").oniput = (e) => {
-            light.intensity = parseFloat(e.target.value);
-
-            document.getElementById("light-value").innerText = 
-              e.target.value + "x";
-          };
-
-          docuemnt.getElementById("[data-bg-color]").forEach((btn) => {
-            btn.onclick = () => {
-              sccen.background = new THREE.Color(btn.dataset.bgColor);
-            };
-          });
-
-          document.getElementById("btn-scale-reset").onclick = () => {
-            if (mesh) {
-              mesh.position.set(0, 0, 0);
-            }
-          };
-
-          document.getElementById("btn-scale-reset").onclick = () => {
-            if (mesh) {
-              mesh.scale.set(1, 1, 1);
-              document.getElementById("scale-slider").value =1;
-              document.getElementById("scale-val").innerText = "1.0x"
-            }
-          };
-        }
-
-        function handleFileSelect(e) {
-          const file = e.target.files[0];
-
-          if (!file) return;
-
-          showLoadingOverlay(true);
-
-          const renser = new FileRender();
-
-          render.onload = (event) => {
-            const loader = new THREE.STLLoader();
-
-            loader.load(event.target.result, (geometry) => {
-              createMesh(geometry, file.name);
-
-              showLoadingOverlay(false);
-
-              addToHistory(file.name, file.size);
-            });
-          };
-
-          reader.readAsDataURL(file);
-        }
-
-        function createMesh(geometry, fileName) {
-          if(mesh) {
-            scene.remove(mesh);
-          }
-
-          const material = new THREE.MeshPhongMaterial({
-            color: document.getElementById("ui-color").value,
-            shininess: 40,
-            side: THREE.DoubleSide,
-          });
-
-          mesh = new THREE.mesh(geometry, material);
-
-          geometry.computerBoundingBox();
-
-          const center = new THREE.Vector3();
-
-          geometry.boundingBox.getCenter(center);
-
-          mesh.position.set(-center.x, -center.y, -center.z);
-
-          scene.add(mesh);
-
-          modelBounds.min.copy(geometry.boundingBox.min);
-
-          modeBounds.max.copy(geometry.boundingBox.max);
-
-          calculateStats(geometry);
-
-          document.getElemntById("info-name").innerText =
-            filename.toUpperCase();
-
-          document.getElementById("info-type").innerText =
-            "FILE_TYPE: STL";
-
-          document.getElementById(
-            "info-timestamp"
-          ).innerText = `LOADED: ${new Date().toLocalTimeString()}` ;
-
-          fitModelToView();
+          e.target.classList.toggle("btn-selected");
 
           updateHUD();
+        };
 
-          document.getElementById("viewport-hud").classList.add("show");
+        document.getElementById("ui-color").oninput = (e) => {
+          if (mesh) {
+            mesh.material.color.set(e.target.value);
+          }
+        };
 
-          showToast("MODEL LOADED: " + fileName.toUpperCase());
+        document.getElementById("btn-color-reset").onclick = () => {
+          document.getElementById("ui-color").value = "#8b5cf6";
+
+          if (mesh) {
+            mesh.material.color.set("#8b5cf6");
+          }
+        };
+
+        document.querySelectorAll("[data-color]").forEach((btn) => {
+          btn.onclick = () => {
+            const color = btn.dataset.color;
+
+            document.getElementById("ui-color").value = color;
+
+            if (mesh) {
+              mesh.material.color.set(color);
+            }
+          };
+        });
+
+        document.getElementById("ui-light").oninput = (e) => {
+          light.intensity = parseFloat(e.target.value);
+
+          document.getElementById("light-value").innerText =
+            e.target.value + "x";
+        };
+
+        document.querySelectorAll("[data-bg-color]").forEach((btn) => {
+          btn.onclick = () => {
+            scene.background = new THREE.Color(btn.dataset.bgColor);
+          };
+        });
+
+        document.getElementById("btn-center-model").onclick = () => {
+          if (mesh) {
+            mesh.position.set(0, 0, 0);
+          }
+        };
+
+        document.getElementById("btn-scale-reset").onclick = () => {
+          if (mesh) {
+            mesh.scale.set(1, 1, 1);
+            document.getElementById("scale-slider").value = 1;
+            document.getElementById("scale-val").innerText = "1.0x";
+          }
+        };
+      }
+
+      function handleFileSelect(e) {
+        const file = e.target.files[0];
+
+        if (!file) return;
+
+        showLoadingOverlay(true);
+
+        const reader = new FileReader();
+
+        reader.onload = (event) => {
+          const loader = new THREE.STLLoader();
+
+          loader.load(event.target.result, (geometry) => {
+            createMesh(geometry, file.name);
+
+            showLoadingOverlay(false);
+
+            addToHistory(file.name, file.size);
+          });
+        };
+
+        reader.readAsDataURL(file);
+      }
+
+      function createMesh(geometry, fileName) {
+        if (mesh) {
+          scene.remove(mesh);
         }
 
-        function calculateStats(geometry) {
-          let volume = 0;
+        const material = new THREE.MeshPhongMaterial({
+          color: document.getElementById("ui-color").value,
+          shininess: 40,
+          side: THREE.DoubleSide,
+        });
 
-          let area = 0;
+        mesh = new THREE.Mesh(geometry, material);
 
-          const pos = geomenty.attributes.position;
+        geometry.computeBoundingBox();
 
-          for (let i = 0; i <div pos.count; i += 3) {
-            const v1 = new THREE.Vector3().fromBufferAttribute(pos, i);
+        const center = new THREE.Vector3();
 
-            const v2 = new THREE.Vector3().fromBufferAttribute(pos, i + 1);
+        geometry.boundingBox.getCenter(center);
 
-            const v3 = new THREE.Vector3().fromBufferAttribute(pos, i + 2);
+        mesh.position.set(-center.x, -center.y, -center.z);
 
-            volume += v1.dot(v2.cross(v3)) / 6;
+        scene.add(mesh);
 
-            const edge1 = new THREE.Vector3().subVectors(v2, v1);
+        modelBounds.min.copy(geometry.boundingBox.min);
 
-            const edge2 = new THREE.Vector3().subVectors(v3, v1);
+        modelBounds.max.copy(geometry.boundingBox.max);
 
-            const cross = new THREE.Vector3().crossVector(edge1, edge2);
+        calculateStats(geometry);
 
-            area += cross.length() / 2;
-          }
+        document.getElementById("info-name").innerText =
+          fileName.toUpperCase();
 
-          volume = Math.abs(Volume) / 1000;
+        document.getElementById("info-type").innerText =
+          "FILE_TYPE: STL";
 
-          area /= 100;
+        document.getElementById(
+          "info-timestamp"
+        ).innerText = `LOADED: ${new Date().toLocaleTimeString()}`;
 
-          const weight = volume * 0.2 * DENSITY_PLA;
+        fitModelToView();
 
-          const size = new THREE.Vector3();
+        updateHUD();
 
-          geometry.boundingBox.getSize(size);
+        document.getElementById("viewport-hud").classList.add("show");
 
-          const diagonal = new Three.Vector3()
+        showToast("MODEL LOADED: " + fileName.toUpperCase());
+      }
+
+      function calculateStats(geometry) {
+        let volume = 0;
+
+        let area = 0;
+
+        const pos = geometry.attributes.position;
+
+        for (let i = 0; i < pos.count; i += 3) {
+          const v1 = new THREE.Vector3().fromBufferAttribute(pos, i);
+
+          const v2 = new THREE.Vector3().fromBufferAttribute(pos, i + 1);
+
+          const v3 = new THREE.Vector3().fromBufferAttribute(pos, i + 2);
+
+          volume += v1.dot(v2.cross(v3)) / 6;
+
+          const edge1 = new THREE.Vector3().subVectors(v2, v1);
+
+          const edge2 = new THREE.Vector3().subVectors(v3, v1);
+
+          const cross = new THREE.Vector3().crossVectors(edge1, edge2);
+
+          area += cross.length() / 2;
+        }
+
+        volume = Math.abs(volume) / 1000;
+
+        area /= 100;
+
+        const weight = volume * 0.2 * DENSITY_PLA;
+
+        const size = new THREE.Vector3();
+
+        geometry.boundingBox.getSize(size);
+
+        const diagonal = new THREE.Vector3()
           .subVectors(
             geometry.boundingBox.max,
-            geometry.boundingBox.min,
+            geometry.boundingBox.min
           )
           .length();
 
-        const  printTime = (volume * 1000) / (PRINT_SPEED * 60);
+        const printTime = (volume * 1000) / (PRINT_SPEED * 60);
 
         const hours = Math.floor(printTime);
 
@@ -1494,634 +1494,634 @@
           volume.toFixed(1) + "CM³";
 
         document.getElementById("val-area").innerText =
-          area.toFixed(1) + "CM²" ;
+          area.toFixed(1) + "CM²";
 
         document.getElementById("val-tris").innerText = (
           pos.count / 3
         ).toLocaleString();
 
-        document.getElementById("val-time").innerText = 
-          `${hours}H ${minutes}M` ;
+        document.getElementById("val-time").innerText =
+          `${hours}H ${minutes}M`;
 
-        document.getElementById("dim-x").innerText = 
+        document.getElementById("dim-x").innerText =
           Math.round(size.x) + " MM";
-          
-        document.getElementById("dim-y").innerText = 
+
+        document.getElementById("dim-y").innerText =
           Math.round(size.y) + " MM";
-          
-        document.getElementById("dim-z").innerText = 
+
+        document.getElementById("dim-z").innerText =
           Math.round(size.z) + " MM";
 
         document.getElementById("dim-diag").innerText =
           Math.round(diagonal) + " MM";
 
-        currentStats = { volume, area, weight, hour, minutes, siz, diagonal, triCount:pos.count / 3 };  
+        currentStats = { volume, area, weight, hours, minutes, size, diagonal, triCount: pos.count / 3 };
+      }
+
+      function resetCamera() {
+        camera.position.set(250, 250, 250);
+
+        controls.target.set(0, 0, 0);
+
+        controls.update();
+      }
+
+      function fitModelToView() {
+        if (!mesh) return;
+
+        const size = new THREE.Vector3().subVectors(
+          modelBounds.max,
+          modelBounds.min
+        );
+
+        const maxDim = Math.max(size.x, size.y, size.z);
+
+        const fov = camera.fov * (Math.PI / 180);
+
+        let cameraZ = Math.abs(maxDim / 2 / Math.tan(fov / 2));
+
+        cameraZ *= 1.5;
+
+        camera.position.z = cameraZ;
+
+        controls.update();
+      }
+
+      function updateHUD() {
+        if (!mesh) return;
+
+        document.getElementById("hud-tris").innerText =
+          mesh.geometry.attributes.position.count / 3;
+
+        document.getElementById(
+          "hud-camera"
+        ).innerText = `${camera.position.x.toFixed(
+          0
+        )},${camera.position.y.toFixed(
+          0
+        )},${camera.position.z.toFixed(0)}`;
+
+        document.getElementById("hud-mode").innerText =
+          mesh.material.wireframe ? "X-RAY" : "SOLID";
+
+        document.getElementById("hud-spin").innerText = autoSpinActive ? "ON" : "OFF";
+      }
+
+      function animate() {
+        requestAnimationFrame(animate);
+
+        controls.update();
+
+        if (autoSpinActive && mesh) {
+          const speed = parseFloat(document.getElementById("spin-speed").value);
+          mesh.rotation.y += 0.005 * speed;
         }
 
-        function resetCamera() {
-          camera.position.set(250, 250, 250);
+        frameCount++;
 
-          controls.target.set(0, 0, 0);
+        const now = Date.now();
 
-          controls.update();
+        if (now - lastFrameTime >= 1000) {
+          document.getElementById("hud-fps").innerText =
+            frameCount;
+
+          frameCount = 0;
+
+          lastFrameTime = now;
         }
 
-        function fitModelToView() {
-          if (!mesh) return;
+        renderer.render(scene, camera);
+      }
 
-          const size = new THREE.Vector3().subVectors(
-            modelBounds.max,
-            modelBounds.min
-          );
+      function onResize() {
+        const viewport = document.getElementById("viewport");
 
-          const maxDim = Math.max(size.x, size.y, size.z);
+        camera.aspect =
+          viewport.clientWidth / viewport.clientHeight;
 
-          const fov = camera.fov * (Math.PI / 180);
+        camera.updateProjectionMatrix();
 
-          let cameraZ = Math.abs(maxDim / 2 / Math.tan(fov / 2));
+        renderer.setSize(
+          viewport.clientWidth,
+          viewport.clientHeight
+        );
+      }
 
-          cameraZ *= 1.5;
+      function showLoadingOverlay(show) {
+        const overlay = document.getElementById(
+          "loading-overlay"
+        );
 
-          camera.position.z = cameraZ;
+        if (show) {
+          overlay.classList.add("show");
+        } else {
+          overlay.classList.remove("show");
+        }
+      }
 
-          controls.update();
+      function takeScreenshot() {
+        triggerFlash();
+        renderer.render(scene, camera);
+        const image = renderer.domElement.toDataURL("image/png");
+        const link = document.createElement("a");
+        link.href = image;
+        link.download = `precision3d-${Date.now()}.png`;
+        link.click();
+        showToast("SCREENSHOT SAVED");
+      }
+
+      function handleKeypress(e) {
+        if (e.key.toLowerCase() === "h") {
+          resetCamera();
         }
 
-        function updateHUD() {
-          if (!mesh) return;
-
-          document.getElementById("hud-tris").innerText = 
-            mesh.geometry.attributes.position.count / 3;
-
-          document.getElementById(
-            "hud-camera"
-          ).innerText = `${camers.position.x.toFixed(
-            0
-          )},${camera.position.y.toFixed(
-            0
-          )},${camera.position.z.toFixed(0)}`
-
-          document.getElementById("hud-mode").innerText = 
-            mesh.material.wireframe ? "X-RAY" : "SOLID";
-
-          document.getElementById("hud-spin").innerText = autoSpinActive ? "ON" : "OFF";  
+        if (e.key.toLowerCase() === "x") {
+          document.getElementById("btn-wireframe").click();
         }
 
-        function animate() {
-          requestAnimationFrame(animate);
-
-          controls.update();
-
-          if (autoSpinActive && mesh) {
-            const speed = parseFloat(document.getElementById("spin-speed").value);
-            mesh.rotation.y += 0.005 * speed;
-          }
-
-          frameCount++;
-
-          const now = Date.now();
-
-          if (now - lastFrameTime >= 1000) {
-            document.getElementById("hud-fps").innerText = 
-              frameCount;
-
-            frameCount = 0;
-            
-            lastFrameTime = now;
-          }
-
-          render.render(scene, camera);
+        if (e.key.toLowerCase() === "f") {
+          fitModelToView();
         }
 
-        function onResize() {
-          const viewport = document.getElementById("viewport");
-
-          camera.aspect = 
-            viewport.clientWidth / viewport.clientHeight;
-
-          camera.updateProjectionMatrix();
-          
-          render.setSize(
-            viewport.clientWidth,
-            viewport.clientHeight,
-          );
+        if (e.key.toLowerCase() === "s") {
+          takeScreenshot();
         }
 
-        function showLoadingOverlay(show) {
-          const overlay = document.getElementById(
-            "loading-overlay"
-          );
-
-          if (show) {
-            overlay.classList.add("show");
-          } else {
-            overlay.classList.remove("show");
-          }
+        if (e.key.toLowerCase() === "r") {
+          toggleAutoSpin();
         }
 
-        function takeScreenshot() {
-          triggerFlash();
-          renderer.render(scene, camera);
-          const image = renderer.document.toDataURL("image/ping");
-          const link = document.createElement("a");
-          link.herf = image;
-          link.download = `precision3d-${Date.now()}.png`;
-          link.click();
-          showToast("SCREENSHOT SAVED")
+        if (e.key.toLowerCase() === "a" && mesh) {
+          mesh.rotation.y -= 0.1;
         }
 
-        function handleKeypress(e) {
-          if (e.key.toLowerCase() === "h") {
-            resetCamera();
-          }
-
-          if (e.key.toLowerCase() === "x") {
-            document.getElementById("btn-wireframe").click();
-          }
-
-          if (e.key.toLowerCase() === "f") {
-            fitModelToView();
-          }
-
-          if (e.key.toLowerCase() === "s") {
-            takeScreenshot();
-          }
-
-          if (e.key.toLowerCase() === "r") {
-            toggleAutoSpin();
-          }
-          
-          if (e.key.toLowerCase() === "a" && mesh) {
-            mesh.rotation.y -= 0.1;
-          }
-
-          if (e.key.toLowerCase() === "d" && mesh) {
-            mesh.rotation.y += 0.1;
-          }
-
-          if (e.key.toLowerCase() === "1") {
-            const hud = document.getElementById("viewport-hud");
-            hud.classList.toggle("show");
-          }
-        }
-        
-        let autoSpinActive = false;
-        let selectedResolution = "viewport";
-        let selectedFormat = "png";
-        let clipEnabled = false;
-        let clipAxis = "x";
-        let clippingPlane = null;
-        let fileHistory = [];
-        let currentStats = {};
-
-        function setupAdvancedEvents() {
-          document.querySelectorAll("[data-cam]").forEach(btn) => {
-            btn.addEventListener("click", () => {
-              applyCameraPreset(btn.dataset.cam);
-            });
-          });
-
-          document.getElementById("btn-auto-spin").addEventList("click", => {
-            toggleAutoSpin();
-          });
-
-          document.getElementById("spin-speed").addEventListener("input", (e) => {
-            document.getElementById("spin-speed-val").innerText = parseFloat(e.target.value).toFixed(1);
-          });
-
-          document.querySelectorAll("[data-rot]").forEach((btn)) => {
-            btn.addEventListener("click", () => {
-              applyManualRotation(btn.dataset.rot);
-            });
-          });
-
-          document.querySelectorAll(".size-btn[data-res]").forEach((btn) => {
-            btn.addEventListener("click", () => {
-              document.querySelectorAll(".size-btn[data-res]").forEach((b) => b.classList.remove("selected"));
-              btn.classList.add("selected");
-              selectedResolution = btn.dataset.res;
-            });
-          });
-
-          document.querySelectorAll(".size-btn[data-fmt]").forEach((btn) => {
-            btn.addEventListener("click", () => {
-              document.querySelectorAll(".size-btn[data-fmt]").forEach((b) => b.classList.remove("selected"));
-              btn.classList.add("selected");
-              selectedFormat = btn.dataset.fmt;
-            });
-          });
-
-          document.getElementById("btn-screenshot-adv").addEventListener("click", () => {
-            takeAdvancedScreenshot();
-          });
-
-          doucument.getElementById("clip-slider").addEventListener("input", (e) => {
-            document.getElementById("clip-pos-val").innerText = e.target.value;
-            if (clipEnabled) {
-              applyClippingPlane(parseFloat(e.target.value));
-            }
-          });
-
-          document.querySelectorAll(".axis-btn").forEach((btn) => {
-            btn.addEventListener("click", () => {
-              document.querySelectorAll(".axis-btn").forEach((b) => b.classList.reemove("active"));
-              btn.classList.add("active");
-              clipAxis = btn.dataset.axis;
-              if (clipEnabled) {
-                applyClippingPlane(parseFloat(document.getElementById("clip-slider").value));
-              }
-            });
-          });
-
-          document.getElementById("btn-clip-toggle").addEventListener("click", () => {
-            toggleClipping();
-          });
-
-          document.getElementById("btn-clip-reset").addEventListener("click", () => {
-            resetClipping();
-          });
-
-          document.getElementById("scale-slider").addEventListener("input", (e) => {
-            const val = parseFloat(e.target.value);
-            document.getElementById("scale-val").innerText = val.toFixed(2) + "x";
-            if (mesh) {
-              mesh.scale.set(val, val, val);
-            }
-          });
-
-          document.getElementById("btn-scale-half").addEventListener("click", () => {
-            if (!mesh) return;
-            mesh.scale.set(0.5, 0.5, 0.5);
-            document.getElementById("scale-slider").value = 0.5;
-            document.getElementById("scale-val").innerText = "0.50x"
-          });
-
-          document.getElementById("btn-scale-1").addEventListener("click", () => {
-            if (!mesh) return;
-            mesh.scale.set(1, 1, 1);
-            document.getElementById("scale-slider").value = 1;
-            document.getElementById("scale-val").innerText = "1.00x";
-          });
-
-          document.getElementById("btn-scale-2").addEventListener("click", () => {
-            if (!mesh) return;
-            mesh.scale.set(2, 2, 2);
-            document.getElementById("scale-slider").value = 2;
-            document.getElementById("scale-val").innerText = "2.00x";
-          })
-
-          document.getElementById("btn-export-report").addEventListener("click", () => {
-            exportTextReport();
-          });
-
-          document.getElementById("btn-open-stats-modal").addEventListener("click", () => {
-            openStatsModal();
-          });
-
-          document.getElementById("modal-close").addEvenetListener("click", () => {
-            document.getElementById("stats-modal").classList.remove("show");
-          });
-
-          document.getElementById("stats-modal").addEvenetListener("click", (e) => {
-            if (e.target === document.getLementById("stats-modal")) {
-              document.getElementById("stats-modal").classList.remove("show");
-            }
-          });
-        }  
-
-        function applyCameraPreset(preset) {
-          if (!mesh) return;
-
-          const size = new THREE.Vector3().subVectors(modelBounds.max, modalBounds.min);
-          const maxDim = Math.max(size.x, sixe.y, size.z);
-          const fov = camera.fov * (Math.PI / 180);
-          const dist = Math.abs(maxDim / 2 / Math.tan(fov / 2)) * 1.5;
-
-          const presets = {
-            font:   [0, 0, dist],
-            back:   [0, 0, -dist],
-            left:   [-dist, 0, 0],
-            right:  [dist, 0, 0],
-            top:    [0, dist, 0],
-            bottom:   [0, -dist, 0],
-            ios:  [dist * 0.7, dist * 0.7, dist * 0.7],
-            ios1:   [-dist * 0.7, dist * 0.7, dist * 0.7],
-            ios2:   [dist * 0.7, dist * 0.7, -dist * 0.7], 
-          };
-
-          const pos = presets[preset];
-          if (!pos) return;
-
-          camera.postion.set(pos[0], pos[1], pos[2]);
-          controls.target.set(0, 0, 0);
-          controls.update();
-
-          showToast("CAMERA: " + preset.toUpperCase());
-          updateHUD();
+        if (e.key.toLowerCase() === "d" && mesh) {
+          mesh.rotation.y += 0.1;
         }
 
-        function toggleAutoSpin() {
-          autoSpinActive = !autoSpinActive;
-          const btn = document.getElementById("btn-auto-spin");
-          btn.innerText = autoSpinActive ? "STOPP AUTO SPIN" : "START AUTO SPIN";
-          if (autoSpinActive) {
-            btn.classList.add("btn-selected");
-            showToast("AUTO SPIN: ON");
-          } else {
-            btn.classList.add("btn-selected");
-            showToast("AUTO SPIN: OFF")
-          }
-          updateHUD()
+        if (e.key.toLowerCase() === "i") {
+          const hud = document.getElementById("viewport-hud");
+          hud.classList.toggle("show");
         }
+      }
 
-        function applyManualRotation(code) {
-          if (!mesh) return;
-          const step = Math.PI / 12;
-          if (code === "x+") mesh.rotation.x += step;
-          if (code === "x-") mesh.rotation.x -= step;
-          if (code === "x0") mesh.rotation.x = 0;
-          if (code === "y+") mesh.rotation.y += step;
-          if (code === "y-") mesh.rotation.y -= step;
-          if (code === "y0") mesh.rotation.y = 0;
-          if (code === "z+") mesh.rotation.z += step;
-          if (code === "z-") mesh.rotation.z -= step;
-          if (code === "z0") mesh.rotation.z = 0;
-        }
+      let autoSpinActive = false;
+      let selectedResolution = "viewport";
+      let selectedFormat = "png";
+      let clipEnabled = false;
+      let clipAxis = "x";
+      let clippingPlane = null;
+      let fileHistory = [];
+      let currentStats = {};
 
-        function takeAdvancedScreenshot() {
-          if (!renderer) return;
+      function setupAdvancedEvents() {
+        document.querySelectorAll("[data-cam]").forEach((btn) => {
+          btn.addEventListener("click", () => {
+            applyCameraPreset(btn.dataset.cam);
+          });
+        });
 
-          const statusEl = document.getElementById("screenshot-status");
-          statusEl.innerText = "CAPTURING....";
+        document.getElementById("btn-auto-spin").addEventListener("click", () => {
+          toggleAutoSpin();
+        });
 
-          const resMap = {
-            viewport: null,
-            hd: [1280, 720],
-            fhd: [1920, 1080]
-            "4k": [3840, 2160],
-          };
+        document.getElementById("spin-speed").addEventListener("input", (e) => {
+          document.getElementById("spin-speed-val").innerText = parseFloat(e.target.value).toFixed(1);
+        });
 
-          const targetRes = resMap[selectedResolution];
-          const mimeType = selectedFormat === "jpeg" ? "image/jpeg" : "image/png";
-          const ext = selectedFormat === "jpeg" ? "jpg" : "png";
+        document.querySelectorAll("[data-rot]").forEach((btn) => {
+          btn.addEventListener("click", () => {
+            applyManualRotation(btn.dataset.rot);
+          });
+        });
 
-          if (targetRes) {
-            const origW = renderer.document.width;
-            const origH = renderer.docuemnt.height;
-            const originAspect = camera.aspect;
+        document.querySelectorAll(".size-btn[data-res]").forEach((btn) => {
+          btn.addEventListener("click", () => {
+            document.querySelectorAll(".size-btn[data-res]").forEach((b) => b.classList.remove("selected"));
+            btn.classList.add("selected");
+            selectedResolution = btn.dataset.res;
+          });
+        });
 
-            render.setSize(targetRes[0], targetRes[1]);
-            camera.aspect = targetRes[0] / targetRes[1];
-            camera.updateProjectionMatrix();
-            renderer.render(scene, camera);
+        document.querySelectorAll(".size-btn[data-fmt]").forEach((btn) => {
+          btn.addEventListener("click", () => {
+            document.querySelectorAll(".size-btn[data-fmt]").forEach((b) => b.classList.remove("selected"));
+            btn.classList.add("selected");
+            selectedFormat = btn.dataset.fmt;
+          });
+        });
 
-            const dataURL = renderer.domElement.toDataURL(mainType, 0.95);
+        document.getElementById("btn-screenshot-adv").addEventListener("click", () => {
+          takeAdvancedScreenshot();
+        });
 
-            renderer.setSize(origW, origH);
-            camera.aspect = originAspect;
-            camera.updateProjectionMatrix();
-            renderer.render(scene, camera);
-
-            triggerFlash();
-            downloadDataURL(dataURL, `precision3d-${targetRes[0]}x${targetRes[1]}-${Date.now()}.${ext}`);
-            statusEl.innerText = `SAVED ${targetRes[0]}x${targetRes[1]} ${ext.toUpperCase()}`;
-            showToast(`SCREENSHOT ${targetRes[0]}x${targetRes[1]} SAVED`);
-          } else {
-            renderer.render(scene, camera);
-            const dataURL = renderer.domElement.toDataURL(mimeType, 0.95);
-            triggerFlash();
-            downloadDataURL(dataURL, `precision3d-viewport-${Date.now()}.${ext}`);
-            statusEl.innerText = `SAVED VIEWPORT ${ext.toUpperCase()}`;
-            showToast("VIEWPORT SCREENSHOT SAVED");
-          }
-
-          setTimeout(() => { statusEl.innerText = "";}, 3000);
-        }
-
-        function downloadDataURL(dataURL, filename) {
-          const link = document.createElement("a");
-          link.herf = dataURL;
-          link.doenload = filename;
-          document.body.appendChild(link);
-          link.click();
-          document.body.removeChild(link);
-        }
-
-        function triggerFlash() {
-          const flash = document.getElementById("screenshot-flash");
-          flash.classList.add("active");
-          setTimeout(() => {
-            flash.style.transition = "opacity 0.4s ease-out";
-            flash.style.opacity = "0";
-            setTimeout(() => {
-              flash.classList.remove("active");
-              flash.style.transition = "";
-              flash.style.opacity = "";
-            }, 450);
-          }, 60);
-        }
-
-        function toggleClipping() {
-          clipEnabled = !clipEnabled;
-          const btn = document.getElementById("btn-clip-toggle");
-
+        document.getElementById("clip-slider").addEventListener("input", (e) => {
+          document.getElementById("clip-pos-val").innerText = e.target.value;
           if (clipEnabled) {
-            btn.innerText = "DISABLE CLIP";
-            btn.classList.add("btn-selected");
-            const val = parsetFloat(document.getElementById("clip=slider").value);
-            applyClippingPlane(val);
-            showToast("CROSS SECTION ENABLED");
-          } else {
-            btn.innerText = "ENABLE CLIP";
-            btn.classList.remove("btn-selected");
-            renderer.clippingPlanes = [];
-            if (mesh) mesh.material.clippingPlanes = [];
-            clippingPlane = null;
-            showToast("CROSS SECTION DISABLED");
+            applyClippingPlane(parseFloat(e.target.value));
           }
-        }
+        });
 
-        function applyClippingPlane(value) {
-          const normals = {
-            x: new THREE.Vector3(1, 0, 0),
-            y: new THREE.Vector3(0, 1, 0),
-            z: new THREE.Vector3(0, 0, 1),
-          };
+        document.querySelectorAll(".axis-btn").forEach((btn) => {
+          btn.addEventListener("click", () => {
+            document.querySelectorAll(".axis-btn").forEach((b) => b.classList.remove("active"));
+            btn.classList.add("active");
+            clipAxis = btn.dataset.axis;
+            if (clipEnabled) {
+              applyClippingPlane(parseFloat(document.getElementById("clip-slider").value));
+            }
+          });
+        });
 
-          const normal = normals[clipAxis].clone().negate();
-          clippingPlane = new THREE.Plane(normal, value);
-          renderer.clippingPlanes = [clippingPlane];
-          renderer.localClippingEnabled = true;
+        document.getElementById("btn-clip-toggle").addEventListener("click", () => {
+          toggleClipping();
+        });
 
+        document.getElementById("btn-clip-reset").addEventListener("click", () => {
+          resetClipping();
+        });
+
+        document.getElementById("scale-slider").addEventListener("input", (e) => {
+          const val = parseFloat(e.target.value);
+          document.getElementById("scale-val").innerText = val.toFixed(2) + "x";
           if (mesh) {
-            mesh.material.clippingPlanes = [clippingPlane];
-            mesh.material.clipShdows = true;
-            mesh.material.needsUpdate = true;
+            mesh.scale.set(val, val, val);
           }
-        }
+        });
 
-        function resetClipping() {
-          clipEnabled = false;
-          const btn = document.getElementById("btn-clip-toggle");
-          btn.innerText = "ENABLED CLIP";
+        document.getElementById("btn-scale-half").addEventListener("click", () => {
+          if (!mesh) return;
+          mesh.scale.set(0.5, 0.5, 0.5);
+          document.getElementById("scale-slider").value = 0.5;
+          document.getElementById("scale-val").innerText = "0.50x";
+        });
+
+        document.getElementById("btn-scale-1").addEventListener("click", () => {
+          if (!mesh) return;
+          mesh.scale.set(1, 1, 1);
+          document.getElementById("scale-slider").value = 1;
+          document.getElementById("scale-val").innerText = "1.00x";
+        });
+
+        document.getElementById("btn-scale-2").addEventListener("click", () => {
+          if (!mesh) return;
+          mesh.scale.set(2, 2, 2);
+          document.getElementById("scale-slider").value = 2;
+          document.getElementById("scale-val").innerText = "2.00x";
+        });
+
+        document.getElementById("btn-export-report").addEventListener("click", () => {
+          exportTextReport();
+        });
+
+        document.getElementById("btn-open-stats-modal").addEventListener("click", () => {
+          openStatsModal();
+        });
+
+        document.getElementById("modal-close").addEventListener("click", () => {
+          document.getElementById("stats-modal").classList.remove("show");
+        });
+
+        document.getElementById("stats-modal").addEventListener("click", (e) => {
+          if (e.target === document.getElementById("stats-modal")) {
+            document.getElementById("stats-modal").classList.remove("show");
+          }
+        });
+      }
+
+      function applyCameraPreset(preset) {
+        if (!mesh) return;
+
+        const size = new THREE.Vector3().subVectors(modelBounds.max, modelBounds.min);
+        const maxDim = Math.max(size.x, size.y, size.z);
+        const fov = camera.fov * (Math.PI / 180);
+        const dist = Math.abs(maxDim / 2 / Math.tan(fov / 2)) * 1.5;
+
+        const presets = {
+          front:   [0, 0, dist],
+          back:    [0, 0, -dist],
+          left:    [-dist, 0, 0],
+          right:   [dist, 0, 0],
+          top:     [0, dist, 0],
+          bottom:  [0, -dist, 0],
+          iso:     [dist * 0.7, dist * 0.7, dist * 0.7],
+          iso2:    [-dist * 0.7, dist * 0.7, dist * 0.7],
+          iso3:    [dist * 0.7, dist * 0.7, -dist * 0.7],
+        };
+
+        const pos = presets[preset];
+        if (!pos) return;
+
+        camera.position.set(pos[0], pos[1], pos[2]);
+        controls.target.set(0, 0, 0);
+        controls.update();
+
+        showToast("CAMERA: " + preset.toUpperCase());
+        updateHUD();
+      }
+
+      function toggleAutoSpin() {
+        autoSpinActive = !autoSpinActive;
+        const btn = document.getElementById("btn-auto-spin");
+        btn.innerText = autoSpinActive ? "STOP AUTO SPIN" : "START AUTO SPIN";
+        if (autoSpinActive) {
+          btn.classList.add("btn-selected");
+          showToast("AUTO SPIN: ON");
+        } else {
           btn.classList.remove("btn-selected");
-          document.getElementById("clip-slider").value = 0;
-          document.getElementById("clip-pos-val").innerText = "0";
-          renderer.clippingPlanes = [];
-          renderer.localClippingEnabled = false;
-          if (mesh) {
-            mesh.material.clippingPlanes = [];
-            mesh.material.needsUpdate = true;
-          }
-          clippingPlane = null;
-          showToast("CLIP RESET");
+          showToast("AUTO SPIN: OFF");
+        }
+        updateHUD();
+      }
+
+      function applyManualRotation(code) {
+        if (!mesh) return;
+        const step = Math.PI / 12;
+        if (code === "x+") mesh.rotation.x += step;
+        if (code === "x-") mesh.rotation.x -= step;
+        if (code === "x0") mesh.rotation.x = 0;
+        if (code === "y+") mesh.rotation.y += step;
+        if (code === "y-") mesh.rotation.y -= step;
+        if (code === "y0") mesh.rotation.y = 0;
+        if (code === "z+") mesh.rotation.z += step;
+        if (code === "z-") mesh.rotation.z -= step;
+        if (code === "z0") mesh.rotation.z = 0;
+      }
+
+      function takeAdvancedScreenshot() {
+        if (!renderer) return;
+
+        const statusEl = document.getElementById("screenshot-status");
+        statusEl.innerText = "CAPTURING...";
+
+        const resMap = {
+          viewport: null,
+          hd: [1280, 720],
+          fhd: [1920, 1080],
+          "4k": [3840, 2160],
+        };
+
+        const targetRes = resMap[selectedResolution];
+        const mimeType = selectedFormat === "jpeg" ? "image/jpeg" : "image/png";
+        const ext = selectedFormat === "jpeg" ? "jpg" : "png";
+
+        if (targetRes) {
+          const origW = renderer.domElement.width;
+          const origH = renderer.domElement.height;
+          const origAspect = camera.aspect;
+
+          renderer.setSize(targetRes[0], targetRes[1]);
+          camera.aspect = targetRes[0] / targetRes[1];
+          camera.updateProjectionMatrix();
+          renderer.render(scene, camera);
+
+          const dataURL = renderer.domElement.toDataURL(mimeType, 0.95);
+
+          renderer.setSize(origW, origH);
+          camera.aspect = origAspect;
+          camera.updateProjectionMatrix();
+          renderer.render(scene, camera);
+
+          triggerFlash();
+          downloadDataURL(dataURL, `precision3d-${targetRes[0]}x${targetRes[1]}-${Date.now()}.${ext}`);
+          statusEl.innerText = `SAVED ${targetRes[0]}×${targetRes[1]} ${ext.toUpperCase()}`;
+          showToast(`SCREENSHOT ${targetRes[0]}×${targetRes[1]} SAVED`);
+        } else {
+          renderer.render(scene, camera);
+          const dataURL = renderer.domElement.toDataURL(mimeType, 0.95);
+          triggerFlash();
+          downloadDataURL(dataURL, `precision3d-viewport-${Date.now()}.${ext}`);
+          statusEl.innerText = `SAVED VIEWPORT ${ext.toUpperCase()}`;
+          showToast("VIEWPORT SCREENSHOT SAVED");
         }
 
-        function addToHistory(fileName, fileSize) {
-          const entry = {
-            name: fileName,
-            size: fileSize,
-            time: new Date().toLocaleDateString()
-          };
+        setTimeout(() => { statusEl.innerText = ""; }, 3000);
+      }
 
-          fileHistory.unshift(entry);
+      function downloadDataURL(dataURL, filename) {
+        const link = document.createElement("a");
+        link.href = dataURL;
+        link.download = filename;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      }
+
+      function triggerFlash() {
+        const flash = document.getElementById("screenshot-flash");
+        flash.classList.add("active");
+        setTimeout(() => {
+          flash.style.transition = "opacity 0.4s ease-out";
+          flash.style.opacity = "0";
+          setTimeout(() => {
+            flash.classList.remove("active");
+            flash.style.transition = "";
+            flash.style.opacity = "";
+          }, 450);
+        }, 60);
+      }
+
+      function toggleClipping() {
+        clipEnabled = !clipEnabled;
+        const btn = document.getElementById("btn-clip-toggle");
+
+        if (clipEnabled) {
+          btn.innerText = "DISABLE CLIP";
+          btn.classList.add("btn-selected");
+          const val = parseFloat(document.getElementById("clip-slider").value);
+          applyClippingPlane(val);
+          showToast("CROSS SECTION ENABLED");
+        } else {
+          btn.innerText = "ENABLE CLIP";
+          btn.classList.remove("btn-selected");
+          renderer.clippingPlanes = [];
+          if (mesh) mesh.material.clippingPlanes = [];
+          clippingPlane = null;
+          showToast("CROSS SECTION DISABLED");
+        }
+      }
+
+      function applyClippingPlane(value) {
+        const normals = {
+          x: new THREE.Vector3(1, 0, 0),
+          y: new THREE.Vector3(0, 1, 0),
+          z: new THREE.Vector3(0, 0, 1),
+        };
+
+        const normal = normals[clipAxis].clone().negate();
+        clippingPlane = new THREE.Plane(normal, value);
+        renderer.clippingPlanes = [clippingPlane];
+        renderer.localClippingEnabled = true;
+
+        if (mesh) {
+          mesh.material.clippingPlanes = [clippingPlane];
+          mesh.material.clipShadows = true;
+          mesh.material.needsUpdate = true;
+        }
+      }
+
+      function resetClipping() {
+        clipEnabled = false;
+        const btn = document.getElementById("btn-clip-toggle");
+        btn.innerText = "ENABLE CLIP";
+        btn.classList.remove("btn-selected");
+        document.getElementById("clip-slider").value = 0;
+        document.getElementById("clip-pos-val").innerText = "0";
+        renderer.clippingPlanes = [];
+        renderer.localClippingEnabled = false;
+        if (mesh) {
+          mesh.material.clippingPlanes = [];
+          mesh.material.needsUpdate = true;
+        }
+        clippingPlane = null;
+        showToast("CLIP RESET");
+      }
+
+      function addToHistory(fileName, fileSize) {
+        const entry = {
+          name: fileName,
+          size: fileSize,
+          time: new Date().toLocaleTimeString(),
+        };
+
+        fileHistory.unshift(entry);
         if (fileHistory.length > 10) fileHistory.pop();
         renderHistoryList();
+      }
+
+      function renderHistoryList() {
+        const container = document.getElementById("file-history-list");
+        container.innerHTML = "";
+
+        if (fileHistory.length === 0) {
+          container.innerHTML = '<div style="font-size:0.65rem; opacity:0.6; padding:6px;">NO FILES LOADED YET</div>';
+          return;
         }
 
-        function renderHistoryList() {
-          const container = document.getElementById("file-history-list");
-          container.innerHTML = "";
-
-          if (fileHistory.lenght === 0) {
-            container.innerHTML = `<div style="font-size:0.65rem; opacity:0.6; padding:6px;">NO FILES LOADED YET</div>`;
-            return;
-          }
-
-          fileHistory.forEach((entry, idx) => {
-            const item = document.createElement("div");
-            item.className = "history-item";
-            item.innerHTML = `
-              <div style="flex:1; overflow:hidden;">
+        fileHistory.forEach((entry, idx) => {
+          const item = document.createElement("div");
+          item.className = "history-item";
+          item.innerHTML = `
+            <div style="flex:1; overflow:hidden;">
               <div style="font-weight:bold; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">${entry.name.toUpperCase()}</div>
-              <div style="opacity:0.6;">${(entry.size / 1024).toFixed(1)} KB - ${entry.time}</div>
-          </div>
+              <div style="opacity:0.6;">${(entry.size / 1024).toFixed(1)} KB — ${entry.time}</div>
+            </div>
           `;
           container.appendChild(item);
-          });
+        });
+      }
+
+      function exportTextReport() {
+        if (!currentStats || Object.keys(currentStats).length === 0) {
+          showToast("NO MODEL LOADED");
+          return;
         }
 
-        function exportTextReport() {
-          if (!currentStats || Object.keys(currentStats).length === 0) {
-            showToast("NO MODEL LOADED");
-            return;
-          }
+        const fileName = document.getElementById("info-name").innerText;
+        const timestamp = document.getElementById("info-timestamp").innerText;
+        const lines = [
+          "=================================",
+          "   PRECISION3D — MODEL REPORT   ",
+          "=================================",
+          "",
+          "FILE: " + fileName,
+          timestamp,
+          "GENERATED: " + new Date().toLocaleString(),
+          "",
+          "--- DIMENSIONS ---",
+          "X: " + document.getElementById("dim-x").innerText,
+          "Y: " + document.getElementById("dim-y").innerText,
+          "Z: " + document.getElementById("dim-z").innerText,
+          "DIAGONAL: " + document.getElementById("dim-diag").innerText,
+          "",
+          "--- MODEL STATS ---",
+          "VOLUME: " + document.getElementById("val-vol").innerText,
+          "SURFACE AREA: " + document.getElementById("val-area").innerText,
+          "WEIGHT (PLA): " + document.getElementById("val-weight").innerText,
+          "TRIANGLES: " + document.getElementById("val-tris").innerText,
+          "EST. PRINT TIME: " + document.getElementById("val-time").innerText,
+          "",
+          "--- NOTES ---",
+          "Density used: PLA @ 1.24 g/cm3",
+          "Print speed estimate: 50mm/s",
+          "",
+          "=================================",
+          "   Generated by Precision3D     ",
+          "   By Sadrita Neogi             ",
+          "=================================",
+        ];
 
-          const fileName = document.getElementById("info-name").innerText;
-          const timestamp = document.getElementById("info-timestamp").innerText;
-          const lines = [
-            "========================================",
-            "       PRECISION3D - MODEL REPORT       ",
-            "========================================",
-            "",
-            "FILE: " + fileName,
-            timestamp,
-            "GENERATED: " + new Date().toLocaleString(),
-            "",
-            "--- DIMENSIONS ---",
-            "X: " + document.getElementById("dim-x").innerText,
-            "Y: " + document.getElementById("dim-y").innerText,
-            "Z: " + document.getElementById("dim-z").innerText,
-            "DIAGONAL: " + document.getElementById("dim-diag").innerText,
-            "",
-            "--- MODEL STATS ---",
-            "VOLUME: " + document.getElementById("val-vol").innerText,
-            "SURFACE AREA: " + document.getElementById("val-area").innerText,
-            "WEIGHT (PLA): " + document.getElementById("val-weight").innerText,
-            "TRIANGLES: " + document.getElementById("val-tris").innerText,
-            "EST. PRINT TIME: " + document.getElementById("val-time").innerText,
-            "",
-            "--- NOTES ---",
-            "Density used: PLA @ 1.24 g/cm³"
-            "Print speed estimate: 50m/s",
-            "",
-            "========================================",
-            "        Generated By Precision3D        ",
-            "        By Sadrita Neogi(HackClub)      ",
-            "========================================="
-          ];
+        const blob = new Blob([lines.join("\n")], { type: "text/plain" });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement("a");
+        link.href = url;
+        link.download = `precision3d-report-${Date.now()}.txt`;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        URL.revokeObjectURL(url);
+        showToast("REPORT EXPORTED");
+      }
 
-          const blob = new Blob([Lines.join("
-          ")], { type: "text/plan"});
-          const url = URL.createObjectURL(blob);
-          const link = document.createElement("a");
-          link.herf = url;
-          link.download = `precision3d-report-${Date.now()}.txt`;
-          document.body.appendChild(link);
-          link.click();
-          document.body.removeChild(link);
-          URL.revokeObjectURL(url);
-          showToast("REPORT EXPORTED");
+      function openStatsModal() {
+        if (!currentStats || Object.keys(currentStats).length === 0) {
+          showToast("NO MODEL LOADED");
+          return;
         }
 
-        function openStatsModal() {
-          if (!currentStats || Object.keys(currentStats).length === 0) {
-            showToast("NO MODEL LOADED");
-            return;
-          }
-        
         const container = document.getElementById("modal-stats-content");
         container.innerHTML = "";
 
         const rows = [
-        ["FILE", document.getElementById("info-name").innerText],
-        ["LOADED", document.getElementById("info-timestamp").innerText],
-        ["VOLUME", document.getElementById("val-vol").innerText],
-        ["SURFACE AREA", document.getElementById("val-area").innerText],
-        ["WEIGHT (PLA)", document.getElementById("val-weight").innerText],
-        ["TRIANGLES", document.getElmeentById("val-tris").innerText],
-        ["EST. PRINT TIME", document.getElementById("val-time").innerText],
-        ["WIDTH (X)", document.getElementById("dim-x").innerText],
-        ["DEPTH (Y)", document.getElementById("dim-y").innerText],
-        ["HEIGHT (Z)", document.getElementById("dim-z").innerText],
-        ["DIAGONAL", document.getElementById("dim-diag").innerText],
-        ["DENSITY", "PLA @ 1.24 G/CM³"],
-        ["PRINT SPEED", "50 MM/S"],
+          ["FILE", document.getElementById("info-name").innerText],
+          ["LOADED", document.getElementById("info-timestamp").innerText],
+          ["VOLUME", document.getElementById("val-vol").innerText],
+          ["SURFACE AREA", document.getElementById("val-area").innerText],
+          ["WEIGHT (PLA)", document.getElementById("val-weight").innerText],
+          ["TRIANGLES", document.getElementById("val-tris").innerText],
+          ["EST. PRINT TIME", document.getElementById("val-time").innerText],
+          ["WIDTH (X)", document.getElementById("dim-x").innerText],
+          ["DEPTH (Y)", document.getElementById("dim-y").innerText],
+          ["HEIGHT (Z)", document.getElementById("dim-z").innerText],
+          ["DIAGONAL", document.getElementById("dim-diag").innerText],
+          ["DENSITY", "PLA @ 1.24 G/CM³"],
+          ["PRINT SPEED", "50 MM/S"],
         ];
 
+
         rows.forEach(([label, value]) => {
-          const row = documnt.createElement("div");
+          const row = document.createElement("div");
           row.className = "modal-row";
-          row.innerHTML = `<span style="font-wight:900; font-size:0.7rem;">${label}</span><span style="font-size:0.7rem; color:var(--accent-primary);">${value}</span>`;
+          row.innerHTML = `<span style="font-weight:900; font-size:0.7rem;">${label}</span><span style="font-size:0.7rem; color:var(--accent-primary);">${value}</span>`;
           container.appendChild(row);
         });
 
-        document.getElementById("stats-modal").calssList.add("show");
-        }
+        document.getElementById("stats-modal").classList.add("show");
+      }
 
-        function showToast(message) {
-          const container = document.getElementById("toast-cointer");
-          const toast = document.createElement("div");
-          toast.className = "toast";
-          toast.innerText = message;
-          container.appendChild(toast);
+      function showToast(message) {
+        const container = document.getElementById("toast-container");
+        const toast = document.createElement("div");
+        toast.className = "toast";
+        toast.innerText = message;
+        container.appendChild(toast);
 
+        requestAnimationFrame(() => {
           requestAnimationFrame(() => {
-            requestAnimationFrame(() => {
-              toast.classList.add("show");
-            });
+            toast.classList.add("show");
           });
+        });
 
+        setTimeout(() => {
+          toast.classList.remove("show");
+          toast.style.transition = "all 0.4s ease";
           setTimeout(() => {
-            toast.classList.remove("show");
-            toast.style.transition = "all 0.4s ease";
-            setTimeout(() => {
-              if (container.contains(toast)) container.removeChild(toast);
-            }, 450);
-          }, 2500);
-        }
+            if (container.contains(toast)) container.removeChild(toast);
+          }, 450);
+        }, 2500);
+      }
 
-        init();
+      init();
     </script>
   </body>
-</html>    
+</html>
