@@ -1918,6 +1918,17 @@
       }
 
       
+      const tabNames = ["analysis", "controls", "render", "tools", "camera", "advanced"];
+      const num = parseInt(e.key);
+      if (num >= 1 && num <= 6) {
+        const targetTab = tabNames[num - 1];
+        document.querySelectorAll(".tab-button").forEach((b) => b.classList.remove("active"));
+        document.querySelectorAll(".tab-content").forEach((c) => c.classList.remove("active"));
+        const tabBtn = document.querySelector(`.tab-button[data-tab="${targetTab}"]`);
+        if (tabBtn) tabBtn.classList.add("active")
+        document.getElementById(`tab-${targetTab}`).classList.add("active");
+      }
+    }
 
       let autoSpinActive = false;
       let selectedResolution = "viewport";
@@ -2041,6 +2052,253 @@
             document.getElementById("stats-modal").classList.remove("show");
           }
         });
+      }
+
+// New Feature Added 
+
+
+      function setupNewFeatureEvents() {
+
+
+        document.getElementById("opacity-slider").addEventListener("input", (e) => {
+          const val = parseFloat(e.target.value);
+          document.getElementById("opacity-val").innerText = Math.round(val * 100) + "%";
+          if (mesh) {
+            mesh.material.transparent = val < 1;
+            mesh.material.opacity = val;
+            mesh.material.needsUpdate = true;
+          }
+          updateHUD();
+        });
+
+        document.getElementById("btn-opacity-reset").addEventListener("click", () => {
+          document.getElementById("opacity-slider").value = 1;
+          document.getElementById("opacity-val").innerText = "100%";
+          if (mesh) {
+            mesh.material.transparent = false;
+            mesh.material.opacity = 1;
+            mesh.material.needsUpdate = true;
+          }
+          updateHUD();
+          showToast("OPACITY RESET");
+        });
+
+
+        document.getElementById("btn-edge").addEventListener("click", (e) => {
+          if (!mesh) return;
+          edgeVisible = !edgeVisible;
+          e.target.classList.toggle("btn-selected", edgeVisible);
+
+          if (edgeVisible) {
+            const edgeGeo = new THREE.EdgeGeometry(mesh.geometry, 15);
+            const edgeMat = new THREE.LineBasicMaterial({ color: 0x00000, linewidth: 1});
+            edgeMesh = new THREE.LineSegment(edgeGeo, edgeMat);
+            edgeMesh.position.copy(mesh.position);
+            edgeMesh.rotation.copy(mesh.rotation);
+            edgeMesh.scale.copy(mesh.scale);
+            scene.add(edgeMesh);
+            showToast("EDGE HIGHLIGHT ON");
+          } else {
+            if (edgeMesh) {
+              scene.remove(edgeMesh);
+              edgeMesh = null;
+            }
+            showToast("EDGE HIGHLIGHT OFF");
+          }
+        });
+
+
+        document.getElementById("btn-grid").addEventListener("click", (e) => {
+          gridVisible = !gridVisible;
+          if (gridHelper) gridHelper.visible = gridVisible;
+          e.target.classList.toggle("btn-selected", !gridVisible);
+          showToast(gridVisible ? "GRID ON" : "GRID OFF");
+        });
+
+
+        document.getElementById("btn-zoom-in").addEventListener("click", () => {zoomCamera(-0.15); });
+        document.getElementById("btn-zoom-out").addEventListener("click", () => {zoomCamera(0.15); });
+        document.getElementById("btn-zoom-fit").addEventListener("click", () => {fitModelToView(); });
+
+
+        document.getElementById("btn-fullscreen").addEventListener("click", () => { toggleFullscreen(); });
+
+
+        document.querySelectorAll("[data-vis]").forEach(btn) => {
+          btn.addEventListener("clcik", () => {
+            applyVisMode(btn.dataset.vis);
+          });
+        });
+
+
+        document.getElementById("btn-copy-stata").addEventListener("click", () => {
+          if (!currentStats || Object.keys(currentStats).length === 0) {
+            showToast("NO MODEL LOADED");
+            return;
+          }
+          const text = [
+          "PRECISION3D STATS",
+          "FILE: " + document.getElementById("info-name").innerText,
+          document.getElementById("info-timestamp").innerText,
+          "VOLUME: " + document.getElementById("val-vol").innerText,
+          "SURFACE AREA: " + document.getElementById("val-area").innerText,
+          "WEIGHT (PLA): " + document.getElementById("val-wight").innerText,
+          "TRIANGLES: " + document.getElementById("val-tris").innerText,
+          "PRINT TIME: " + document.getElementById("val-time").innerText,
+          "X: " + document.getElementById("dim-x").innerText,
+          "Y: " + document.getElementById("dim-y").innerText,
+          "Z: " + document.getElementById("dim-z").innerText,
+          "DIAGONAL: " + document.getElementById("dim-diag").innerText,
+          ].join("\n");
+          navigator.clipboard.writeText(text).then(() => {
+            showToast("STATS COPIED TO CLIPBOARD");
+          }).catch(() => {
+            showToast("COPY FAILED - USE EXPORT INSTEAD");
+          });
+        });
+
+
+        document.getElementById("btn-flip-x").addEventListener("clcik", () => {
+          if (!mesh) return;
+          mesh.scale.x *= -1;
+          showToast("FLIPPED X AXIS");
+        });
+        document.getElementById("btn-flip-y").addEventListener("click", () => {
+          if (!mesh) return;
+          mesh.scale.y *= -1;
+          showToast("FLIPPED Y AXIS");
+        });
+        document.getElementById("btn-flip-z").addEventListener("clcik", () => {
+          if (!mesh) return;
+          mesh.scale.z *= -1;
+          showToast("FLIPPED Z AXIS");
+        });
+      }
+
+// zoom added 
+
+
+
+
+      function zoomCamera(factor) {
+        const direction = new THREE.Vector3();
+        direction.subVectors(controls.target, camera.position).normalize();
+        const dist = camera.position.distanceTo(controls.target);
+        camera.position.addScaledVector(direction, dist * factor);
+        controls.update();
+      }
+
+
+      let isFullscreen = false;
+      function toggleFullscreen() {
+        isFullscreen = !isFullscreen;
+        const shell = document.getElementById("app-shell");
+        const btn = document.getElementById("btn-fullscreen");
+        shell.classList.toggle("fullscreen-mode", isFullscreen);
+        btn.innerText = isFullscreen ? "x EXIT [P]" : "FULLSCREEN [P]";
+
+        setTimeout(onResize, 50);
+        showToast(isFullscreen ? "FULLSCREEN MODE" : "SIDEBAR RESTORED");
+      }
+
+
+      function applyVisMode(mode) {
+        if (!mesh) { showToast("LOAD A MODEL FIRST"); return; }
+        currentVisMode = mode;
+
+
+        document.getElementById("heatmap-legend").classList.remove("show");
+
+        switch (mode) {
+          case "normal": 
+            mesh.material = originalMaterial || mesh.material;
+            showToast("VIS: NORMAL");
+            break;
+
+            case "normals": 
+            mesh.material = new THREE.MeshNormalMaterial({ side: THREE.DoubleSide});
+            showToast("VIS: NORMAL MAP");
+            break;
+
+            case "depth" : {
+
+              const depthMat = new THREE.ShaderMaterial({
+                uniforms: {
+                  near: { value: camera.near },
+                  far: { value: camera.far },
+                },
+                vertexShader: `
+                varying float vDepth;
+                void main() {
+                  vec4 mvPos = modelViewMatrix * vec4(position, 1.0);
+                  vDepth = -mvPos.z;
+                  gl_Position = projectionMatrix * mvPos;
+                }
+                  `,
+                  fragmentShader: `
+                    uniform float near;
+                    uniform float far;
+                    varying float vDepth;
+                    void main() {
+                    float d = clamp((cDepth - near) / (far - near), 0.0, 1.0);
+                    gl_FragColor = vec4(vec3(1.0 - d), 1.0);
+                    }
+                    `,
+                    side: THREE.DoubleSide,
+              });
+              mesh.material = depthMat;
+              showToast("VIS: DEPTH SHADE");
+              break;
+            }
+
+            case "heat": {
+
+              const bbox = mesh.geometry.boundingBox;
+              const minY = bbox ? bbox.minY : -100;
+              const maxY = bbox ? bbox.maxY : 100;
+
+              const heatMat = new THREE.ShaderMaterial({
+                uniforms: {
+                  minY: { value: maxY},
+                  maxY: { value: maxY},
+                },
+                vertexShader: `
+                  uniform float minY;
+                  uniform float maxY;
+                  varying float vNorm;
+                  void main() {
+                    vNorm = clamp((position.y - minY) / (maxY - minY), 0.0, 1.0);
+                    gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+                  }
+                  `,
+                  fragmentShader: `
+                  varying float vNorm;
+                  vec3 heatColor(float t) {
+                  
+                  vec3 c0 = vec3(0.0, 0.0, 1.0);
+                  vec3 c1 = vec3(0.0, 1.0, 1.0);
+                  vec3 c2 = vec3(0.0, 1.0, 0.0);
+                  vec3 c3 = vec3(1.0, 1.0, 0.0);
+                  vec3 c4 = vec3(1.0, 0.0, 0.0);
+                  if (t < 0.25) return mix(c0, c1, t / 0.25);
+                  if (t < 0.50) return mix(c1, c2, (t - 0.25) / 0.25);
+                  if (t < 0.75) return mix(c2, c3, (t - 0.50) / 0.25);
+                  return mix(c3, c4, (t - 0.75) / 0.25);
+                  }
+                  void main() {
+                  gl_FragColor = vec4(heatColor(vNorm), 1.0);
+                  }
+                  `,
+                  side: THREE.DoubleSide,
+              });
+              mesh.material = heatMat;
+              document.getElementById("heatmap-legend").classList.add("show");
+              showToast("VIS: HEIGHT MAP");
+              break;
+            }
+        }
+
+        updateHUD();
       }
 
       function applyCameraPreset(preset) {
