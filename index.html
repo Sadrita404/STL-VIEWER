@@ -67,7 +67,7 @@
         padding: 0;
         gap: 0;
       }
-      .app-shell.app-shell.fullscreen-mode .sidebar {
+      .app-shell.fullscreen-mode .sidebar {
         display: none;
       }
       .app-shell.fullscreen-mode .viewport-wrapper {
@@ -741,7 +741,8 @@
         background: var(--accent-primary);
         color: white;
       }
-      
+
+
       .zoom-controls {
         position: absolute;
         bottom: 15px;
@@ -755,7 +756,7 @@
       .zoom-btn {
         width: 36px;
         height: 36px;
-        background: rgba(0, 0, 0, 0.65);
+        background: rgba(0,0,0,0.65);
         color: white;
         border: 2px solid var(--accent-primary);
         font-size: 1.1rem;
@@ -772,11 +773,12 @@
         background: var(--accent-primary);
       }
 
+
       .fullscreen-btn {
         position: absolute;
         top: 10px;
         left: 10px;
-        background: rgba(0, 0, 0, 0.65);
+        background: rgba(0,0,0,0.65);
         color: white;
         border: 2px solid var(--accent-primary);
         padding: 6px 10px;
@@ -792,13 +794,13 @@
       .fullscreen-btn:hover {
         background: var(--accent-primary);
       }
-      
+
 
       .heat-legend {
         position: absolute;
         bottom: 15px;
         left: 15px;
-        background: rgba(0, 0, 0, 0.75);
+        background: rgba(0,0,0,0.75);
         border: 1px solid var(--accent-primary);
         padding: 8px 12px;
         font-size: 0.6rem;
@@ -807,7 +809,7 @@
         display: none;
         z-index: 100;
       }
-      .heat-legend.show { display: block;}
+      .heat-legend.show { display: block; }
       .heat-bar {
         width: 120px;
         height: 10px;
@@ -815,7 +817,7 @@
         border: 1px solid white;
         margin-top: 4px;
       }
-      .heat.labels {
+      .heat-labels {
         display: flex;
         justify-content: space-between;
         font-size: 0.55rem;
@@ -827,8 +829,8 @@
   <body data-theme="light">
     <a href="https://hackclub.com/"><img style="position: absolute; top: 0; left: 10px; border: 0; width: 82px; z-index: 999;" src="https://assets.hackclub.com/flag-orpheus-top.svg" alt="Hack Club"/></a>
     <a href="https://hackclub.com/"><img style="position: absolute; bottom: 0; left: 700px; border: 0; width: 91px; z-index: 999;" src="https://assets.hackclub.com/banners/2026.svg" alt="Hack Club"/></a>
-    <div class="app-shell">
-      <div class="sidebar">
+    <div class="app-shell" id="app-shell">
+      <aside class="sidebar">
         <div
           style="
             display: flex;
@@ -946,10 +948,10 @@
               LOADED: N/A
             </div>
           </div>
-        </div>
 
-        <button class="action-btn" id="btn-copy-stats" style="width:100%"> COPY STATS </button>
-      </div>
+          
+          <button class="action-btn" id="btn-copy-stats" style="width:100%;">COPY STATS TO CLIPBOARD</button>
+        </div>
 
         <div class="tab-content" id="tab-controls">
           <div class="card">
@@ -973,21 +975,21 @@
               FIT TO VIEW
             </button>
 
-
+            
             <button
-            class="btn btn-small"
-            id="btn-grid"
-            style="width: 100%; margin-top: 5px">
-            EDGE HIGHLIGHT
-          </button>
+              class="btn btn-small"
+              id="btn-edge"
+              style="width: 100%; margin-top: 5px">
+              EDGE HIGHLIGHT
+            </button>
 
-
-          <button
-            class="btn btn-small"
-            id="btn-grid"
-            style="width: 100%; margin-top: 5px">
-            TOGGLE GRID
-          </button>
+            
+            <button
+              class="btn btn-small"
+              id="btn-grid"
+              style="width: 100%; margin-top: 5px">
+              TOGGLE GRID
+            </button>
           </div>
 
           <div class="card">
@@ -1023,21 +1025,21 @@
             </div>
           </div>
 
-
-        </div class="card">
-          <span class="section-label">OPACITY / TRANSPARENCY</span>
-          </div class="slider-row">
-            <div class="slider-label-row">
-              <span>OPACITY</span>
-            <span id="opacity-val">100%</span>  
+          
+          <div class="card">
+            <span class="section-label">OPACITY / TRANSPARENCY</span>
+            <div class="slider-row">
+              <div class="slider-label-row">
+                <span>OPACITY</span>
+                <span id="opacity-val">100%</span>
+              </div>
+              <input type="range" id="opacity-slider" min="0.05" max="1" step="0.05" value="1" />
+            </div>
+            <button class="action-btn" id="btn-opacity-reset" style="width:100%; margin-top:4px;">RESET OPACITY</button>
           </div>
-          <input type="range" id="opacity-slider" min="0.05" max="1" step="0.05" value="1" />
         </div>
-        <button class="action-btn" id="btn-opacity-reset" style="width: 100%; margin-top:4px;">RESET OPACITY</button>  
-    </div>
-  </div>  
 
-    <div class="tab-content" id="tab-render">
+        <div class="tab-content" id="tab-render">
           <div class="card">
             <span class="section-label">LIGHTING</span>
 
@@ -1070,7 +1072,7 @@
             </div>
           </div>
 
-
+          
           <div class="card">
             <span class="section-label">VISUALISATION MODE</span>
             <div class="preset-grid">
@@ -1105,11 +1107,11 @@
               RESET SCALE
             </button>
 
-
-            <div style="display:flex; gap:5px; margin-top:5px">
-              <button class="action-btn" style="flex: 1;" id="btn-flip-x">FLIP X</button>
-              <button class="action-btn" style="flex: 1;" id="btn-flip-y">FLIP Y</button>
-              <button class="action-btn" style="flex: 1;" id="btn-flip-z">FLIP Z</button>
+            
+            <div style="display:flex; gap:5px; margin-top:5px;">
+              <button class="action-btn" style="flex:1;" id="btn-flip-x">FLIP X</button>
+              <button class="action-btn" style="flex:1;" id="btn-flip-y">FLIP Y</button>
+              <button class="action-btn" style="flex:1;" id="btn-flip-z">FLIP Z</button>
             </div>
           </div>
 
@@ -1157,8 +1159,8 @@
                 <span class="key-badge">I</span>
               </div>
 
-
-              <div class="shortcuts-item">
+              
+              <div class="shortcut-item">
                 <span>EDGE HIGHLIGHT</span>
                 <span class="key-badge">E</span>
               </div>
@@ -1179,7 +1181,7 @@
                 <span class="key-badge">-</span>
               </div>
               <div class="shortcut-item">
-                <span>TABS 1-6</span>
+                <span>TABS 1–6</span>
                 <span class="key-badge">1-6</span>
               </div>
             </div>
@@ -1328,22 +1330,22 @@
           </div>
           <div class="hud-item">MODE: <span id="hud-mode">NORMAL</span></div>
           <div class="hud-item">SPIN: <span id="hud-spin">OFF</span></div>
-
+          
           <div class="hud-item">OPACITY: <span id="hud-opacity">100%</span></div>
           <div class="hud-item">VIS: <span id="hud-vis">NORMAL</span></div>
         </div>
 
+        
+        <button class="fullscreen-btn" id="btn-fullscreen">⛶ FULLSCREEN [P]</button>
 
-        <button class="fullscreen-btn" id="btn-fullscreen"> FULLSCREEN [P]</button>
-
-
+        
         <div class="zoom-controls">
           <button class="zoom-btn" id="btn-zoom-in" title="Zoom In (+)">+</button>
-          <button class="zoom-btn" id="btn-zoom-out" title="Zoom Out (-)">-</button>
-          <button class="zoom-btn" id="btn-zoom-fit" title="Fit to View (F)" style="font-size: 0.55rem; padding: 2px;">FIT</button>
+          <button class="zoom-btn" id="btn-zoom-out" title="Zoom Out (-)">−</button>
+          <button class="zoom-btn" id="btn-zoom-fit" title="Fit to View (F)" style="font-size:0.55rem; padding:2px;">FIT</button>
         </div>
 
-
+        
         <div class="heat-legend" id="heatmap-legend">
           HEIGHT MAP
           <div class="heat-bar"></div>
@@ -1382,7 +1384,7 @@
       let edgeMesh = null;
       let gridVisible = true;
       let edgeVisible = false;
-      let currentVisMode = normal;
+      let currentVisMode = "normal";
       let originalMaterial = null;
 
       function init() {
@@ -1408,7 +1410,7 @@
 
         viewport.appendChild(renderer.domElement);
 
-        gridHelper = new THREE.gridHelper(500, 20, 0x8b5cf6, 0xe2e8f0);
+        gridHelper = new THREE.GridHelper(500, 20, 0x8b5cf6, 0xe2e8f0);
         scene.add(gridHelper);
 
         const ambientLight = new THREE.HemisphereLight(
@@ -1441,7 +1443,7 @@
         setupEvents();
 
         setupAdvancedEvents();
-        
+
         setupNewFeatureEvents();
 
         animate();
@@ -1903,32 +1905,32 @@
 
         if (e.key.toLowerCase() === "g") {
           document.getElementById("btn-grid").click();
-      }
+        }
 
-      if (e.key.toLowerCase() === "p") {
+        if (e.key.toLowerCase() === "p") {
           toggleFullscreen();
-      }    
+        }
 
-      if (e.key === "+" || e.key === "=") {
-        zoomCamera(-0.15);
-      }
+        if (e.key === "+" || e.key === "=") {
+          zoomCamera(-0.15);
+        }
 
-      if (e.key === "-") {
-        zoomCamera(0.15);
-      }
+        if (e.key === "-") {
+          zoomCamera(0.15);
+        }
 
-      
-      const tabNames = ["analysis", "controls", "render", "tools", "camera", "advanced"];
-      const num = parseInt(e.key);
-      if (num >= 1 && num <= 6) {
-        const targetTab = tabNames[num - 1];
-        document.querySelectorAll(".tab-button").forEach((b) => b.classList.remove("active"));
-        document.querySelectorAll(".tab-content").forEach((c) => c.classList.remove("active"));
-        const tabBtn = document.querySelector(`.tab-button[data-tab="${targetTab}"]`);
-        if (tabBtn) tabBtn.classList.add("active")
-        document.getElementById(`tab-${targetTab}`).classList.add("active");
+
+        const tabNames = ["analysis", "controls", "render", "tools", "camera", "advanced"];
+        const num = parseInt(e.key);
+        if (num >= 1 && num <= 6) {
+          const targetTab = tabNames[num - 1];
+          document.querySelectorAll(".tab-button").forEach((b) => b.classList.remove("active"));
+          document.querySelectorAll(".tab-content").forEach((c) => c.classList.remove("active"));
+          const tabBtn = document.querySelector(`.tab-button[data-tab="${targetTab}"]`);
+          if (tabBtn) tabBtn.classList.add("active");
+          document.getElementById(`tab-${targetTab}`).classList.add("active");
+        }
       }
-    }
 
       let autoSpinActive = false;
       let selectedResolution = "viewport";
@@ -2054,7 +2056,7 @@
         });
       }
 
-// New Feature Added 
+
 
 
       function setupNewFeatureEvents() {
@@ -2090,9 +2092,9 @@
           e.target.classList.toggle("btn-selected", edgeVisible);
 
           if (edgeVisible) {
-            const edgeGeo = new THREE.EdgeGeometry(mesh.geometry, 15);
-            const edgeMat = new THREE.LineBasicMaterial({ color: 0x00000, linewidth: 1});
-            edgeMesh = new THREE.LineSegment(edgeGeo, edgeMat);
+            const edgeGeo = new THREE.EdgesGeometry(mesh.geometry, 15);
+            const edgeMat = new THREE.LineBasicMaterial({ color: 0x000000, linewidth: 1 });
+            edgeMesh = new THREE.LineSegments(edgeGeo, edgeMat);
             edgeMesh.position.copy(mesh.position);
             edgeMesh.rotation.copy(mesh.rotation);
             edgeMesh.scale.copy(mesh.scale);
@@ -2116,49 +2118,49 @@
         });
 
 
-        document.getElementById("btn-zoom-in").addEventListener("click", () => {zoomCamera(-0.15); });
-        document.getElementById("btn-zoom-out").addEventListener("click", () => {zoomCamera(0.15); });
-        document.getElementById("btn-zoom-fit").addEventListener("click", () => {fitModelToView(); });
+        document.getElementById("btn-zoom-in").addEventListener("click", () => { zoomCamera(-0.15); });
+        document.getElementById("btn-zoom-out").addEventListener("click", () => { zoomCamera(0.15); });
+        document.getElementById("btn-zoom-fit").addEventListener("click", () => { fitModelToView(); });
 
 
         document.getElementById("btn-fullscreen").addEventListener("click", () => { toggleFullscreen(); });
 
 
-        document.querySelectorAll("[data-vis]").forEach(btn) => {
-          btn.addEventListener("clcik", () => {
+        document.querySelectorAll("[data-vis]").forEach((btn) => {
+          btn.addEventListener("click", () => {
             applyVisMode(btn.dataset.vis);
           });
         });
 
 
-        document.getElementById("btn-copy-stata").addEventListener("click", () => {
+        document.getElementById("btn-copy-stats").addEventListener("click", () => {
           if (!currentStats || Object.keys(currentStats).length === 0) {
             showToast("NO MODEL LOADED");
             return;
           }
           const text = [
-          "PRECISION3D STATS",
-          "FILE: " + document.getElementById("info-name").innerText,
-          document.getElementById("info-timestamp").innerText,
-          "VOLUME: " + document.getElementById("val-vol").innerText,
-          "SURFACE AREA: " + document.getElementById("val-area").innerText,
-          "WEIGHT (PLA): " + document.getElementById("val-wight").innerText,
-          "TRIANGLES: " + document.getElementById("val-tris").innerText,
-          "PRINT TIME: " + document.getElementById("val-time").innerText,
-          "X: " + document.getElementById("dim-x").innerText,
-          "Y: " + document.getElementById("dim-y").innerText,
-          "Z: " + document.getElementById("dim-z").innerText,
-          "DIAGONAL: " + document.getElementById("dim-diag").innerText,
+            "PRECISION3D STATS",
+            "FILE: " + document.getElementById("info-name").innerText,
+            document.getElementById("info-timestamp").innerText,
+            "VOLUME: " + document.getElementById("val-vol").innerText,
+            "SURFACE AREA: " + document.getElementById("val-area").innerText,
+            "WEIGHT (PLA): " + document.getElementById("val-weight").innerText,
+            "TRIANGLES: " + document.getElementById("val-tris").innerText,
+            "PRINT TIME: " + document.getElementById("val-time").innerText,
+            "X: " + document.getElementById("dim-x").innerText,
+            "Y: " + document.getElementById("dim-y").innerText,
+            "Z: " + document.getElementById("dim-z").innerText,
+            "DIAGONAL: " + document.getElementById("dim-diag").innerText,
           ].join("\n");
           navigator.clipboard.writeText(text).then(() => {
             showToast("STATS COPIED TO CLIPBOARD");
           }).catch(() => {
-            showToast("COPY FAILED - USE EXPORT INSTEAD");
+            showToast("COPY FAILED — USE EXPORT INSTEAD");
           });
         });
 
 
-        document.getElementById("btn-flip-x").addEventListener("clcik", () => {
+        document.getElementById("btn-flip-x").addEventListener("click", () => {
           if (!mesh) return;
           mesh.scale.x *= -1;
           showToast("FLIPPED X AXIS");
@@ -2168,15 +2170,15 @@
           mesh.scale.y *= -1;
           showToast("FLIPPED Y AXIS");
         });
-        document.getElementById("btn-flip-z").addEventListener("clcik", () => {
+        document.getElementById("btn-flip-z").addEventListener("click", () => {
           if (!mesh) return;
           mesh.scale.z *= -1;
           showToast("FLIPPED Z AXIS");
         });
       }
 
-// zoom added 
 
+// New Feature Added 
 
 
 
@@ -2195,7 +2197,7 @@
         const shell = document.getElementById("app-shell");
         const btn = document.getElementById("btn-fullscreen");
         shell.classList.toggle("fullscreen-mode", isFullscreen);
-        btn.innerText = isFullscreen ? "x EXIT [P]" : "FULLSCREEN [P]";
+        btn.innerText = isFullscreen ? "✕ EXIT [P]" : "⛶ FULLSCREEN [P]";
 
         setTimeout(onResize, 50);
         showToast(isFullscreen ? "FULLSCREEN MODE" : "SIDEBAR RESTORED");
@@ -2210,71 +2212,71 @@
         document.getElementById("heatmap-legend").classList.remove("show");
 
         switch (mode) {
-          case "normal": 
+          case "normal":
             mesh.material = originalMaterial || mesh.material;
             showToast("VIS: NORMAL");
             break;
 
-            case "normals": 
-            mesh.material = new THREE.MeshNormalMaterial({ side: THREE.DoubleSide});
-            showToast("VIS: NORMAL MAP");
+          case "normals":
+            mesh.material = new THREE.MeshNormalMaterial({ side: THREE.DoubleSide });
+            showToast("VIS: NORMALS MAP");
             break;
 
-            case "depth" : {
+          case "depth": {
 
-              const depthMat = new THREE.ShaderMaterial({
-                uniforms: {
-                  near: { value: camera.near },
-                  far: { value: camera.far },
-                },
-                vertexShader: `
+            const depthMat = new THREE.ShaderMaterial({
+              uniforms: {
+                near: { value: camera.near },
+                far:  { value: camera.far },
+              },
+              vertexShader: `
                 varying float vDepth;
                 void main() {
                   vec4 mvPos = modelViewMatrix * vec4(position, 1.0);
                   vDepth = -mvPos.z;
                   gl_Position = projectionMatrix * mvPos;
                 }
-                  `,
-                  fragmentShader: `
-                    uniform float near;
-                    uniform float far;
-                    varying float vDepth;
-                    void main() {
-                    float d = clamp((cDepth - near) / (far - near), 0.0, 1.0);
-                    gl_FragColor = vec4(vec3(1.0 - d), 1.0);
-                    }
-                    `,
-                    side: THREE.DoubleSide,
-              });
-              mesh.material = depthMat;
-              showToast("VIS: DEPTH SHADE");
-              break;
-            }
+              `,
+              fragmentShader: `
+                uniform float near;
+                uniform float far;
+                varying float vDepth;
+                void main() {
+                  float d = clamp((vDepth - near) / (far - near), 0.0, 1.0);
+                  gl_FragColor = vec4(vec3(1.0 - d), 1.0);
+                }
+              `,
+              side: THREE.DoubleSide,
+            });
+            mesh.material = depthMat;
+            showToast("VIS: DEPTH SHADE");
+            break;
+          }
 
-            case "heat": {
+          case "heat": {
 
-              const bbox = mesh.geometry.boundingBox;
-              const minY = bbox ? bbox.minY : -100;
-              const maxY = bbox ? bbox.maxY : 100;
+            const bbox = mesh.geometry.boundingBox;
+            const minY = bbox ? bbox.min.y : -100;
+            const maxY = bbox ? bbox.max.y :  100;
 
-              const heatMat = new THREE.ShaderMaterial({
-                uniforms: {
-                  minY: { value: maxY},
-                  maxY: { value: maxY},
-                },
-                vertexShader: `
-                  uniform float minY;
-                  uniform float maxY;
-                  varying float vNorm;
-                  void main() {
-                    vNorm = clamp((position.y - minY) / (maxY - minY), 0.0, 1.0);
-                    gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
-                  }
-                  `,
-                  fragmentShader: `
-                  varying float vNorm;
-                  vec3 heatColor(float t) {
-                  
+            const heatMat = new THREE.ShaderMaterial({
+              uniforms: {
+                minY: { value: minY },
+                maxY: { value: maxY },
+              },
+              vertexShader: `
+                uniform float minY;
+                uniform float maxY;
+                varying float vNorm;
+                void main() {
+                  vNorm = clamp((position.y - minY) / (maxY - minY), 0.0, 1.0);
+                  gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+                }
+              `,
+              fragmentShader: `
+                varying float vNorm;
+                vec3 heatColor(float t) {
+
                   vec3 c0 = vec3(0.0, 0.0, 1.0);
                   vec3 c1 = vec3(0.0, 1.0, 1.0);
                   vec3 c2 = vec3(0.0, 1.0, 0.0);
@@ -2284,20 +2286,19 @@
                   if (t < 0.50) return mix(c1, c2, (t - 0.25) / 0.25);
                   if (t < 0.75) return mix(c2, c3, (t - 0.50) / 0.25);
                   return mix(c3, c4, (t - 0.75) / 0.25);
-                  }
-                  void main() {
+                }
+                void main() {
                   gl_FragColor = vec4(heatColor(vNorm), 1.0);
-                  }
-                  `,
-                  side: THREE.DoubleSide,
-              });
-              mesh.material = heatMat;
-              document.getElementById("heatmap-legend").classList.add("show");
-              showToast("VIS: HEIGHT MAP");
-              break;
-            }
+                }
+              `,
+              side: THREE.DoubleSide,
+            });
+            mesh.material = heatMat;
+            document.getElementById("heatmap-legend").classList.add("show");
+            showToast("VIS: HEIGHT MAP");
+            break;
+          }
         }
-
         updateHUD();
       }
 
@@ -2359,7 +2360,6 @@
         if (code === "z-") mesh.rotation.z -= step;
         if (code === "z0") mesh.rotation.z = 0;
       }
-
       function takeAdvancedScreenshot() {
         if (!renderer) return;
 
