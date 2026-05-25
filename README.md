@@ -9,7 +9,8 @@
 
 ### You Tube Video ( Click On the Image below to see the Demo Video ↓)
 
-[![Watch the video](https://github.com/user-attachments/assets/a112ddcb-9cce-4c93-accf-b86aced36d80)](https://www.youtube.com/watch?v=ekHKHGRD7EU)
+[![Watch the video](https://github.com/user-attachments/assets/4fd44d8a-f977-4247-a0f1-6b0ae56e1daf)](https://youtu.be/UCUUa-I-qxM)
+
 
 ---
 
