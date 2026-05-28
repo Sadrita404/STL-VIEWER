@@ -3,17 +3,25 @@
 |Author | Sadrita Neogi|
 | LIVE URL| [LINK](https://stl-viewer-1.netlify.app/)|
 
-## [LIVE URL](https://stl-viewer-1.netlify.app/)
+## [LIVE URL WEBSITE ](https://stl-viewer-1.netlify.app/)
 
 ---
 
-### You Tube Video ( Click On the Image below to see the Demo Video ↓)
+### YouTube Video Demo Video ( Click On the Image below to see the Demo Video ↓)
 
-[![Watch the video](https://github.com/user-attachments/assets/4fd44d8a-f977-4247-a0f1-6b0ae56e1daf)](https://youtu.be/UCUUa-I-qxM)
-
+<a href="https://youtu.be/UCUUa-I-qxM">
+  <img src="https://github.com/user-attachments/assets/4fd44d8a-f977-4247-a0f1-6b0ae56e1daf" alt="Watch the video" width="50%">
+</a>
 
 ---
 
+### YouTube Timelaps of 18hrs of Coding at 100x ( Click On the Image below to see the Demo Video ↓)
+
+<a href="https://youtu.be/kHflpqi6Y1E?si=oGQWj_OtmTQqxXPz">
+  <img src="https://github.com/user-attachments/assets/ce11d6af-f718-473a-8a53-c6f2d12f7bf5" alt="Watch the video" width="50%">
+</a>
+
+---
 #### STL VIEWER is an web based STL File viewer which is free to use and need no sign in , etc . We can Chnage colour of the model see it in mesh view ..
 
 ---
